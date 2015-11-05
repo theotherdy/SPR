@@ -1,1 +1,1 @@
-var app = angular.module('Surface Plasmon Resonance', [ dependcies ]);
+var app = angular.module('SPR', []);
