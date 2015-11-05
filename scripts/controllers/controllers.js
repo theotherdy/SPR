@@ -1,6 +1,8 @@
 // 1. Declaration of variables
 
-
+app.controller('controller-name', function(){
+	this.abc = xyz;
+});
 
 
 // 2. Check if will restore previous experiment from cookie
