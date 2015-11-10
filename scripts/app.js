@@ -1,1 +1,1 @@
-var app = angular.module('SPR', ['filters', 'services']);
+var app = angular.module('SPR', []);
