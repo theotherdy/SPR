@@ -3,9 +3,9 @@
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
 
 /* Debugging Border */
-* { border: 1px solid red !important; }
+/* { border: 1px solid red !important; }
 
-/* Media Query - Test
+/* Media Query
 
 @media (min-width: 1200px) {
 	h1 {
