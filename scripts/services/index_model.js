@@ -33,12 +33,14 @@ a) values
 - timeOff // variable
 - RU-pOn // derived
 - RU-pOff // derived
+- RUeq // derived
 b) function
 - timeOn = input by student 
 - timeOff = input by student 
 - RU0 = tRC * RPUM * mwR * vol 
 - RU-pOn = pC-On * RPUM * mwL * vol 
 - RU-pOff = pC-Off * RPUM * mwL * vol 
+- RUeq = RU-pOn at input timeOn
 
 3. Experiment
 a) values
@@ -49,6 +51,7 @@ a) values
 - start_of_night // constant
 - end_of_day // constant
 - time_per_action // constant
+- steps_taken // constant
 
 	*/
 
@@ -59,12 +62,6 @@ a) values
 - derivation from Langmuir Isotherm plot
 2. Derivation of kOff
 - from using randomly assigned kOff
-- from using Kd derived from Langmuir Isotherm
-3. Derivation of kOn
-- from using randomly assigned Kd and kOff (kinetic)
-- from using kOff and Kd derived from sensorgram and Langmuir Isotherm respectively (thermodynamic)
-4. Derivation of fRC
-- from Kd, fLC, lRC @ equilibrium
-- from tRC-lRC = fRC
+- plot log(kOff) against time and check
 
 	*/

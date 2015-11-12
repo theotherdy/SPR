@@ -22,7 +22,9 @@ var app = angular.module('SPR', ['model']);
 3. Plot sensorgram
 - Sensorgram Plotting = RU-pOn, given fLR, timeOn
 4. Plot Langmuir graph
+- Curve fitting by residual minimisation
 - Langmuir Isotherm Plotting = RU-pOff, given timeOff
+- Resulting Kd given from graph
 
 // Result
 5. Select data
@@ -42,6 +44,8 @@ var app = angular.module('SPR', ['model']);
 13. Outlier
 14. Select All
 15. Excel Export
+- Data points on 1st order disassociation -> Plot to get gradient of log(RU-pOff) against time which is kOff
+- Data from the table of results, especially RUeq (bound), fLC (free) to plot bound/free against bound
 
 	*/
 

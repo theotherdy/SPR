@@ -4,7 +4,7 @@
 var app = angular.module('experiment_model', [])
 
 /* 2. registering constants */	
-	.constant('volume', '1.0')
+	.constant('volume', '0.000001')
 	.constant('start_of_day', '9.0')
 	.constant('start_of_lunch', '12.0')
 	.constant('start_of_dinner', '17.0')
