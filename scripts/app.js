@@ -7,8 +7,11 @@ var app = angular.module('SPR', ['model']);
 - YES = load existing pair ID
 - NO = go to step 2
 2. New pair and experiment object is created with parameters
-- run function to create prototype of pair and experiment
+- run var new_pair = pair(0, 0, 0, 0, 0, 0, 0, 0, 0, 0) + save to cookies
+- run function to generate tRC, Kd, kOff, mwL, mwR and save on top of it to cookies
+- run function to derive kOn, mwP + save to cookies
 3. Software is now ready to be used
+- user input fLC, timeOn and timeOff -> allow plotting of RU-pOn, RU-pOff
 
 	*/
 
@@ -20,10 +23,12 @@ var app = angular.module('SPR', ['model']);
 
 // Output
 3. Plot sensorgram
-- Sensorgram Plotting = RU-pOn, given fLR, timeOn
+- Sensorgram Plotting = RU-pOn, RU-pOff given fLR, timeOn, timeOff
+- save RUeq, points (RU-pOn/Off against timeOn/Off)
 4. Plot Langmuir graph
 - Curve fitting by residual minimisation
-- Langmuir Isotherm Plotting = RU-pOff, given timeOff
+- Langmuir Isotherm Plotting = RUeq against fLR
+- save Kd
 - Resulting Kd given from graph
 
 // Result
@@ -38,6 +43,12 @@ var app = angular.module('SPR', ['model']);
 9. Run & store generated data with ID
 10. Eat
 11. Home
+12. Time On (s)
+- save timeOn input by student
+13. Time Off (s)
+- save timeOff input by student
+14. Free Ligand Concentration (M)
+- save fLC input by student
 
 // Data Display
 12. Zero
