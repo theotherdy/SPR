@@ -1,69 +1,57 @@
-/* master module to compile in all sub-modules for embedding ng-app in HTML */
-var app = angular.module('SPR', ['model']);
+	/* master module to compile in all sub-modules for embedding ng-app in HTML */
+var app = angular.module('SPR', [/*'model'*/]);
 
-	/* PRIMARY EXECUTABLE MODULE
+	/* controllers to build mathematical model of pair */
+app.controller('pairOutput', function(){
+	
+		/* defining all parameters */
+	this.fLC = [];
+	this.tRC = 2;
+	this.Kd = 3;
+	this.kOn = 4;
+	this.kOff = 5;
+	this.mwL = 6;
+	this.mwR = 7;
+	this.mwP = 8;
 
-1. Check if there is saved cookies
-- YES = load existing pair ID
-- NO = go to step 2
-2. New pair and experiment object is created with parameters
-- run var new_pair = pair(0, 0, 0, 0, 0, 0, 0, 0, 0, 0) + save to cookies
-- run function to generate tRC, Kd, kOff, mwL, mwR and save on top of it to cookies
-- run function to derive kOn, mwP + save to cookies
-3. Software is now ready to be used
-- user input fLC, timeOn and timeOff -> allow plotting of RU-pOn, RU-pOff
+		/* set fLC: user input via form; constant */
+	this.add_fLC = function(new_fLC) {
+		this.fLC.push(new_fLC);
+	}; 
 
-	*/
+	/* this.add_fLC(21); - test */
+	// ng-repeat fail when repeated value is used; why?
 
-	/* NG-CONTROLLER
+		/* set tRC: random assignment out of 3 possibilities from model; constant */
+	this.set_tRC = function() {
+		flip_tRC = 3*Math.random();
+		if (flip_tRC <= 1) {
+			this.tRC = 1;
+		} else if (flip_tRC > 2) {
+			this.tRC = 3;
+		} else {
+			this.tRC = 2;
+		}
+	};
+	this.set_tRC();
+});
 
-// Top Box
-1. Menu Bar
-2. Autoprompt to load save
+/*
 
-// Output
-3. Plot sensorgram
-- Sensorgram Plotting = RU-pOn, RU-pOff given fLR, timeOn, timeOff
-- save RUeq, points (RU-pOn/Off against timeOn/Off)
-4. Plot Langmuir graph
-- Curve fitting by residual minimisation
-- Langmuir Isotherm Plotting = RUeq against fLR
-- save Kd
-- Resulting Kd given from graph
+	this.tLC = tLC; // not needed; equal to fLC
+	this.fLC = fLC; // constant; user input
+	this.fRC = fRC; // not needed; equal to tRC-pC
+	this.pC = pC; // not needed; derived from pC-On/Off equation
+	this.Kd = Kd; // constant; random assignment
+	this.kOn = kOn; // constant; derived from kOff and Kd
+	this.kOff = kOff; // constant; random assigment
+	this.mwL = mwL; // constant; random assignment
+	this.mwR = mwR; // constant; random assignment
+	this.mwP = mwP; // constant derived
 
-// Result
-5. Select data
-6. Precision calculation
-7. Data table display
 
-// Status
 
-// Control Panel
-8. Setup
-9. Run & store generated data with ID
-10. Eat
-11. Home
-12. Time On (s)
-- save timeOn input by student
-13. Time Off (s)
-- save timeOff input by student
-14. Free Ligand Concentration (M)
-- save fLC input by student
 
-// Data Display
-12. Zero
-13. Outlier
-14. Select All
-15. Excel Export
-- Data points on 1st order disassociation -> Plot to get gradient of log(RU-pOff) against time which is kOff
-- Data from the table of results, especially RUeq (bound), fLC (free) to plot bound/free against bound
+build filter for output
 
-	*/
-
-	/* NG-DIRECTIVES
-
-	*/
-
-	/* NG-FILTERS
-
-	*/
+		*/

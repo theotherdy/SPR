@@ -40,12 +40,32 @@
 
 	</head>
 
-	<body>
+	<body ng-controller="pairOutput as pair">
+		<!-- ng-init=setUpNewExperiment; ng-controller -->
 
 <!-- Bootstrap column position: far left / far right -->
 			
 			<!-- 0. Debugging Box -->
-				<!-- display values to test mathematical model -->
+				<form novalidate>
+					fLC input: <input type="number" ng-model="new_fLC"> <br/>
+					<button ng-click="pair.add_fLC(new_fLC)">run experiment</button>
+				</form><br/>
+				
+				<div ng-repeat="fLC_input in pair.fLC">fLC = {{fLC_input}}</div><br/>
+
+				<div>tRC = {{pair.tRC}}</div><br/>
+
+				<div>Kd = {{pair.Kd}}</div><br/>
+
+				<div>kOn = {{pair.kOn}}</div><br/>
+
+				<div>kOff = {{pair.kOff}}</div><br/>
+
+				<div>mwL = {{pair.mwL}}</div><br/>
+
+				<div>mwR = {{pair.mwR}}</div><br/>
+
+				<div>mwP = {{pair.mwP}}</div><br/>
 
 <!-- Bootstrap column position: centre full -->
 
