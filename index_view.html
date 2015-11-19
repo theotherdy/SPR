@@ -76,28 +76,34 @@
 						<h1>Output Model</h1>
 							<!-- a) timeOn -->
 						<form novalidate>
-							timeOn input: <input type="number" ng-model="new_fLC"> <br/>
-							<button ng-click="pair.add_fLC(new_fLC)">run experiment</button>
+							timeOn input: <input type="number" ng-model="new_timeOn"> <br/>
+							<button ng-click="output.add_timeOn(new_timeOn)">run experiment</button>
 						</form><br/>
-						<div ng-repeat="fLC_input in pair.fLC">fLC = {{fLC_input}}</div><br/>
+						<div ng-repeat="timeOn_input in output.timeOn">timeOn = {{timeOn_input}}</div><br/>
 							<!-- b) timeOff -->
 						<form novalidate>
-							timeOff input: <input type="number" ng-model="new_fLC"> <br/>
-							<button ng-click="pair.add_fLC(new_fLC)">run experiment</button>
+							timeOff input: <input type="number" ng-model="new_timeOff"> <br/>
+							<button ng-click="output.add_timeOff(new_timeOff)">run experiment</button>
 						</form><br/>
-						<div ng-repeat="fLC_input in pair.fLC">fLC = {{fLC_input}}</div><br/>
+						<div ng-repeat="timeOff_input in output.timeOff">timeOff = {{timeOff_input}}</div><br/>
 							<!-- c) vol -->
 						<div>vol = {{output.vol}}</div><br/>
 							<!-- d) RPUM -->
 						<div>RPUM = {{output.RPUM}}</div><br/>
-							<!-- c) RU0 -->
-						<div>RU0 = {{pair.kOn}}</div><br/>
-							<!-- c) RU-pOn -->
-						<div>RU-pOn = {{pair.kOff}}</div><br/>
-							<!-- c) RU-pOff -->
-						<div>RU-pOff = {{pair.mwL}}</div><br/>
-							<!-- c) RU-eq -->
-						<div>RU-eq = {{pair.mwR}}</div><br/>
+							<!-- e) RU0 (output) -->
+						<div>RU0 (output) = {{}}</div><br/>
+							<!-- f) RU0 (actual) -->
+						<div>RU0 (actual) = {{}}</div><br/>
+							<!-- g) ComplexConcOn -->
+						<div>ComplexConcOn = {{}}</div><br/>
+							<!-- h) RU_ComplexOn -->
+						<div>RU_ComplexOn = {{}}</div><br/>
+							<!-- i) ComplexConcOff -->
+						<div>ComplexConcOff = {{}}</div><br/>
+							<!-- j) RU_ComplexOff -->
+						<div>RU_ComplexOff = {{}}</div><br/>
+							<!-- k) RU_ComplexEQ -->
+						<div>RU_ComplexEQ = {{}}</div><br/>
 					</div>
 
 				<!-- iii. experiment_model -->

@@ -5,7 +5,7 @@ var app = angular.module('experiment_model', []);
 
 app.controller('experimentModel', function(){
 
-/* 2. registering constants */
+/* 2. defining constants */
 	this.start_of_day = 9.0;
 	this.start_of_lunch = 12.0;
 	this.start_of_dinner = 17.0;

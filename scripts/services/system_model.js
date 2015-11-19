@@ -5,13 +5,13 @@ var app = angular.module('system_model', []);
 
 app.controller('systemModel', function(){
 
-/* 2. registering constants */
+/* 2. defining constants */
 	// none
 
 /* 3. system model controller */
 
-/* a) set fLC: user input via form; constant */
-	this.fLC = []; // fLC can have 0 as possibility, to obtain background value
+/* a) set fLC: user input via form; variable */
+	this.fLC = []; // fLC  must be <= 0, to obtain background value
 	this.add_fLC = function(new_fLC) {
 		this.fLC.push(new_fLC);
 	};		
@@ -29,7 +29,6 @@ app.controller('systemModel', function(){
 		}
 	};
 	this.set_tRC();
-	// tRC cannot have 0 as possibility
 
 /* c) set Kd: random assignment out of possibility in array; constant */
 	this.Kd_possible = [111, 222, 333, 444, 555, 666];
@@ -46,8 +45,7 @@ app.controller('systemModel', function(){
 			this.Kd = this.Kd_possible[this.Kd_chance];
 		}
 	};
-	this.set_Kd(); 
-	// Kd cannot have 0 as possibility
+	this.set_Kd();
 
 /* d) set kOff: random assignment out of possibility in array; constant */
 	this.kOff_possible = [111, 222, 333, 444, 555, 666];
@@ -67,11 +65,11 @@ app.controller('systemModel', function(){
 	this.set_kOff(); 
 
 
-/* e) set kOn: derived from Kd and kOff; constant */
-	this.set_kOn = function(Kd, kOff) {
+/* e) find kOn: derived from kOff/Kd; constant */
+	this.find_kOn = function(Kd, kOff) {
 		this.kOn = kOff/Kd;
 	};
-	this.set_kOn(this.Kd, this.kOff);
+	this.find_kOn(this.Kd, this.kOff);
 
 /* f) set mwL: random assignment out of possibility in array; constant */
 	this.mwL_possible = [111, 222, 333, 444, 555, 666];
@@ -109,15 +107,10 @@ app.controller('systemModel', function(){
 	this.set_mwR(); 
 
 
-/* h) set mwP: derived from mwR + mwL; constant */
-	this.set_mwP = function(mwL, mwR) {
+/* h) find mwP: derived from mwR + mwL; constant */
+	this.find_mwP = function(mwL, mwR) {
 		this.mwP = mwL + mwR;
 	};
-	this.set_mwP(this.mwL, this.mwR);
+	this.find_mwP(this.mwL, this.mwR);
 
 });
-
-/* 
-- pC-On = association equation (kOn, tRC, fLC, timeOn) // derived
-- pC-Off = disassociation equation (tRC, kOff, timeOff) // derived
-*/
