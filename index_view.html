@@ -34,7 +34,7 @@
 		<script type="text/javascript" src="index_model.js"></script>
 		<script type="text/javascript" src="scripts/services/pair_model.js"></script>
 		<script type="text/javascript" src="scripts/services/experiment_model.js"></script>
-		<script type="text/javascript" src="scripts/services/analysis_model.js"></script>
+		<script type="text/javascript" src="scripts/services/output_model.js"></script>
 		<script type="text/javascript" src="scripts/services/simple_statistics.js"></script> 
 		<!-- credit: http://simplestatistics.org/ -->
 
@@ -52,25 +52,18 @@
 					<button ng-click="pair.add_fLC(new_fLC)">run experiment</button>
 				</form><br/>
 				<div ng-repeat="fLC_input in pair.fLC">fLC = {{fLC_input}}</div><br/>
-
 					<!-- b) tRC: random assignment between 3 values -->
 				<div>tRC = {{pair.tRC}}</div><br/>
-
 					<!-- c) Kd -->
 				<div>Kd = {{pair.Kd}}</div><br/>
-
 					<!-- d) kOn -->
 				<div>kOn = {{pair.kOn}}</div><br/>
-
 					<!-- e) kOff -->
 				<div>kOff = {{pair.kOff}}</div><br/>
-
 					<!-- f) mwL -->
 				<div>mwL = {{pair.mwL}}</div><br/>
-
 					<!-- g) mwR -->
 				<div>mwR = {{pair.mwR}}</div><br/>
-
 					<!-- h) mwP -->
 				<div>mwP = {{pair.mwP}}</div><br/>
 

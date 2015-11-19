@@ -23,7 +23,7 @@ var app = angular.module('SPR', ['model']);
 
 */
 
-app.controller('x', function(){
+app.controller('output', function(){
 
 
 
