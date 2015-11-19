@@ -3,7 +3,27 @@
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
 
 /* Debugging Border */
-* { border: 1px solid red !important; }
+.system { 
+	border: 1px solid red !important; 
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.output { 
+	border: 1px solid blue !important;
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+.experiment { 
+	border: 1px solid green !important; 
+	width: 200px;
+	margin-left: auto;
+	margin-right: auto;
+}
+body { 
+	display: flex;
+}
 
 /* Media Query
 

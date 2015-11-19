@@ -47,7 +47,8 @@
 			
 			<!-- 0. Debugging Box -->
 				<!-- i. system_model -->
-					<div ng-controller="systemModel as system">
+					<div class="system" ng-controller="systemModel as system">
+						<h1>System Model</h1>
 							<!-- a) fLC -->
 						<form novalidate>
 							fLC input: <input type="number" ng-model="new_fLC"> <br/>
@@ -71,35 +72,37 @@
 					</div>
 
 				<!-- ii. ouput_model -->
-					<div ng-controller="outputModel as output">
+					<div class="output" ng-controller="outputModel as output">
+						<h1>Output Model</h1>
 							<!-- a) timeOn -->
 						<form novalidate>
-							fLC input: <input type="number" ng-model="new_fLC"> <br/>
+							timeOn input: <input type="number" ng-model="new_fLC"> <br/>
 							<button ng-click="pair.add_fLC(new_fLC)">run experiment</button>
 						</form><br/>
 						<div ng-repeat="fLC_input in pair.fLC">fLC = {{fLC_input}}</div><br/>
 							<!-- b) timeOff -->
 						<form novalidate>
-							fLC input: <input type="number" ng-model="new_fLC"> <br/>
+							timeOff input: <input type="number" ng-model="new_fLC"> <br/>
 							<button ng-click="pair.add_fLC(new_fLC)">run experiment</button>
 						</form><br/>
 						<div ng-repeat="fLC_input in pair.fLC">fLC = {{fLC_input}}</div><br/>
 							<!-- c) vol -->
-						<div>tRC = {{pair.tRC}}</div><br/>
+						<div>vol = {{output.vol}}</div><br/>
 							<!-- d) RPUM -->
-						<div>Kd = {{pair.Kd}}</div><br/>
+						<div>RPUM = {{output.RPUM}}</div><br/>
 							<!-- c) RU0 -->
-						<div>kOn = {{pair.kOn}}</div><br/>
+						<div>RU0 = {{pair.kOn}}</div><br/>
 							<!-- c) RU-pOn -->
-						<div>kOff = {{pair.kOff}}</div><br/>
+						<div>RU-pOn = {{pair.kOff}}</div><br/>
 							<!-- c) RU-pOff -->
-						<div>mwL = {{pair.mwL}}</div><br/>
+						<div>RU-pOff = {{pair.mwL}}</div><br/>
 							<!-- c) RU-eq -->
-						<div>mwR = {{pair.mwR}}</div><br/>
+						<div>RU-eq = {{pair.mwR}}</div><br/>
 					</div>
 
 				<!-- iii. experiment_model -->
-					<div ng-controller="experimentModel as experiment">
+					<div class="experiment" ng-controller="experimentModel as experiment">
+						<h1>Experiment Model</h1>
 						
 					</div>
 
