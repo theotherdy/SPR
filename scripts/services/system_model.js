@@ -1,14 +1,14 @@
-	/* Pair Mathematical Model */
+	/* System Mathematical Model */
 
-/* 1. registering pair model */
-var app = angular.module('pair_model', []);
-	
+/* 1. registering system model */
+var app = angular.module('system_model', []);
+
+app.controller('systemModel', function(){
+
 /* 2. registering constants */
 	// none
 
-/* 3. 'pair' model controller */
-
-app.controller('pairModel', function(){
+/* 3. system model controller */
 
 /* a) set fLC: user input via form; constant */
 	this.fLC = []; // fLC can have 0 as possibility, to obtain background value
@@ -116,3 +116,8 @@ app.controller('pairModel', function(){
 	this.set_mwP(this.mwL, this.mwR);
 
 });
+
+/* 
+- pC-On = association equation (kOn, tRC, fLC, timeOn) // derived
+- pC-Off = disassociation equation (tRC, kOff, timeOff) // derived
+*/

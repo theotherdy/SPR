@@ -14,18 +14,3 @@ var app = angular.module('SPR', ['model']);
 // pairModel - this.flip_mwR();
 // pairModel - this.set_mwR();
 // pairModel - this.set_mwP(this.mwL, this.mwR);
-
-
-/* Temp: controllers constructor
-
-- pC-On = association equation (kOn, tRC, fLC, timeOn) // derived
-- pC-Off = disassociation equation (tRC, kOff, timeOff) // derived
-
-*/
-
-app.controller('output', function(){
-
-
-
-
-});
