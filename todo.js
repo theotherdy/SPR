@@ -1,10 +1,3 @@
-/*
-
-- pC-On = association equation (kOn, tRC, fLC, timeOn) // derived
-- pC-Off = disassociation equation (tRC, kOff, timeOff) // derived
-
-*/
-
 /* PRIMARY EXECUTABLE MODULE
 
 1. Check if there is saved cookies

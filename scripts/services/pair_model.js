@@ -6,7 +6,7 @@ var app = angular.module('pair_model', []);
 /* 2. registering constants */
 	// none
 
-/* 3. 'pair' model constructor */
+/* 3. 'pair' model controller */
 
 app.controller('pairModel', function(){
 
@@ -28,7 +28,7 @@ app.controller('pairModel', function(){
 			this.tRC = 2;
 		}
 	};
-	this.set_tRC(); 
+	this.set_tRC();
 	// tRC cannot have 0 as possibility
 
 /* c) set Kd: random assignment out of possibility in array; constant */
