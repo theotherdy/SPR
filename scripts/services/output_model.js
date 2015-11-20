@@ -11,6 +11,19 @@ app.controller('outputModel', function(){
 
 /* 3. output model controller */
 
+/* data storage
+
+var data = {
+	flc: [],
+	timeon: [],
+	timeoff: [],
+}
+                               
+data.flc.push(value);
+data.flc[0];
+
+*/
+
 /* a) set fLC: user input via form; variable */
 	this.fLC = []; // fLC  must be <= 0, to obtain background value
 	this.add_fLC = function(new_fLC) {

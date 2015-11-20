@@ -1,5 +1,8 @@
 /* PRIMARY EXECUTABLE MODULE
 
+
+- see all $ method, e.g. $cookie, create store function
+
 1. Check if there is saved cookies
 - YES = load existing pair ID
 - NO = go to step 2
