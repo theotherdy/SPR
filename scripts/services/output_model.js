@@ -11,6 +11,13 @@ app.controller('outputModel', function(){
 
 /* 3. output model controller */
 
+/* a) set fLC: user input via form; variable */
+	this.fLC = []; // fLC  must be <= 0, to obtain background value
+	this.add_fLC = function(new_fLC) {
+		this.fLC.push(new_fLC);
+	};
+	// ng-repeat fail when repeated value is used; why?
+
 /* a) set timeOn: user input via form; variable */
 	this.timeOn = []; // timeOn must be < 0
 	this.add_timeOn = function(new_timeOn) {

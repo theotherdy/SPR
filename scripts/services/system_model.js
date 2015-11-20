@@ -10,13 +10,6 @@ app.controller('systemModel', function(){
 
 /* 3. system model controller */
 
-/* a) set fLC: user input via form; variable */
-	this.fLC = []; // fLC  must be <= 0, to obtain background value
-	this.add_fLC = function(new_fLC) {
-		this.fLC.push(new_fLC);
-	};		
-	// ng-repeat fail when repeated value is used; why?
-
 /* b) set tRC: random assignment out of 3 possibilities from model; constant */
 	this.set_tRC = function() {
 		flip_tRC = 3*Math.random();

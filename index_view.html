@@ -49,61 +49,76 @@
 				<!-- i. system_model -->
 					<div class="system" ng-controller="systemModel as system">
 						<h1>System Model</h1>
-							<!-- a) fLC -->
-						<form novalidate>
-							fLC input: <input type="number" ng-model="new_fLC"> <br/>
-							<button ng-click="system.add_fLC(new_fLC)">run experiment</button>
-						</form><br/>
-						<div ng-repeat="fLC_input in system.fLC">fLC = {{fLC_input}}</div><br/>
-							<!-- b) tRC-->
+							<!-- a) tRC-->
 						<div>tRC = {{system.tRC}}</div><br/>
-							<!-- c) Kd -->
+							<!-- b) Kd -->
 						<div>Kd = {{system.Kd}}</div><br/>
-							<!-- d) kOn -->
+							<!-- c) kOn -->
 						<div>kOn = {{system.kOn}}</div><br/>
-							<!-- e) kOff -->
+							<!-- d) kOff -->
 						<div>kOff = {{system.kOff}}</div><br/>
-							<!-- f) mwL -->
+							<!-- e) mwL -->
 						<div>mwL = {{system.mwL}}</div><br/>
-							<!-- g) mwR -->
+							<!-- f) mwR -->
 						<div>mwR = {{system.mwR}}</div><br/>
-							<!-- h) mwP -->
+							<!-- g) mwP -->
 						<div>mwP = {{system.mwP}}</div><br/>
 					</div>
 
 				<!-- ii. ouput_model -->
 					<div class="output" ng-controller="outputModel as output">
 						<h1>Output Model</h1>
-							<!-- a) timeOn -->
+
 						<form novalidate>
-							timeOn input: <input type="number" ng-model="new_timeOn"> <br/>
+							<!-- a) fLC -->
+							fLC input: <input type="number" min="0" ng-model="new_fLC"> <br/>
+							<button ng-click="output.add_fLC(new_fLC)">run experiment</button>
+						</form><br/>
+						<div ng-repeat="fLC_input in output.fLC">fLC = {{fLC_input}}</div><br/>
+
+							<!-- b) timeOn -->
+						<form novalidate>
+							timeOn input: <input type="number" min="0" ng-model="new_timeOn"> <br/>
 							<button ng-click="output.add_timeOn(new_timeOn)">run experiment</button>
 						</form><br/>
 						<div ng-repeat="timeOn_input in output.timeOn">timeOn = {{timeOn_input}}</div><br/>
-							<!-- b) timeOff -->
+
+							<!-- c) timeOff -->
 						<form novalidate>
-							timeOff input: <input type="number" ng-model="new_timeOff"> <br/>
+							timeOff input: <input type="number" min="0" ng-model="new_timeOff"> <br/>
 							<button ng-click="output.add_timeOff(new_timeOff)">run experiment</button>
 						</form><br/>
 						<div ng-repeat="timeOff_input in output.timeOff">timeOff = {{timeOff_input}}</div><br/>
-							<!-- c) vol -->
+
+							<!-- d) vol -->
 						<div>vol = {{output.vol}}</div><br/>
-							<!-- d) RPUM -->
+
+							<!-- e) RPUM -->
 						<div>RPUM = {{output.RPUM}}</div><br/>
-							<!-- e) RU0 (output) -->
+
+							<!-- f) RU0 (output) -->
 						<div>RU0 (output) = {{}}</div><br/>
-							<!-- f) RU0 (actual) -->
+
+							<!-- g) RU0 (actual) -->
 						<div>RU0 (actual) = {{}}</div><br/>
-							<!-- g) ComplexConcOn -->
+
+							<!-- h) ComplexConcOn -->
 						<div>ComplexConcOn = {{}}</div><br/>
-							<!-- h) RU_ComplexOn -->
+
+							<!-- i) RU_ComplexOn -->
 						<div>RU_ComplexOn = {{}}</div><br/>
-							<!-- i) ComplexConcOff -->
+
+							<!-- j) ComplexConcOff -->
 						<div>ComplexConcOff = {{}}</div><br/>
-							<!-- j) RU_ComplexOff -->
+
+							<!-- k) RU_ComplexOff -->
 						<div>RU_ComplexOff = {{}}</div><br/>
-							<!-- k) RU_ComplexEQ -->
+
+							<!-- l) RU_ComplexEQ -->
 						<div>RU_ComplexEQ = {{}}</div><br/>
+
+							<!-- m) Kd -->
+						<div>tRC = {{output.tRC}}</div><br/>
 					</div>
 
 				<!-- iii. experiment_model -->
