@@ -3,27 +3,35 @@
 /* 1. registering system model */
 var app = angular.module('system_model', []);
 
-app.controller('systemModel', function(){
+app.service('systemModel', [systemMethod]);
 
 /* 2. defining constants */
 	// none
 
-/* 3. system model controller */
+/* 3. creating function to inject into service */
 
-/* b) set tRC: random assignment out of 3 possibilities from model; constant */
-	this.set_tRC = function() {
-		flip_tRC = 3*Math.random();
-		if (flip_tRC <= 1) {
-			this.tRC = 1;
-		} else if (flip_tRC > 2) {
-			this.tRC = 3;
-		} else {
-			this.tRC = 2;
-		}
-	};
-	this.set_tRC();
+	function systemMethod() {
+		
+/* a) set tRC: random assignment out of 3 possibilities from model; constant */
+		this.set_tRC = function() {
+			flip_tRC = 3*Math.random();
+			if (flip_tRC <= 1) {
+				this.tRC = 1;
+			} else if (flip_tRC > 2) {
+				this.tRC = 3;
+			} else {
+				this.tRC = 2;
+			}
+		};
 
-/* c) set Kd: random assignment out of possibility in array; constant */
+/* b) set Kd: random assignment out of possibility in array; constant */
+
+
+
+	}
+		
+/*
+
 	this.Kd_possible = [111, 222, 333, 444, 555, 666];
 
 	this.flip_Kd = function() {
@@ -39,6 +47,8 @@ app.controller('systemModel', function(){
 		}
 	};
 	this.set_Kd();
+
+*/
 
 /* d) set kOff: random assignment out of possibility in array; constant */
 	this.kOff_possible = [111, 222, 333, 444, 555, 666];
@@ -105,5 +115,3 @@ app.controller('systemModel', function(){
 		this.mwP = mwL + mwR;
 	};
 	this.find_mwP(this.mwL, this.mwR);
-
-});

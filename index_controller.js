@@ -3,6 +3,17 @@ var app = angular.module('SPR', ['model']);
 
 /* 2. application function */
 
+app.controller('viewCtrl', viewMethod);
+
+function viewMethod(systemModel) {
+	// helps view in identifying systemModel
+	this.system = systemModel;
+	this.system.set_tRC();
+}
+
+viewMethod.$inject = ['systemModel'];
+
+
 // pairModel - this.set_tRC();
 // pairModel - this.flip_Kd();
 // pairModel - this.set_Kd();

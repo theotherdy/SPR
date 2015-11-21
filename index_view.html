@@ -40,17 +40,17 @@
 
 	</head>
 
-	<body>
+	<body ng-controller="viewCtrl as view">
 		<!-- ng-init=setUpNewExperiment; ng-controller -->
 
 <!-- Bootstrap column position: far left / far right -->
 			
 			<!-- 0. Debugging Box -->
 				<!-- i. system_model -->
-					<div class="system" ng-controller="systemModel as system">
+					<div class="system">
 						<h1>System Model</h1>
 							<!-- a) tRC-->
-						<div>tRC = {{system.tRC}}</div><br/>
+						<div>tRC = {{view.system.tRC}}</div><br/>
 							<!-- b) Kd -->
 						<div>Kd = {{system.Kd}}</div><br/>
 							<!-- c) kOn -->
