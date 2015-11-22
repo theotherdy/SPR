@@ -67,7 +67,7 @@
 					</div>
 
 				<!-- ii. ouput_model -->
-					<div class="output" ng-controller="outputModel as output">
+					<div class="output">
 						<h1>Output Model</h1>
 
 						<form novalidate>
@@ -92,10 +92,10 @@
 						<div ng-repeat="timeOff_input in output.timeOff track by $index">timeOff = {{timeOff_input}}</div><br/>
 
 							<!-- d) vol -->
-						<div>vol = {{output.vol}}</div><br/>
+						<div>vol = {{view.vol}}</div><br/>
 
 							<!-- e) RPUM -->
-						<div>RPUM = {{output.RPUM}}</div><br/>
+						<div>RPUM = {{view.RPUM}}</div><br/>
 
 							<!-- f) RU0 (output) -->
 						<div>RU0 (output) = {{}}</div><br/>
@@ -123,7 +123,7 @@
 					</div>
 
 				<!-- iii. experiment_model -->
-					<div class="experiment" ng-controller="experimentModel as experiment">
+					<div class="experiment">
 						<h1>Experiment Model</h1>
 						
 					</div>

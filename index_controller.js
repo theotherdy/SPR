@@ -6,10 +6,14 @@ var app = angular.module('SPR', ['model']);
 /* 2. setting up controller */
 
 app.controller('viewCtrl', viewMethod);
-viewMethod.$inject = ['systemModel']; // injecting systemModel of viewMethod into viewCrtl
+viewMethod.$inject = ['systemModel', 'outputModel', 'vol', 'RPUM']; // injecting systemModel of viewMethod into viewCrtl
 
-function viewMethod(systemModel) {	// declaring systemModel relationship to viewMethod
-	this.system = systemModel; // require for calling systemModel in view
+function viewMethod(systemModel, outputModel, vol, RPUM) {	// declaring systemModel relationship to viewMethod
+	// define how to call it out onto the view
+	this.system = systemModel;
+	this.output = outputModel;
+	this.vol = vol;
+	this.RPUM = RPUM;
 
 /* 3. initialise application to generate unique values for the new system */
 	this.system.set_tRC();
@@ -19,16 +23,7 @@ function viewMethod(systemModel) {	// declaring systemModel relationship to view
 	this.system.set_mwL();
 	this.system.set_mwR();
 	this.system.find_mwP(this.system.mwL, this.system.mwR);
+
+
+
 }
-
-
-// pairModel - this.flip_Kd();
-// pairModel - this.set_Kd();
-// pairModel - this.flip_kOff();
-// pairModel - this.set_kOff();
-// pairModel - this.set_kOn(this.Kd, this.kOff);
-// pairModel - this.flip_mwL();
-// pairModel - this.set_mwL();
-// pairModel - this.flip_mwR();
-// pairModel - this.set_mwR();
-// pairModel - this.set_mwP(this.mwL, this.mwR);

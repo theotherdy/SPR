@@ -1,13 +1,25 @@
 	/* Output Mathematical Model: contain functions to input user-generated parameters and ouput values for graphical display */
 
 /* 1. registering modules, services and constants */
-var app = angular.module('output_model', []);
+var app = angular.module('output_model', [])
+	.constant('vol', 0.000001) // volume inside chip
+	.constant('RPUM', 0.01) // response per unit mass (RU/Da)
+	.service('outputModel', [outputMethod]);
 
-app.controller('outputModel', function(){
-	this.vol = 0.000001; // volume inside chip
-	this.RPUM = 0.01; // response per unit mass (RU/Da)
+function outputMethod(vol, RPUM) { 
+
+/* 2. creating sub-methods as part of the function object that can be called */
+
+
+
+
+}
+
 
 /* data storage
+
+
+
 
 var data = {
 	flc: [],
@@ -62,6 +74,3 @@ data.flc[0];
 
 
 /* i) find RU_ComplexEQ: derived by (RU_ComplexOn at timeOn); variable */
-
-
-});
