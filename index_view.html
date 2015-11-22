@@ -70,26 +70,26 @@
 					<div class="output">
 						<h1>Output Model</h1>
 
-						<form novalidate>
 							<!-- a) fLC -->
+						<form novalidate>
 							fLC input: <input type="number" min="0" ng-model="new_fLC"> <br/>
-							<button ng-click="output.add_fLC(new_fLC)">run experiment</button>
+							<button ng-click="view.output.add_fLC(new_fLC)">run experiment</button>
 						</form><br/>
-						<div ng-repeat="fLC_input in output.fLC track by $index">fLC = {{fLC_input}}</div><br/>
+						<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC = {{fLC_input}}</div><br/>
 
 							<!-- b) timeOn -->
 						<form novalidate>
 							timeOn input: <input type="number" min="0" ng-model="new_timeOn"> <br/>
-							<button ng-click="output.add_timeOn(new_timeOn)">run experiment</button>
+							<button ng-click="view.output.add_timeOn(new_timeOn)">run experiment</button>
 						</form><br/>
-						<div ng-repeat="timeOn_input in output.timeOn track by $index">timeOn = {{timeOn_input}}</div><br/>
+						<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn = {{timeOn_input}}</div><br/>
 
 							<!-- c) timeOff -->
 						<form novalidate>
 							timeOff input: <input type="number" min="0" ng-model="new_timeOff"> <br/>
-							<button ng-click="output.add_timeOff(new_timeOff)">run experiment</button>
+							<button ng-click="view.output.add_timeOff(new_timeOff)">run experiment</button>
 						</form><br/>
-						<div ng-repeat="timeOff_input in output.timeOff track by $index">timeOff = {{timeOff_input}}</div><br/>
+						<div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div><br/>
 
 							<!-- d) vol -->
 						<div>vol = {{view.vol}}</div><br/>

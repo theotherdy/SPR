@@ -9,13 +9,13 @@ app.controller('viewCtrl', viewMethod);
 viewMethod.$inject = ['systemModel', 'outputModel', 'vol', 'RPUM']; // injecting systemModel of viewMethod into viewCrtl
 
 function viewMethod(systemModel, outputModel, vol, RPUM) {	// declaring systemModel relationship to viewMethod
-	// define how to call it out onto the view
+/* a) define how different dependencies are called it out onto the view */
 	this.system = systemModel;
 	this.output = outputModel;
 	this.vol = vol;
 	this.RPUM = RPUM;
 
-/* 3. initialise application to generate unique values for the new system */
+/* b) initialise application to generate unique values for the new system */
 	this.system.set_tRC();
 	this.system.set_Kd();
 	this.system.set_kOff();
@@ -23,6 +23,8 @@ function viewMethod(systemModel, outputModel, vol, RPUM) {	// declaring systemMo
 	this.system.set_mwL();
 	this.system.set_mwR();
 	this.system.find_mwP(this.system.mwL, this.system.mwR);
+
+/* c)  */
 
 
 

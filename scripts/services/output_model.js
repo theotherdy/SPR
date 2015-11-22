@@ -10,8 +10,25 @@ function outputMethod(vol, RPUM) {
 
 /* 2. creating sub-methods as part of the function object that can be called */
 
+/* a) defining arrays to store data locally */
+	this.fLC = []; // fLC  must be <= 0, to obtain background value
+	this.timeOn = []; // timeOn must be < 0
+	this.timeOff = []; // timeOff must be < 0
 
+/* a) set fLC: user input via form; variable */
+	this.add_fLC = function(new_fLC) {
+		this.fLC.push(new_fLC);
+	};
 
+/* b) set timeOn: user input via form; variable */
+	this.add_timeOn = function(new_timeOn) {
+		this.timeOn.push(new_timeOn);
+	};		
+
+/* c) set timeOff: user input via form; variable */
+	this.add_timeOff = function(new_timeOff) {
+		this.timeOff.push(new_timeOff);
+	};
 
 }
 
@@ -31,29 +48,6 @@ data.flc.push(value);
 data.flc[0];
 
 */
-
-/* 2. creating sub-methods as part of the function object that can be called */
-
-/* a) set fLC: user input via form; variable */
-	this.fLC = []; // fLC  must be <= 0, to obtain background value
-	this.add_fLC = function(new_fLC) {
-		this.fLC.push(new_fLC);
-	};
-	// ng-repeat fail when repeated value is used; why?
-
-/* a) set timeOn: user input via form; variable */
-	this.timeOn = []; // timeOn must be < 0
-	this.add_timeOn = function(new_timeOn) {
-		this.timeOn.push(new_timeOn);
-	};		
-	// ng-repeat fail when repeated value is used; why?
-
-/* b) set timeOff: user input via form; variable */
-	this.timeOff = []; // timeOff must be < 0
-	this.add_timeOff = function(new_timeOff) {
-		this.timeOff.push(new_timeOff);
-	};
-	// ng-repeat fail when repeated value is used; why?
 
 /* c) set RU0: user select data set from table; variable  */
 
