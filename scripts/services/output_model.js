@@ -33,21 +33,6 @@ function outputMethod(vol, RPUM) {
 }
 
 
-/* data storage
-
-
-
-
-var data = {
-	flc: [],
-	timeon: [],
-	timeoff: [],
-}
-                               
-data.flc.push(value);
-data.flc[0];
-
-*/
 
 /* c) set RU0: user select data set from table; variable  */
 

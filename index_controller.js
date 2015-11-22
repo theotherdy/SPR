@@ -24,8 +24,12 @@ function viewMethod(systemModel, outputModel, vol, RPUM) {	// declaring systemMo
 	this.system.set_mwR();
 	this.system.find_mwP(this.system.mwL, this.system.mwR);
 
-/* c)  */
-
+/* c) creating function for output form  */
+	this.runExperiment = function (new_fLC, new_timeOn, new_timeOff) {
+		this.output.add_fLC(new_fLC);
+		this.output.add_timeOn(new_timeOn);
+		this.output.add_timeOff(new_timeOff);
+	};
 
 
 }

@@ -47,11 +47,11 @@
 <!-- Bootstrap column position: far left / far right -->
 			
 			<!-- 0. Debugging Box -->
-				<!-- i. system_model -->
+				<!-- 0.1. system_model -->
 					<div class="system">
 						<h1>System Model</h1>
 							<!-- a) tRC-->
-						<div>tRC = {{view.system.tRC}}</div><br/>
+						<div>total receptor conc = {{view.system.tRC}}</div><br/>
 							<!-- b) Kd -->
 						<div>Kd = {{view.system.Kd_chance}}</div><br/>
 							<!-- c) kOff -->
@@ -59,70 +59,69 @@
 							<!-- d) kOn -->
 						<div>kOn = {{view.system.kOn}}</div><br/>
 							<!-- e) mwL -->
-						<div>mwL = {{view.system.mwL}}</div><br/>
+						<div>mol weight ligand = {{view.system.mwL}}</div><br/>
 							<!-- f) mwR -->
-						<div>mwR = {{view.system.mwR}}</div><br/>
+						<div>mol weight receptor = {{view.system.mwR}}</div><br/>
 							<!-- g) mwP -->
-						<div>mwP = {{view.system.mwP}}</div><br/>
+						<div>mol weight complex = {{view.system.mwP}}</div><br/>
 					</div>
 
-				<!-- ii. ouput_model -->
+				<!-- 0.2. ouput_model -->
 					<div class="output">
 						<h1>Output Model</h1>
 
-							<!-- a) fLC -->
-						<form novalidate>
-							fLC input: <input type="number" min="0" ng-model="new_fLC"> <br/>
-							<button ng-click="view.output.add_fLC(new_fLC)">run experiment</button>
-						</form><br/>
-						<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC = {{fLC_input}}</div><br/>
+							<!-- a) combined form for input: fLC, timeOn, timeOff -->
+						<div class="form">
+								<!-- i) fLC -->
+							<form novalidate name="fLC_Form">
+								free ligand concentration: <input name="fLC" type="number" min="0" ng-model="input_fLC" required>
+							</form><br/>
+							<div ng-show="fLC_Form.fLC.$dirty && fLC_Form.fLC.$invalid">Must be a number equal or more than 0</div><br/>
+								<!-- ii) timeOn -->
+							<form novalidate name="timeOn_Form">
+								association experiment time: <input name="timeOn" type="number" min="0.5" ng-model="input_timeOn" required>
+							</form><br/>
+							<div ng-show="timeOn_Form.timeOn.$dirty && timeOn_Form.timeOn.$invalid">Must be a number more than 0.5</div><br/>
+								<!-- iii) timeOff -->
+							<form novalidate name="timeOff_Form">
+								disassociation experiment time: <input name="timeOff" type="number" min="0.5" ng-model="input_timeOff" required>
+							</form> <br/>
+							<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number more than 0.5</div><br/>
+								<!-- iv) combined button -->
+							<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid">run experiment</button><br/><br/>
+								<!-- v) results display (test) -->
+							<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC = {{fLC_input}}</div>
+							<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn = {{timeOn_input}}</div>
+							<div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div>
+						</div><br/>
+							<!-- b) vol -->
+						<div>volume = {{view.vol}}</div><br/>
+							<!-- c) RPUM -->
+						<div>response per unit mass = {{view.RPUM}}</div><br/>
 
-							<!-- b) timeOn -->
-						<form novalidate>
-							timeOn input: <input type="number" min="0" ng-model="new_timeOn"> <br/>
-							<button ng-click="view.output.add_timeOn(new_timeOn)">run experiment</button>
-						</form><br/>
-						<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn = {{timeOn_input}}</div><br/>
+							<!-- d) RU0 (output) -->
+						<div>RU at t=0 (output) = {{}}</div><br/>
 
-							<!-- c) timeOff -->
-						<form novalidate>
-							timeOff input: <input type="number" min="0" ng-model="new_timeOff"> <br/>
-							<button ng-click="view.output.add_timeOff(new_timeOff)">run experiment</button>
-						</form><br/>
-						<div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div><br/>
+							<!-- e) RU0 (actual) -->
+						<div>RU at t=0 (actual) = {{}}</div><br/>
 
-							<!-- d) vol -->
-						<div>vol = {{view.vol}}</div><br/>
+							<!-- f) ComplexConcOn -->
+						<div>complex conc (assoc) = {{}}</div><br/>
 
-							<!-- e) RPUM -->
-						<div>RPUM = {{view.RPUM}}</div><br/>
+							<!-- g) RU_ComplexOn -->
+						<div>RU complex conc (assoc) = {{}}</div><br/>
 
-							<!-- f) RU0 (output) -->
-						<div>RU0 (output) = {{}}</div><br/>
+							<!-- h) ComplexConcOff -->
+						<div>complex conc (dis) = {{}}</div><br/>
 
-							<!-- g) RU0 (actual) -->
-						<div>RU0 (actual) = {{}}</div><br/>
+							<!-- i) RU_ComplexOff -->
+						<div>RU complex conc (dis) = {{}}</div><br/>
 
-							<!-- h) ComplexConcOn -->
-						<div>ComplexConcOn = {{}}</div><br/>
-
-							<!-- i) RU_ComplexOn -->
-						<div>RU_ComplexOn = {{}}</div><br/>
-
-							<!-- j) ComplexConcOff -->
-						<div>ComplexConcOff = {{}}</div><br/>
-
-							<!-- k) RU_ComplexOff -->
-						<div>RU_ComplexOff = {{}}</div><br/>
-
-							<!-- l) RU_ComplexEQ -->
-						<div>RU_ComplexEQ = {{}}</div><br/>
-
-							<!-- m) Kd -->
-						<div>tRC = {{output.tRC}}</div><br/>
+							<!-- j) RU_ComplexEQ -->
+						<div>RU complex (eq) = {{}}</div><br/>
 					</div>
-
-				<!-- iii. experiment_model -->
+					
+				<!-- 0.3. experiment_model -->
 					<div class="experiment">
 						<h1>Experiment Model</h1>
 						
