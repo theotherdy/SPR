@@ -1,15 +1,11 @@
-	/* Output Mathematical Model */
+	/* Output Mathematical Model: contain functions to input user-generated parameters and ouput values for graphical display */
 
-/* 1. registering output model */
+/* 1. registering modules, services and constants */
 var app = angular.module('output_model', []);
 
 app.controller('outputModel', function(){
-
-/* 2. defining constants */
 	this.vol = 0.000001; // volume inside chip
 	this.RPUM = 0.01; // response per unit mass (RU/Da)
-
-/* 3. output model controller */
 
 /* data storage
 
@@ -23,6 +19,8 @@ data.flc.push(value);
 data.flc[0];
 
 */
+
+/* 2. creating sub-methods as part of the function object that can be called */
 
 /* a) set fLC: user input via form; variable */
 	this.fLC = []; // fLC  must be <= 0, to obtain background value

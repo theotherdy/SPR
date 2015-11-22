@@ -1,6 +1,6 @@
-	/* Experiment Mathematical Model */
+	/* Experiment Mathematical Model: contain functions to ouput values for state of experiment */
 
-/* 1. registering experiment model */
+/* 1. registering modules, services and constants */
 var app = angular.module('experiment_model', []);
 
 app.controller('experimentModel', function(){
