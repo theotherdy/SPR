@@ -31,7 +31,7 @@
 		<link rel="stylesheet" href="styles/main.css">
 		<script type="text/javascript" src="index_model.js"></script>
 		<script type="text/javascript" src="scripts/services/system_model.js"></script>
-		<script type="text/javascript" src="scripts/services/experiment_model.js"></script>
+		<script type="text/javascript" src="scripts/services/experiment_status.js"></script>
 		<script type="text/javascript" src="scripts/services/output_model.js"></script>
 		<script type="text/javascript" src="scripts/services/simple_statistics.js"></script> 
 		<script type="text/javascript" src="index_controller.js"></script>
@@ -94,45 +94,40 @@
 							<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn = {{timeOn_input}}</div>
 							<div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div>
 						</div><br/>
-
 							<!-- b) vol -->
 						<div>volume = {{view.vol}}</div><br/>
-
 							<!-- c) RPUM -->
 						<div>response per unit mass = {{view.RPUM}}</div><br/>
-
 							<!-- e) RU0 (actual) -->
 						<div>RU at t=0 (actual) = {{view.output.RU0_actual}}</div><br/>
-
 							<!-- d) RU0 (output/set) -->
 						<div>RU at t=0 (output) = {{view.output.RU0_set}}</div><br/>
-
 							<!-- f) ComplexConcOn -->
 						<div>complex conc (assoc) = {{view.output.ComplexConcOn}}</div><br/>
-
 							<!-- h) ComplexConcOff -->
 						<div>complex conc (dis) = {{view.output.ComplexConcOff}}</div><br/>
-
 							<!-- g) RU_ComplexOn -->
 						<div>RU complex conc (assoc) = {{view.output.RU_ComplexOn}}</div><br/>
-
 							<!-- i) RU_ComplexOff -->
 						<div>RU complex conc (dis) = {{view.output.RU_ComplexOff}}</div><br/>
-
 							<!-- j) RU_ComplexEQ -->
 						<div>RU complex (eq) = {{view.output.RU_ComplexEQ}}</div><br/>
 					</div>
 					
 				<!-- 0.3. experiment_model -->
 					<div class="experiment">
-						<h1>Experiment Model</h1>
+						<h1>Experiment Status</h1>
 							<!-- i. Showing value of all constants defined -->
-						<div>Start of Day = {{view.day}}</div><br/>
-						<div>Start of Lunch = {{view.lunch}}</div><br/>
-						<div>Start of Dinner = {{view.dinner}}</div><br/>
-						<div>Start of Night = {{view.night}}</div><br/>
-						<div>End of Day = {{view.end}}</div><br/>
-						<div>Time per Run = {{view.run}}</div><br/>
+						<div>Start of Day = {{view.experiment.startOfDay}}</div><br/>
+						<div>Start of Lunch = {{view.experiment.startOfLunch}}</div><br/>
+						<div>Start of Dinner = {{view.experiment.startOfDinner}}</div><br/>
+						<div>Start of Night = {{view.experiment.startOfNight}}</div><br/>
+						<div>End of Day = {{view.experiment.endOfDay}}</div><br/>
+						<div>Time per Run = {{view.experiment.timePerRun}}</div><br/>
+							<!-- ii. Steps Taken -->
+						<div>Steps Taken = {{view.experiment.steps}}</div><br/>
+							<!-- ii. Time of Day -->
+						<div>Time of Day = {{view.experiment.timeOfDay}}</div><br/>						
 					</div>
 
 <!-- Bootstrap column position: centre full -->

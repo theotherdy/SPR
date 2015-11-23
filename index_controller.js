@@ -1,25 +1,21 @@
 	/* Main Controller: executes all Services onto the View */
 
 /* 1. master module to compile in all sub-modules for embedding ng-app in HTML */
-var app = angular.module('SPR', ['model']);
+var app = angular.module('SPR', ['model'])
+	.constant('vol', 0.000001) // volume inside chip
+	.constant('RPUM', 0.01); // response per unit mass (RU/Da)
 
 /* 2. setting up controller */
 app.controller('viewCtrl', viewMethod);
-viewMethod.$inject = ['systemModel', 'vol', 'RPUM', 'outputModel', 'start_of_day', 'start_of_lunch', 'start_of_dinner', 'start_of_night', 'end_of_day', 'time_per_run', 'experimentModel']; // injecting systemModel of viewMethod into viewCrtl
+viewMethod.$inject = ['systemModel', 'vol', 'RPUM', 'outputModel', 'experimentStatus']; // injecting systemModel of viewMethod into viewCrtl
 
-function viewMethod(systemModel, vol, RPUM, outputModel, start_of_day, start_of_lunch, start_of_dinner, start_of_night, end_of_day, time_per_run, experimentModel) {	// declaring systemModel relationship to viewMethod
+function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// declaring systemModel relationship to viewMethod
 /* a) define how different dependencies are called it out onto the view */
 	this.system = systemModel;
 	this.vol = vol;
 	this.RPUM = RPUM;
 	this.output = outputModel;
-	this.day = start_of_day;
-	this.lunch = start_of_lunch;
-	this.dinner = start_of_dinner;
-	this.night = start_of_night;
-	this.end = end_of_day;
-	this.run = time_per_run;
-	this.experiment = experimentModel;
+	this.experiment = experimentStatus;
 
 /* b) initialise application to generate unique values for the new system */
 	this.system.set_tRC();
@@ -30,17 +26,19 @@ function viewMethod(systemModel, vol, RPUM, outputModel, start_of_day, start_of_
 	this.system.set_mwR();
 	this.system.find_mwP(this.system.mwL, this.system.mwR);
 	this.output.find_RU0_actual(this.system.tRC, this.system.mwR, this.vol, this.RPUM);
-	this.output.find_RU0_set(this.system.kOn, this.output.fLC[0], this.system.tRC, this.system.kOff, this.output.RU0_actual, this.system.mwL, this.RPUM, this.vol);
 
 /* c) creating function for output form  */
 	this.runExperiment = function (new_fLC, new_timeOn, new_timeOff) {
 		this.output.add_fLC(new_fLC);
 		this.output.add_timeOn(new_timeOn);
 		this.output.add_timeOff(new_timeOff);
+		this.output.find_RU0_set(this.system.kOn, this.output.fLC[0], this.system.tRC, this.system.kOff, this.output.RU0_actual, this.system.mwL, this.RPUM, this.vol);
 		this.output.calc_ComplexConcOn(this.system.kOn, this.output.fLC[0], this.output.timeOn[0], this.system.tRC, this.system.kOff, this.output.RU0_actual);
 		this.output.calc_ComplexConcOff(this.output.RU0_actual, this.system.kOff, this.output.timeOff);
 		this.output.calc_RU_ComplexOn(this.output.ComplexConcOn, this.system.mwL, this.RPUM, this.vol);
 		this.output.calc_RU_ComplexOff(this.output.ComplexConcOff, this.system.mwL, this.RPUM, this.vol);
 		this.output.calc_RU_ComplexEQ(this.system.kOn, this.output.fLC[0], this.output.timeOn[0], this.system.tRC, this.system.kOff, this.output.RU0_actual, this.system.mwL, this.RPUM, this.vol);
+		this.experiment.stepsCounter();
+		this.experiment.timeOfDayCounter();
 	};
 }
