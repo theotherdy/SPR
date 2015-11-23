@@ -23,6 +23,7 @@ function viewMethod(systemModel, outputModel, vol, RPUM) {	// declaring systemMo
 	this.system.set_mwR();
 	this.system.find_mwP(this.system.mwL, this.system.mwR);
 	this.output.find_RU0_actual(this.system.tRC, this.system.mwR, this.vol, this.RPUM);
+	this.output.find_RU0_set(this.system.kOn, this.output.fLC[0], this.system.tRC, this.system.kOff, this.output.RU0_actual, this.system.mwL, this.RPUM, this.vol);
 
 /* c) creating function for output form  */
 	this.runExperiment = function (new_fLC, new_timeOn, new_timeOff) {
@@ -33,6 +34,6 @@ function viewMethod(systemModel, outputModel, vol, RPUM) {	// declaring systemMo
 		this.output.calc_ComplexConcOff(this.output.RU0_actual, this.system.kOff, this.output.timeOff);
 		this.output.calc_RU_ComplexOn(this.output.ComplexConcOn, this.system.mwL, this.RPUM, this.vol);
 		this.output.calc_RU_ComplexOff(this.output.ComplexConcOff, this.system.mwL, this.RPUM, this.vol);
-		/* this.output.calc_RU_ComplexEQ(); */
+		this.output.calc_RU_ComplexEQ(this.system.kOn, this.output.fLC[0], this.output.timeOn[0], this.system.tRC, this.system.kOff, this.output.RU0_actual, this.system.mwL, this.RPUM, this.vol);
 	};
 }

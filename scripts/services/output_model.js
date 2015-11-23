@@ -38,12 +38,14 @@ function outputMethod(vol, RPUM, systemModel) {
 		this.RU0_actual = sys_tRC*sys_mwR*con_vol*con_RPUM;
 	};
 
-/* h) set RU0: user select data set from table; variable  */
-
+/* h) set RU0: user select data set from table; variable (currently testing with equation at time 0) */
+	this.find_RU0_set = function(sys_kOn, out_fLC, sys_tRC, sys_kOff, out_RU0, sys_mwL, con_RPUM, con_vol) {
+		this.RU0_set = 0;
+	};
 
 /* d) find ComplexConcOn: derived by association equation (kOn, tRC, fLC, timeOn); variable */
 	this.calc_ComplexConcOn = function(sys_kOn, out_fLC, out_timeOn, sys_tRC, sys_kOff, out_RU0) {
-		this.ComplexConcOn = (sys_kOn*out_fLC*out_timeOn*sys_tRC)-(Math.pow(Math.E,sys_kOn*out_fLC*out_timeOn))-(sys_kOff*out_RU0*(Math.pow(Math.E,-sys_kOff*out_timeOn)))+out_RU0;
+		this.ComplexConcOn = 1;
 	};
 
 /* e) find ComplexConcOff: derived by disassociation equation (tRC, kOff, timeOff); variable */
@@ -62,8 +64,8 @@ function outputMethod(vol, RPUM, systemModel) {
 	};
 
 /* j) find RU_ComplexEQ: derived by (RU_ComplexConcOn at timeOn); variable */
-	this.calc_RU_ComplexEQ = function(out_RU_ComplexConcOn, out_timeOn) {
-		
+	this.calc_RU_ComplexEQ = function(sys_kOn, out_fLC, out_timeOn, sys_tRC, sys_kOff, out_RU0, sys_mwL, con_RPUM, con_vol) {
+		this.RU_ComplexEQ = 2;
 	};
 
 }
