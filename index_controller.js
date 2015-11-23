@@ -5,14 +5,21 @@ var app = angular.module('SPR', ['model']);
 
 /* 2. setting up controller */
 app.controller('viewCtrl', viewMethod);
-viewMethod.$inject = ['systemModel', 'outputModel', 'vol', 'RPUM']; // injecting systemModel of viewMethod into viewCrtl
+viewMethod.$inject = ['systemModel', 'vol', 'RPUM', 'outputModel', 'start_of_day', 'start_of_lunch', 'start_of_dinner', 'start_of_night', 'end_of_day', 'time_per_run', 'experimentModel']; // injecting systemModel of viewMethod into viewCrtl
 
-function viewMethod(systemModel, outputModel, vol, RPUM) {	// declaring systemModel relationship to viewMethod
+function viewMethod(systemModel, vol, RPUM, outputModel, start_of_day, start_of_lunch, start_of_dinner, start_of_night, end_of_day, time_per_run, experimentModel) {	// declaring systemModel relationship to viewMethod
 /* a) define how different dependencies are called it out onto the view */
 	this.system = systemModel;
-	this.output = outputModel;
 	this.vol = vol;
 	this.RPUM = RPUM;
+	this.output = outputModel;
+	this.day = start_of_day;
+	this.lunch = start_of_lunch;
+	this.dinner = start_of_dinner;
+	this.night = start_of_night;
+	this.end = end_of_day;
+	this.run = time_per_run;
+	this.experiment = experimentModel;
 
 /* b) initialise application to generate unique values for the new system */
 	this.system.set_tRC();
