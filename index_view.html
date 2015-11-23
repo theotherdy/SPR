@@ -87,9 +87,19 @@
 								disassociation experiment time: <input name="timeOff" type="number" min="0.5" ng-model="input_timeOff" required>
 							</form> <br/>
 							<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number more than 0.5</div><br/>
-								<!-- iv) combined button -->
-							<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid">run experiment</button><br/><br/>
-								<!-- v) results display (test) -->
+								<!-- iv) "setup experiment" button-->
+							<button ng-click="view.setupOrEat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button><br/><br/>
+								<!-- v) "run experiment" button -->
+							<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button><br/><br/>
+								<!-- vi) "eat" button -->
+							<button ng-click="view.setupOrEat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button><br/><br/>
+								<!-- vii) "go home" button -->
+							<button ng-click="view.goHome()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">Go Home</button><br/><br/>
+								<!-- viii) "restart" button -->
+							<button ng-click="view.restart()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay && view.experiment.daysLeft == view.experiment.daysAllowed">Restart</button><br/><br/>
+								<!-- viii) Experiment finishes -->
+							<div ng-show="view.experiment.daysLeft == 0 && view.experiment.timeOfDay == view.experiment.endOfDay">No more trials left! Restart!</div><br/>
+								<!-- viii) results display (test) -->
 							<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC = {{fLC_input}}</div>
 							<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn = {{timeOn_input}}</div>
 							<div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div>
@@ -126,7 +136,9 @@
 						<div>Time per Run = {{view.experiment.timePerRun}}</div><br/>
 							<!-- ii. Steps Taken -->
 						<div>Steps Taken = {{view.experiment.steps}}</div><br/>
-							<!-- ii. Time of Day -->
+							<!-- iii. Days Left -->
+						<div>Days Left = {{view.experiment.daysLeft}}</div><br/>
+							<!-- iv. Time of Day -->
 						<div>Time of Day = {{view.experiment.timeOfDay}}</div><br/>						
 					</div>
 

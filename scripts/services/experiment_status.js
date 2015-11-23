@@ -15,7 +15,8 @@ function experimentTrack() {
 /* creating tracked variables */
 	this.steps = 0;
 	this.timeOfDay = this.startOfDay;
-
+	this.daysAllowed = 5;
+	this.daysLeft = 5;
 /* 2. creating sub-methods as part of the function object that can be called */
 
 /* a) track steps taken */
@@ -25,12 +26,10 @@ function experimentTrack() {
 
 /* b) track time of day */
 	this.timeOfDayCounter = function() {
-		if (this.timeOfDay == this.endOfDay) {
-			this.timeOfDay = this.startOfDay;
-		} else {
-			this.timeOfDay = this.timeOfDay + this.timePerRun;
-		}
+		this.timeOfDay = this.timeOfDay + this.timePerRun;
+	};
+/* c) track day of experiment counter */
+	this.dayOfExperimentCounter = function() {
+		this.daysLeft--;
 	};
 }
-
-// setup, run, eat home
