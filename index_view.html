@@ -51,19 +51,19 @@
 					<div class="system">
 						<h1>System Model</h1>
 							<!-- a) tRC-->
-						<div>total receptor conc = {{view.system.tRC}}</div><br/>
+						<div>total receptor conc (M) = {{view.system.tRC}}</div><br/>
 							<!-- b) Kd -->
-						<div>Kd = {{view.system.Kd_chance}}</div><br/>
+						<div>Kd (M) = {{view.system.Kd}}</div><br/>
 							<!-- c) kOff -->
-						<div>kOff = {{view.system.kOff}}</div><br/>
+						<div>kOff (s<sup>-1</sup>) = {{view.system.kOff}}</div><br/>
 							<!-- d) kOn -->
-						<div>kOn = {{view.system.kOn}}</div><br/>
+						<div>kOn (M<sup>-1</sup> s<sup>-1</sup>) = {{view.system.kOn}}</div><br/>
 							<!-- e) mwL -->
-						<div>mol weight ligand = {{view.system.mwL}}</div><br/>
+						<div>mol weight ligand (g/mol) = {{view.system.mwL}}</div><br/>
 							<!-- f) mwR -->
-						<div>mol weight receptor = {{view.system.mwR}}</div><br/>
+						<div>mol weight receptor (g/mol) = {{view.system.mwR}}</div><br/>
 							<!-- g) mwP -->
-						<div>mol weight complex = {{view.system.mwP}}</div><br/>
+						<div>mol weight complex (g/mol) = {{view.system.mwP}}</div><br/>
 					</div>
 
 				<!-- 0.2. ouput_model -->
@@ -74,29 +74,29 @@
 						<div class="form">
 								<!-- i) fLC -->
 							<form novalidate name="fLC_Form">
-								free ligand concentration: <input name="fLC" type="number" min="0" ng-model="input_fLC" required>
+								free ligand concentration (M) <input name="fLC" type="number" min="0" ng-model="input_fLC" required>
 							</form><br/>
 							<div ng-show="fLC_Form.fLC.$dirty && fLC_Form.fLC.$invalid">Must be a number equal or more than 0</div><br/>
 								<!-- ii) timeOn -->
 							<form novalidate name="timeOn_Form">
-								association experiment time: <input name="timeOn" type="number" min="0.5" ng-model="input_timeOn" required>
+								association experiment time (s) <input name="timeOn" type="number" min="0.5" ng-model="input_timeOn" required>
 							</form><br/>
 							<div ng-show="timeOn_Form.timeOn.$dirty && timeOn_Form.timeOn.$invalid">Must be a number more than 0.5</div><br/>
 								<!-- iii) timeOff -->
 							<form novalidate name="timeOff_Form">
-								disassociation experiment time: <input name="timeOff" type="number" min="0.5" ng-model="input_timeOff" required>
+								disassociation experiment time (s) <input name="timeOff" type="number" min="0.5" ng-model="input_timeOff" required>
 							</form> <br/>
 							<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number more than 0.5</div><br/>
 								<!-- iv) "setup experiment" button-->
-							<button ng-click="view.setupOrEat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button><br/><br/>
+							<button ng-click="view.setup()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button>
 								<!-- v) "run experiment" button -->
-							<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button><br/><br/>
+							<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button>
 								<!-- vi) "eat" button -->
-							<button ng-click="view.setupOrEat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button><br/><br/>
+							<button ng-click="view.eat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button>
 								<!-- vii) "go home" button -->
-							<button ng-click="view.goHome()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">Go Home</button><br/><br/>
+							<button ng-click="view.goHome()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">Go Home</button>
 								<!-- viii) "restart" button -->
-							<button ng-click="view.restart()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay && view.experiment.daysLeft == view.experiment.daysAllowed">Restart</button><br/><br/>
+							<button ng-click="view.restart()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay && view.experiment.daysLeft == view.experiment.daysAllowed">Restart</button>
 								<!-- viii) Experiment finishes -->
 							<div ng-show="view.experiment.daysLeft == 0 && view.experiment.timeOfDay == view.experiment.endOfDay">No more trials left! Restart!</div><br/>
 								<!-- viii) results display (test) -->
@@ -105,17 +105,17 @@
 							<div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div>
 						</div><br/>
 							<!-- b) vol -->
-						<div>volume = {{view.vol}}</div><br/>
+						<div>volume in SPR chip (dm<sup>3</sup>) = {{view.vol}}</div><br/>
 							<!-- c) RPUM -->
-						<div>response per unit mass = {{view.RPUM}}</div><br/>
+						<div>response per unit mass (g<sup>-1</sup>) = {{view.RPUM}}</div><br/>
 							<!-- e) RU0 (actual) -->
 						<div>RU at t=0 (actual) = {{view.output.RU0_actual}}</div><br/>
 							<!-- d) RU0 (output/set) -->
 						<div>RU at t=0 (output) = {{view.output.RU0_set}}</div><br/>
 							<!-- f) ComplexConcOn -->
-						<div>complex conc (assoc) = {{view.output.ComplexConcOn}}</div><br/>
+						<div>complex conc (assoc) (M) = {{view.output.ComplexConcOn}}</div><br/>
 							<!-- h) ComplexConcOff -->
-						<div>complex conc (dis) = {{view.output.ComplexConcOff}}</div><br/>
+						<div>complex conc (dis) (M) = {{view.output.ComplexConcOff}}</div><br/>
 							<!-- g) RU_ComplexOn -->
 						<div>RU complex conc (assoc) = {{view.output.RU_ComplexOn}}</div><br/>
 							<!-- i) RU_ComplexOff -->
@@ -128,18 +128,18 @@
 					<div class="experiment">
 						<h1>Experiment Status</h1>
 							<!-- i. Showing value of all constants defined -->
-						<div>Start of Day = {{view.experiment.startOfDay}}</div><br/>
-						<div>Start of Lunch = {{view.experiment.startOfLunch}}</div><br/>
-						<div>Start of Dinner = {{view.experiment.startOfDinner}}</div><br/>
-						<div>Start of Night = {{view.experiment.startOfNight}}</div><br/>
-						<div>End of Day = {{view.experiment.endOfDay}}</div><br/>
-						<div>Time per Run = {{view.experiment.timePerRun}}</div><br/>
+						<div>Start of Day (time) = {{view.experiment.startOfDay}}</div><br/>
+						<div>Start of Lunch (time) = {{view.experiment.startOfLunch}}</div><br/>
+						<div>Start of Dinner (time) = {{view.experiment.startOfDinner}}</div><br/>
+						<div>Start of Night (time) = {{view.experiment.startOfNight}}</div><br/>
+						<div>End of Day (time) = {{view.experiment.endOfDay}}</div><br/>
+						<div>Time per Run (time) = {{view.experiment.timePerRun}}</div><br/>
 							<!-- ii. Steps Taken -->
 						<div>Steps Taken = {{view.experiment.steps}}</div><br/>
 							<!-- iii. Days Left -->
-						<div>Days Left = {{view.experiment.daysLeft}}</div><br/>
+						<div>Days Left (days) = {{view.experiment.daysLeft}}</div><br/>
 							<!-- iv. Time of Day -->
-						<div>Time of Day = {{view.experiment.timeOfDay}}</div><br/>						
+						<div>Time of Day (time) = {{view.experiment.timeOfDay}}</div><br/>						
 					</div>
 
 <!-- Bootstrap column position: centre full -->

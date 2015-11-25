@@ -24,7 +24,7 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* b) set Kd: random assignment out of possibility in array; constant */
 	this.set_Kd = function() {
-		this.Kd_possible = [111, 222, 333, 444, 555, 666];
+		this.Kd_possible = [0.00000001, 0.00000002, 0.00000004, 0.00000006, 0.00000008, 0.0000001];
 
 		this.flip_Kd = function() {
 			this.Kd_chance = Math.floor(6*Math.random());
@@ -40,7 +40,7 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* c) set kOff: random assignment out of possibility in array; constant */
 	this.set_kOff = function() {
-		this.kOff_possible = [111, 222, 333, 444, 555, 666];
+		this.kOff_possible = [0.00005, 0.00010, 0.00015, 0.00020, 0.00025, 0.00030];
 
 		this.flip_kOff = function() {
 			this.kOff_chance = Math.floor(6*Math.random());
@@ -61,7 +61,7 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* e) set mwL: random assignment out of possibility in array; constant */
 	this.set_mwL = function() {
-		this.mwL_possible = [111, 222, 333, 444, 555, 666];
+		this.mwL_possible = [20000, 40000, 60000, 80000, 100000, 120000];
 
 		this.flip_mwL = function() {
 			this.mwL_chance = Math.floor(6*Math.random());
@@ -78,7 +78,7 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* f) set mwR: random assignment out of possibility in array; constant */
 	this.set_mwR = function() {
-		this.mwR_possible = [111, 222, 333, 444, 555, 666];
+		this.mwR_possible = [20000, 40000, 60000, 80000, 100000, 120000];
 
 		this.flip_mwR = function() {
 			this.mwR_chance = Math.floor(6*Math.random());

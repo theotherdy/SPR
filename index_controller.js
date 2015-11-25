@@ -27,6 +27,12 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 	this.system.find_mwP(this.system.mwL, this.system.mwR);
 	this.output.find_RU0_actual(this.system.tRC, this.system.mwR, this.vol, this.RPUM);
 
+/* d) creating function for "setup" and "eat" button */
+	this.setup = function () {
+		this.experiment.timeOfDayCounter();
+		this.experiment.dayOfExperimentCounter();
+	};
+
 /* c) creating function for "run experiment" button  */
 	this.runExperiment = function (new_fLC, new_timeOn, new_timeOff) {
 		this.output.add_fLC(new_fLC);
@@ -43,24 +49,22 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 	};
 
 /* d) creating function for "setup" and "eat" button */
-	this.setupOrEat = function () {
+	this.eat = function () {
 		this.experiment.timeOfDayCounter();
 	};
 
 /* e) creating function for "home" button */
 	this.goHome = function () {
 		this.experiment.timeOfDay = this.experiment.startOfDay;
-		this.experiment.dayOfExperimentCounter();
 	};
 
 /* f) creating a function for "restart" button */
 	this.restart = function () {
 		this.experiment.daysLeft = this.experiment.daysAllowed;
 		this.experiment.timeOfDay = this.experiment.startOfDay;
-		/* clear
-		this.output.fLC[];
-		this.output.timeOn[];
-		this.output.timeOff[];
-		*/
+			// remove all data in existing arrays
+		this.output.fLC.length = 0;
+		this.output.timeOn.length = 0;
+		this.output.timeOff.length = 0;
 	};
 }

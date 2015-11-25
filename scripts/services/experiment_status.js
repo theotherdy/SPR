@@ -6,17 +6,22 @@ var app = angular.module('experiment_status', [])
 
 function experimentTrack() { 
 /* creating concept for time of day to alter output standard deviation */
-	this.startOfDay = 9.0;
-	this.startOfLunch = 12.0;
-	this.startOfDinner = 17.0;
-	this.startOfNight = 21.0;
-	this.endOfDay = 24.0;
 	this.timePerRun = 0.5;
+	this.startOfDay = 9.0; // 5 runs available
+	this.startOfLunch = 12.0; // 9 runs available
+	// total runs with good SD per day = 14
+	this.startOfDinner = 17.0; // 7 runs available
+	this.startOfNight = 21.0; // 5 runs available
+	// total runs with good SD per day = 12
+	this.endOfDay = 24.0;
+	// total runs per day = 26
 /* creating tracked variables */
 	this.steps = 0;
 	this.timeOfDay = this.startOfDay;
-	this.daysAllowed = 5;
-	this.daysLeft = 5;
+	this.daysAllowed = 2; 
+	this.daysLeft = 2;
+	// total runs with good SD per simulation = 28
+	// total runs per simulation = 52
 /* 2. creating sub-methods as part of the function object that can be called */
 
 /* a) track steps taken */
