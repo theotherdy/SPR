@@ -28,41 +28,23 @@ function outputMethod(systemModel, experimentStatus) {
 		this.timeOff.push(new_timeOff);
 	};
 
-/* e) find actual RU0: derived by tRC * RPUM * mwR * vol; constant (check); variable */
-	this.find_RU0_actual = function(sys_tRC, sys_mwR, con_vol, con_RPUM) {
-		this.RU0_actual = sys_tRC*sys_mwR*con_vol*con_RPUM;
+/* e) find RU0 on: derived by tRC * RPUM * mwR * vol; constant; */
+	this.find_RU0_on = function(sys_tRC, sys_mwR, con_vol, con_RPUM) {
+		this.RU0_on = sys_tRC*sys_mwR*con_vol*con_RPUM;
 	};
 
-/* f) set RU0: user select data set from table; variable (currently testing with equation at time 0) */
-	this.find_RU0_set = function(sys_kOn, out_fLC, sys_tRC, sys_kOff, out_RU0, sys_mwL, con_RPUM, con_vol) {
-		this.RU0_set = 0;
+/* e) find RU0 off: derived from RU_ComplexOn at timeOn; variable */
+	this.find_RU0_off = function() {
+		this.RU0_off = 100;
 	};
 
-/* g) find ComplexConcOn: derived by association equation (kOn, tRC, fLC, timeOn); variable */
-	this.calc_ComplexConcOn = function(sys_kOn, out_fLC, out_timeOn, sys_tRC, sys_kOff, out_RU0) {
-		this.ComplexConcOn = 1;
+/* f) find RU_ComplexOff: derived from 1st order disassociation formula; variable */
+	this.calc_RU_ComplexOff = function(out_RU0_off, sys_kOff, out_timeOff) {
+		this.RU_ComplexOff = out_RU0_off*(Math.pow(Math.E, -sys_kOff*out_timeOff));
 	};
 
-	// use experiment.steps
-
-/* h) find ComplexConcOff: derived by disassociation equation (tRC, kOff, timeOff); variable */
-	this.calc_ComplexConcOff = function(out_RU0, sys_kOff, out_timeOff) {
-		this.ComplexConcOff = out_RU0*(Math.pow(Math.E,-sys_kOff*out_timeOff));
+/* g) find RU_ComplexOn: derived from 2nd order association formula; variable */
+	this.calc_RU_ComplexOn = function(con_RPUM, con_vol, sys_mwR, sys_kOn, out_fLC, sys_tRC, out_timeOn, out_RU_ComplexOff) {
+		this.RU_ComplexOn = con_RPUM*con_vol*sys_mwR*((sys_kOn*out_fLC*sys_tRC*out_timeOn)-(Math.pow(Math.E, -sys_kOn*out_fLC*out_timeOn)))-out_RU_ComplexOff;
 	};
-
-/* i) find RU_ComplexOn: derived by (ComplexConcOn * mwL * RPUM * vol); variable */
-	this.calc_RU_ComplexOn = function(out_ComplexConcOn, sys_mwL, con_RPUM, con_vol) {
-		this.RU_ComplexOn = out_ComplexConcOn*sys_mwL*con_RPUM*con_vol;
-	};
-
-/* j) find RU_ComplexOff: derived by (ComplexConcOff * mwL * RPUM * vol); variable */
-	this.calc_RU_ComplexOff = function(out_ComplexConcOff, sys_mwL, con_RPUM, con_vol) {
-		this.RU_ComplexOff = out_ComplexConcOff*sys_mwL*con_RPUM*con_vol;
-	};
-
-/* k) find RU_ComplexEQ: derived by (RU_ComplexConcOn at timeOn); variable */
-	this.calc_RU_ComplexEQ = function(sys_kOn, out_fLC, out_timeOn, sys_tRC, sys_kOff, out_RU0, sys_mwL, con_RPUM, con_vol) {
-		this.RU_ComplexEQ = 2;
-	};
-
 }

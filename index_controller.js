@@ -3,7 +3,7 @@
 /* 1. master module to compile in all sub-modules for embedding ng-app in HTML */
 var app = angular.module('SPR', ['model'])
 	.constant('vol', 0.000001) // volume inside chip
-	.constant('RPUM', 0.01); // response per unit mass (RU/Da)
+	.constant('RPUM', 100000000); // response per unit mass (RU/g)
 
 /* 2. setting up controller */
 app.controller('viewCtrl', viewMethod);
@@ -25,7 +25,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 	this.system.set_mwL();
 	this.system.set_mwR();
 	this.system.find_mwP(this.system.mwL, this.system.mwR);
-	this.output.find_RU0_actual(this.system.tRC, this.system.mwR, this.vol, this.RPUM);
+	this.output.find_RU0_on(this.system.tRC, this.system.mwR, this.vol, this.RPUM);
 
 /* d) creating function for "setup" and "eat" button */
 	this.setup = function () {
@@ -38,15 +38,16 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 		this.output.add_fLC(new_fLC);
 		this.output.add_timeOn(new_timeOn);
 		this.output.add_timeOff(new_timeOff);
-		this.output.find_RU0_set(this.system.kOn, this.output.fLC[0], this.system.tRC, this.system.kOff, this.output.RU0_actual, this.system.mwL, this.RPUM, this.vol);
-		this.output.calc_ComplexConcOn(this.system.kOn, this.output.fLC[0], this.output.timeOn[0], this.system.tRC, this.system.kOff, this.output.RU0_actual);
-		this.output.calc_ComplexConcOff(this.output.RU0_actual, this.system.kOff, this.output.timeOff);
-		this.output.calc_RU_ComplexOn(this.output.ComplexConcOn, this.system.mwL, this.RPUM, this.vol);
-		this.output.calc_RU_ComplexOff(this.output.ComplexConcOff, this.system.mwL, this.RPUM, this.vol);
-		this.output.calc_RU_ComplexEQ(this.system.kOn, this.output.fLC[0], this.output.timeOn[0], this.system.tRC, this.system.kOff, this.output.RU0_actual, this.system.mwL, this.RPUM, this.vol);
+		this.output.find_RU0_off();
+		this.output.calc_RU_ComplexOff(this.output.RU0_off, this.system.kOff, this.output.timeOff[this.experiment.steps]);
+		this.RU_ComplexOff_adjusted = this.output.RU_ComplexOff+this.output.RU0_on;
+		this.output.calc_RU_ComplexOn(this.RPUM, this.vol, this.system.mwR, this.system.kOn, this.output.fLC[this.experiment.steps], this.system.tRC, this.output.timeOn[this.experiment.steps], this.output.RU_ComplexOff);
+		this.RU_ComplexOn_adjusted = this.output.RU_ComplexOn+this.output.RU0_on;
 		this.experiment.stepsCounter();
 		this.experiment.timeOfDayCounter();
 	};
+
+	// , this.system.kOff, this.output.RU0_off, this.output.timeOff)
 
 /* d) creating function for "setup" and "eat" button */
 	this.eat = function () {
