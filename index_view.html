@@ -63,7 +63,7 @@
 							<!-- f) mwR -->
 						<div>mol weight receptor (g/mol) = {{view.system.mwR}}</div><br/>
 							<!-- g) mwP -->
-						<div>mol weight complex (g/mol) = {{view.system.mwP}}</div><br/>
+						<div>mol weight complex (g/mol) = {{view.system.mwLR}}</div><br/>
 					</div>
 
 				<!-- 0.2. ouput_model -->
@@ -110,12 +110,12 @@
 						<div>response per unit mass (g<sup>-1</sup>) = {{view.RPUM}}</div><br/>
 							<!-- d) RU0 (on) -->
 						<div>RU at t=0 (on) = {{view.output.RU0_on}}</div><br/>
-							<!-- d) RU0 (off) -->
-						<div>RU at t=0 (off) = {{view.output.RU0_off}}</div><br/>
-							<!-- f) RU_ComplexOff -->
-						<div>RU complex conc (dis) = {{view.RU_ComplexOff_adjusted}}</div><br/>
-							<!-- h) RU_ComplexOn -->
+							<!-- e) RU_ComplexOn -->
 						<div>RU complex conc (assoc) = {{view.RU_ComplexOn_adjusted}}</div><br/>
+							<!-- f) RU0 (off) -->
+						<div>RU at t=0 (off) = {{view.output.RU0_off}}</div><br/>
+							<!-- g) RU_ComplexOff -->
+						<div>RU complex conc (dis) = {{view.RU_ComplexOff_adjusted}}</div><br/>
 					</div>
 					
 				<!-- 0.3. experiment_model -->

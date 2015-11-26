@@ -24,8 +24,8 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* b) set Kd: random assignment out of possibility in array; constant */
 	this.set_Kd = function() {
-		this.Kd_possible = [0.00000001, 0.00000002, 0.00000004, 0.00000006, 0.00000008, 0.0000001];
-
+		this.Kd_possible = [1, 1, 1, 1, 1, 1];
+// Kd value range for strong binding = 0.00000001, 0.00000002, 0.00000004, 0.00000006, 0.00000008, 0.0000001
 		this.flip_Kd = function() {
 			this.Kd_chance = Math.floor(6*Math.random());
 		};
@@ -40,8 +40,8 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* c) set kOff: random assignment out of possibility in array; constant */
 	this.set_kOff = function() {
-		this.kOff_possible = [0.00005, 0.00010, 0.00015, 0.00020, 0.00025, 0.00030];
-
+		this.kOff_possible = [1, 1, 1, 1, 1, 1];
+// kOff value range for strong binding = 0.00005, 0.00010, 0.00015, 0.00020, 0.00025, 0.00030
 		this.flip_kOff = function() {
 			this.kOff_chance = Math.floor(6*Math.random());
 		};
@@ -93,8 +93,8 @@ function systemMethod() { // creating master function object that encapsulate al
 	};
 
 /* g) find mwP: derived from mwR + mwL; constant */
-	this.find_mwP = function(mwL, mwR) {
-		this.mwP = this.mwL + this.mwR;
+	this.find_mwLR = function(mwL, mwR) {
+		this.mwLR = this.mwL + this.mwR;
 	};
 
 }

@@ -24,7 +24,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 	this.system.find_kOn(this.system.Kd, this.system.kOff);
 	this.system.set_mwL();
 	this.system.set_mwR();
-	this.system.find_mwP(this.system.mwL, this.system.mwR);
+	this.system.find_mwLR(this.system.mwL, this.system.mwR);
 	this.output.find_RU0_on(this.system.tRC, this.system.mwR, this.vol, this.RPUM);
 
 /* d) creating function for "setup" and "eat" button */
@@ -41,7 +41,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 		this.output.find_RU0_off();
 		this.output.calc_RU_ComplexOff(this.output.RU0_off, this.system.kOff, this.output.timeOff[this.experiment.steps]);
 		this.RU_ComplexOff_adjusted = this.output.RU_ComplexOff+this.output.RU0_on;
-		this.output.calc_RU_ComplexOn(this.RPUM, this.vol, this.system.mwR, this.system.kOn, this.output.fLC[this.experiment.steps], this.system.tRC, this.output.timeOn[this.experiment.steps], this.output.RU_ComplexOff);
+		this.output.calc_RU_ComplexOn(this.output.RU0_off, this.output.fLC[this.experiment.steps], this.system.Kd, this.system.kOn, this.system.kOff, this.output.timeOn[this.experiment.steps]);
 		this.RU_ComplexOn_adjusted = this.output.RU_ComplexOn+this.output.RU0_on;
 		this.experiment.stepsCounter();
 		this.experiment.timeOfDayCounter();

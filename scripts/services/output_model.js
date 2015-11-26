@@ -28,23 +28,25 @@ function outputMethod(systemModel, experimentStatus) {
 		this.timeOff.push(new_timeOff);
 	};
 
-/* e) find RU0 on: derived by tRC * RPUM * mwR * vol; constant; */
+/* e) find RU0 on (mass of receptor on chip) : derived by tRC * RPUM * mwR * vol; constant; */
 	this.find_RU0_on = function(sys_tRC, sys_mwR, con_vol, con_RPUM) {
 		this.RU0_on = sys_tRC*sys_mwR*con_vol*con_RPUM;
 	};
 
-/* e) find RU0 off: derived from RU_ComplexOn at timeOn; variable */
-	this.find_RU0_off = function() {
-		this.RU0_off = 100;
+/* f) find RU_ComplexOn: derived from 2nd order association formula; variable */
+	this.calc_RU_ComplexOn = function(out_RU0_off, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn) {
+		this.RU_ComplexOn = ((out_RU0_off*out_fLC)/(sys_Kd+out_fLC))*(1-Math.pow(Math.E, -(sys_kOn*out_fLC+sys_kOff)*out_timeOn));
 	};
 
-/* f) find RU_ComplexOff: derived from 1st order disassociation formula; variable */
+/* g) find RU0 off (RU_ComplexOn at timeOn); variable */
+	this.find_RU0_off = function() {
+		this.RU0_off = 100 ;
+	};// must figure another way to determine RU_ComplexOn at timeOn alternatively...
+
+/* h) find RU_ComplexOff: derived from 1st order disassociation formula; variable */
 	this.calc_RU_ComplexOff = function(out_RU0_off, sys_kOff, out_timeOff) {
 		this.RU_ComplexOff = out_RU0_off*(Math.pow(Math.E, -sys_kOff*out_timeOff));
 	};
 
-/* g) find RU_ComplexOn: derived from 2nd order association formula; variable */
-	this.calc_RU_ComplexOn = function(con_RPUM, con_vol, sys_mwR, sys_kOn, out_fLC, sys_tRC, out_timeOn, out_RU_ComplexOff) {
-		this.RU_ComplexOn = con_RPUM*con_vol*sys_mwR*((sys_kOn*out_fLC*sys_tRC*out_timeOn)-(Math.pow(Math.E, -sys_kOn*out_fLC*out_timeOn)))-out_RU_ComplexOff;
-	};
+
 }
