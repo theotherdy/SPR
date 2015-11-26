@@ -14,11 +14,11 @@ function systemMethod() { // creating master function object that encapsulate al
 		flip_tRC = 3*Math.random();
 
 		if (flip_tRC <= 1) {
-			this.tRC = 1;
+			this.tRC = 0.000001;
 		} else if (flip_tRC > 2) {
-			this.tRC = 3;
+			this.tRC = 0.0000015;
 		} else {
-			this.tRC = 2;
+			this.tRC = 0.000002;
 		}
 	};
 
@@ -61,15 +61,15 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* e) set mwL: random assignment out of possibility in array; constant */
 	this.set_mwL = function() {
-		this.mwL_possible = [20000, 40000, 60000, 80000, 100000, 120000];
+		this.mwL_possible = [20000, 30000, 40000, 50000, 60000];
 
 		this.flip_mwL = function() {
-			this.mwL_chance = Math.floor(6*Math.random());
+			this.mwL_chance = Math.floor(5*Math.random());
 		};
 		this.flip_mwL();
 
 
-		if (this.flip_mwL == 6) {
+		if (this.flip_mwL == 5) {
 			this.flip_mwL();
 		} else {
 			this.mwL = this.mwL_possible[this.mwL_chance];
@@ -78,14 +78,14 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* f) set mwR: random assignment out of possibility in array; constant */
 	this.set_mwR = function() {
-		this.mwR_possible = [20000, 40000, 60000, 80000, 100000, 120000];
+		this.mwR_possible = [40000, 60000, 80000, 100000, 120000];
 
 		this.flip_mwR = function() {
-			this.mwR_chance = Math.floor(6*Math.random());
+			this.mwR_chance = Math.floor(5*Math.random());
 		};
 		this.flip_mwR();
 
-		if (this.flip_mwR == 6) {
+		if (this.flip_mwR == 5) {
 			this.flip_mwR();
 		} else {
 			this.mwR = this.mwR_possible[this.mwR_chance];
