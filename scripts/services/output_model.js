@@ -28,19 +28,17 @@ function outputMethod(systemModel, experimentStatus) {
 		this.timeOff.push(new_timeOff);
 	};
 
-/* e) find RU0 at no binding; constant; */
-	this.find_RU0 = function(sys_tRC, sys_mwR, con_vol, con_RPUM) {
-		this.RU0 = sys_tRC*sys_mwR*con_vol*con_RPUM;
-	};
 
-/* g) find RU at max binding; constant */
-	this.find_RU_Max = function(sys_tRC, sys_mwLR, con_vol, con_RPUM, out_RU0) {
-		this.RU_Max = sys_tRC*sys_mwLR*con_vol*con_RPUM;
+/* g) find the RU increase when R is totally saturated by L; constant */
+	this.find_RU_Max = function(sys_tRC, sys_mwR, con_vol, con_RPUM, sys_mwL, sys_mwLR) {
+		this.RU0 = sys_tRC*sys_mwR*con_vol*con_RPUM;
+		this.RU_MaxL = sys_tRC*sys_mwL*con_vol*con_RPUM;
+		this.RU_MaxLR = sys_tRC*sys_mwLR*con_vol*con_RPUM;
 	};
 
 /* f) find RU_On: derived from 2nd order association formula; variable */
-	this.calc_RU_On = function(out_RU_Max, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn, out_RU0) {
-		this.RU_On = ((out_RU_Max*out_fLC)/(sys_Kd+out_fLC))*(1-Math.pow(Math.E, -(sys_kOn*out_fLC+sys_kOff)*out_timeOn));
+	this.calc_RU_On = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn, out_RU0) {
+		this.RU_On = ((out_RU_MaxL*out_fLC)/(sys_Kd+out_fLC))*(1-Math.pow(Math.E,-(sys_kOn*out_fLC+sys_kOff)*out_timeOn));
 		this.RU_OnAdjusted = this.RU_On+out_RU0;
 	};
 
