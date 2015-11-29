@@ -28,8 +28,7 @@ function outputMethod(systemModel, experimentStatus) {
 		this.timeOff.push(new_timeOff);
 	};
 
-
-/* g) find the RU increase when R is totally saturated by L; constant */
+/* e) find the RU increase when R is totally saturated by L; constant */
 	this.find_RU_Max = function(sys_tRC, sys_mwR, con_vol, con_RPUM, sys_mwL, sys_mwLR) {
 		this.RU0 = sys_tRC*sys_mwR*con_vol*con_RPUM;
 		this.RU_MaxL = sys_tRC*sys_mwL*con_vol*con_RPUM;
@@ -37,15 +36,15 @@ function outputMethod(systemModel, experimentStatus) {
 	};
 
 /* f) find RU_On: derived from 2nd order association formula; variable */
-	this.calc_RU_On = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn, out_RU0) {
+	this.calc_RU_On = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn, out_RU0, RU0_set) {
 		this.RU_On = ((out_RU_MaxL*out_fLC)/(sys_Kd+out_fLC))*(1-Math.pow(Math.E,-(sys_kOn*out_fLC+sys_kOff)*out_timeOn));
-		this.RU_OnAdjusted = this.RU_On+out_RU0;
+		this.RU_OnAdjusted = this.RU_On+out_RU0-RU0_set;
 	};
 
-/* h) find RU_Off: derived from 1st order disassociation formula; variable */
-	this.calc_RU_Off = function(out_RU_On, sys_kOff, out_timeOff, out_RU0) {
+/* g) find RU_Off: derived from 1st order disassociation formula; variable */
+	this.calc_RU_Off = function(out_RU_On, sys_kOff, out_timeOff, out_RU0, RU0_set) {
 		this.RU_Off = out_RU_On*(Math.pow(Math.E, -sys_kOff*out_timeOff));
-		this.RU_OffAdjusted = this.RU_Off+out_RU0;
+		this.RU_OffAdjusted = this.RU_Off+out_RU0-RU0_set;
 	};
 
 }
