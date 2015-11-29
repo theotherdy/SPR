@@ -12,6 +12,7 @@ function outputMethod(systemModel, experimentStatus) {
 	this.fLC = []; // fLC  must be <= 0, to obtain background value
 	this.timeOn = []; // timeOn must be < 0
 	this.timeOff = []; // timeOff must be < 0
+	this.RU_OnAdjusted = [];
 
 /* b) set fLC: user input via form; variable */
 	this.add_fLC = function(new_fLC) {
@@ -38,7 +39,7 @@ function outputMethod(systemModel, experimentStatus) {
 /* f) find RU_On: derived from 2nd order association formula; variable */
 	this.calc_RU_On = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn, out_RU0, RU0_set) {
 		this.RU_On = ((out_RU_MaxL*out_fLC)/(sys_Kd+out_fLC))*(1-Math.pow(Math.E,-(sys_kOn*out_fLC+sys_kOff)*out_timeOn));
-		this.RU_OnAdjusted = this.RU_On+out_RU0-RU0_set;
+		this.RU_OnAdjusted.push(this.RU_On+out_RU0-RU0_set);
 	};
 
 /* g) find RU_Off: derived from 1st order disassociation formula; variable */

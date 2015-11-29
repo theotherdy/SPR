@@ -74,25 +74,25 @@
 						<div class="form">
 								<!-- i) fLC -->
 							<form novalidate name="fLC_Form">
-								free ligand concentration (M) <input name="fLC" type="number" min="0" ng-model="input_fLC" required>
+								free ligand concentration (M) <br/><input name="fLC" type="number" min="0" ng-model="input_fLC" required>
 							</form><br/>
 							<div ng-show="fLC_Form.fLC.$dirty && fLC_Form.fLC.$invalid">Must be a number equal or more than 0</div><br/>
 								<!-- ii) timeOn -->
 							<form novalidate name="timeOn_Form">
-								association experiment time (s) <input name="timeOn" type="number" min="0.5" ng-model="input_timeOn" required>
+								association experiment time (s) <br/><input name="timeOn" type="number" min="0.5" max="900" ng-model="input_timeOn" required>
 							</form><br/>
-							<div ng-show="timeOn_Form.timeOn.$dirty && timeOn_Form.timeOn.$invalid">Must be a number more than 0.5</div><br/>
+							<div ng-show="timeOn_Form.timeOn.$dirty && timeOn_Form.timeOn.$invalid">Must be a number between 0.5 and 900</div><br/>
 								<!-- iii) timeOff -->
 							<form novalidate name="timeOff_Form">
-								disassociation experiment time (s) <input name="timeOff" type="number" min="0.5" ng-model="input_timeOff" required>
+								disassociation experiment time (s) <br/><input name="timeOff" type="number" min="0.5" max="900" ng-model="input_timeOff" required>
 							</form> <br/>
-							<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number more than 0.5</div><br/>
+							<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number between 0.5 and 900</div><br/>
 								<!-- iv) "setup experiment" button-->
 							<button ng-click="view.setup()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button>
 								<!-- v) "run experiment" button -->
 							<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button>
 								<!-- v) "setting zero value" button -->
-							<button ng-click="view.set_RU0()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled || view.output.RU_OnAdjusted == null">zero</button>
+							<button ng-click="view.set_RU0()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled || view.output.RU_OnAdjusted.length == 0">zero</button>
 								<!-- vi) "eat" button -->
 							<button ng-click="view.eat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button>
 								<!-- vii) "go home" button -->
@@ -119,7 +119,7 @@
 							<!-- g) RU0 (set) -->
 						<div>RU0 set = {{view.RU0_set}}</div><br/>	
 							<!-- h) RU_On -->
-						<div>RU On Adjusted = {{view.output.RU_OnAdjusted}}</div><br/>
+						<div>RU On Adjusted = {{view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1]}}</div><br/>
 							<!-- i) RU_Off -->
 						<div>RU Off Adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
 					</div>

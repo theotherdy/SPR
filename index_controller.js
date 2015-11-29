@@ -48,7 +48,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 
 /* d) creating function for set "zero" button */
 	this.set_RU0 = function() {
-		this.RU0_set = this.output.RU_OnAdjusted;
+		this.RU0_set = this.output.RU_OnAdjusted[this.output.RU_OnAdjusted.length-1];
 		this.isDisabled = true;
 	};
 
