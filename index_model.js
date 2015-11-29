@@ -1,7 +1,13 @@
-/* 1. sub-module to compile all models */
+	/* 1. compilation of module for mathematical model */
 var app = angular.module('model', ['system_model', 'output_model', 'experiment_status']);
 
-/* 2. List of function of all models attached */
 /* pair_model = mathematical model of ligand and receptor pair parameters */
 /* experiment_model = mathematical model of time spent on experiment */
 /* output_model = mathematical model of graphs and statistics output */
+
+	/* 2. compilation of module for filters */
+var app = angular.module('filters', ['time_filter', 'mw_filter', 'uM_filter']);
+
+/* time_filter = converting values for time of day to digital time display */
+/* mw_filter = converting values for molecular weight to removing 1000 from display */
+/* uM_filter = converting values in M to uM on display */

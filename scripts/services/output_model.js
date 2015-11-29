@@ -43,9 +43,9 @@ function outputMethod(systemModel, experimentStatus) {
 	};
 
 /* g) find RU_Off: derived from 1st order disassociation formula; variable */
-	this.calc_RU_Off = function(out_RU_On, sys_kOff, out_timeOff, out_RU0, RU0_set) {
+	this.calc_RU_Off = function(out_RU_On, sys_kOff, out_timeOff, out_RU0, out_RU0_set) {
 		this.RU_Off = out_RU_On*(Math.pow(Math.E, -sys_kOff*out_timeOff));
-		this.RU_OffAdjusted = this.RU_Off+out_RU0-RU0_set;
+		this.RU_OffAdjusted = this.RU_Off+out_RU0-out_RU0_set;
 	};
 
 }

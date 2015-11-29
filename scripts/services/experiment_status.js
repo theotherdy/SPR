@@ -22,6 +22,7 @@ function experimentTrack() {
 	this.daysLeft = 2;
 	// total runs with good SD per simulation = 28
 	// total runs per simulation = 52
+	
 /* 2. creating sub-methods as part of the function object that can be called */
 
 /* a) track steps taken */
