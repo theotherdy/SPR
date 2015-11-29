@@ -91,6 +91,8 @@
 							<button ng-click="view.setup()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button>
 								<!-- v) "run experiment" button -->
 							<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button>
+								<!-- v) "setting zero value" button -->
+							<button ng-click="view.set_RU0()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled">zero</button>
 								<!-- vi) "eat" button -->
 							<button ng-click="view.eat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button>
 								<!-- vii) "go home" button -->
@@ -108,14 +110,16 @@
 						<div>volume in SPR chip (dm<sup>3</sup>) = {{view.vol}}</div><br/>
 							<!-- c) RPUM -->
 						<div>response per unit mass (g<sup>-1</sup>) = {{view.RPUM}}</div><br/>
-							<!-- d) RU0 -->
-						<div>RU0 = {{view.output.RU0}}</div><br/>
-							<!-- f) RU_max -->
-						<div>RU Max = {{view.output.RU_Max}}</div><br/>
-							<!-- e) RU_On -->
-						<div>RU On = {{view.RU_On_adjusted}}</div><br/>
-							<!-- g) RU_Off -->
-						<div>RU Off = {{view.RU_Off_adjusted}}</div><br/>
+							<!-- d) RU_max -->
+						<div>RU Max = {{view.output.RU_Max}}</div><br/>	
+							<!-- e) RU0 (actual) -->
+						<div>RU0 (actual) = {{view.output.RU0}}</div><br/>						
+							<!-- f) RU0 (set) -->
+						<div>RU0 (set) = {{view.RU0_set}}</div><br/>
+							<!-- g) RU_On -->
+						<div>RU On Adjusted = {{view.output.RU_OnAdjusted}}</div><br/>
+							<!-- gh) RU_Off -->
+						<div>RU Off Adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
 					</div>
 					
 				<!-- 0.3. experiment_model -->

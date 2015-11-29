@@ -34,19 +34,20 @@ function outputMethod(systemModel, experimentStatus) {
 	};
 
 /* g) find RU at max binding; constant */
-	this.find_RU_Max = function(sys_tRC, sys_mwLR, con_vol, con_RPUM) {
+	this.find_RU_Max = function(sys_tRC, sys_mwLR, con_vol, con_RPUM, out_RU0) {
 		this.RU_Max = sys_tRC*sys_mwLR*con_vol*con_RPUM;
 	};
 
 /* f) find RU_On: derived from 2nd order association formula; variable */
-	this.calc_RU_On = function(out_RU0_Max, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn) {
-		this.RU_On = ((out_RU0_Max*out_fLC)/(sys_Kd+out_fLC))*(1-Math.pow(Math.E, -(sys_kOn*out_fLC+sys_kOff)*out_timeOn));
+	this.calc_RU_On = function(out_RU_Max, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn, out_RU0) {
+		this.RU_On = ((out_RU_Max*out_fLC)/(sys_Kd+out_fLC))*(1-Math.pow(Math.E, -(sys_kOn*out_fLC+sys_kOff)*out_timeOn));
+		this.RU_OnAdjusted = this.RU_On+out_RU0;
 	};
 
 /* h) find RU_Off: derived from 1st order disassociation formula; variable */
-	this.calc_RU_Off = function(out_RU0_Max, sys_kOff, out_timeOff) {
-		this.RU_Off = out_RU0_Max*(Math.pow(Math.E, -sys_kOff*out_timeOff));
+	this.calc_RU_Off = function(out_RU_On, sys_kOff, out_timeOff, out_RU0) {
+		this.RU_Off = out_RU_On*(Math.pow(Math.E, -sys_kOff*out_timeOff));
+		this.RU_OffAdjusted = this.RU_Off+out_RU0;
 	};
-// change to at timeOn
 
 }

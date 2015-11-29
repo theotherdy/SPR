@@ -16,6 +16,8 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 	this.RPUM = RPUM;
 	this.output = outputModel;
 	this.experiment = experimentStatus;
+	this.RU0_set = 0;
+	this.isDisabled = false;
 
 /* b) initialise application to generate unique values for the new system */
 	this.system.set_tRC();
@@ -26,7 +28,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 	this.system.set_mwR();
 	this.system.find_mwLR(this.system.mwL, this.system.mwR);
 	this.output.find_RU0(this.system.tRC, this.system.mwR, this.vol, this.RPUM);
-	this.output.find_RU_Max(this.system.tRC, this.system.mwLR, this.vol, this.RPUM);
+	this.output.find_RU_Max(this.system.tRC, this.system.mwLR, this.vol, this.RPUM, this.output.RU0);
 
 /* d) creating function for "setup" and "eat" button */
 	this.setup = function () {
@@ -39,25 +41,29 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// 
 		this.output.add_fLC(new_fLC);
 		this.output.add_timeOn(new_timeOn);
 		this.output.add_timeOff(new_timeOff);
-		this.output.calc_RU_On(this.output.RU_Max, this.output.fLC[this.experiment.steps], this.system.Kd, this.system.kOn, this.system.kOff, this.output.timeOn[this.experiment.steps]); // convert into function which injects output to graph
-		this.RU_On_adjusted = this.output.RU_On+this.output.RU0;
-		this.output.calc_RU_Off(this.output.RU_Max, this.system.kOff, this.output.timeOff[this.experiment.steps]);
-		this.RU_Off_adjusted = this.output.RU_Off+this.output.RU0;
+		this.output.calc_RU_On(this.output.RU_Max, this.output.fLC[this.experiment.steps], this.system.Kd, this.system.kOn, this.system.kOff, this.output.timeOn[this.experiment.steps], this.output.RU0); // convert into function which injects output to graph
+		this.output.calc_RU_Off(this.output.RU_On, this.system.kOff, this.output.timeOff[this.experiment.steps], this.output.RU0);
 		this.experiment.stepsCounter();
 		this.experiment.timeOfDayCounter();
 	};
 
-/* d) creating function for "setup" and "eat" button */
+/* d) creating function for set "zero" button */
+	this.set_RU0 = function() {
+		this.RU0_set = this.output.RU_On;
+		this.isDisabled = true;
+	};
+
+/* e) creating function for "eat" button */
 	this.eat = function () {
 		this.experiment.timeOfDayCounter();
 	};
 
-/* e) creating function for "home" button */
+/* f) creating function for "home" button */
 	this.goHome = function () {
 		this.experiment.timeOfDay = this.experiment.startOfDay;
 	};
 
-/* f) creating a function for "restart" button */
+/* g) creating a function for "restart" button */
 	this.restart = function () {
 		this.experiment.daysLeft = this.experiment.daysAllowed;
 		this.experiment.timeOfDay = this.experiment.startOfDay;
