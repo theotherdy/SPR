@@ -1,21 +1,22 @@
 	/* Main Controller: executes all Services onto the View */
 
 /* 1. master module to compile in all sub-modules for embedding ng-app in HTML */
-var app = angular.module('SPR', ['model'])
+var app = angular.module('SPR', ['model', 'chart-js'])
 	.constant('vol', 0.000001) // volume inside chip
 	.constant('RPUM', 100000000); // response per unit mass (RU/g)
 
 /* 2. setting up controller */
 app.controller('viewCtrl', viewMethod);
-viewMethod.$inject = ['systemModel', 'vol', 'RPUM', 'outputModel', 'experimentStatus']; // injecting systemModel of viewMethod into viewCrtl
+viewMethod.$inject = ['systemModel', 'vol', 'RPUM', 'outputModel', 'experimentStatus', 'chartConfig']; // injecting systemModel of viewMethod into viewCrtl
 
-function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus) {	// declaring systemModel relationship to viewMethod
+function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chartConfig) {	// declaring systemModel relationship to viewMethod
 /* a) define how different dependencies are called it out onto the view */
 	this.system = systemModel;
 	this.vol = vol;
 	this.RPUM = RPUM;
 	this.output = outputModel;
 	this.experiment = experimentStatus;
+	this.chart = chartConfig;
 	this.RU0_set = 0;
 	this.isDisabled = false;
 

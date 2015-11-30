@@ -52,4 +52,5 @@ function outputMethod(systemModel, experimentStatus) {
 	this.calc_carryOverTimeOn = function(out_RU_Off, sys_Kd, sys_fLC, out_RU_MaxLR, sys_kOn, sys_kOff) {
 		this.carryOverTimeOn = -(Math.log((out_RU_Off-sys_Kd+out_RU_Off*sys_fLC)/(out_RU_MaxLR*sys_fLC)))*(1/(sys_kOn*sys_fLC+sys_kOff));
 	};
+	// once finished, add carryOverTimeOn to timeOn input as new base for calc_RU_On
 }

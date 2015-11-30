@@ -2,7 +2,24 @@
 
 * { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; }
 
+/* Chart style */
+
+#SPRchart {
+	border: 3px solid #808080 !important;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+}
+
 /* Debugging Border */
+
+.control-interface {
+	border: 3px solid black !important;
+	width: 950px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+}
 
 .system { 
 	border: 2px solid red !important; 
@@ -30,10 +47,6 @@
 	width: 310px;
 	margin-left: auto;
 	margin-right: auto;	
-}
-
-body { 
-	display: flex;
 }
 
 /* Media Query
