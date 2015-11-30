@@ -22,7 +22,9 @@
 
 
 			<!-- Chart.js Libraries -->
-		<script type="text/javascript" src="libraries/chart-js/chart.min.js"></script>
+		<script type="text/javascript" src="libraries/chart-js/Chart.min.js"></script>
+		<script type="text/javascript" src="libraries/chart-js/angular-chart.min.js"></script>
+		<link rel="stylesheet" href="libraries/chart-js/angular-chart.min.css">
 		<script type="text/javascript" src="libraries/chart-js/chart-config.js"></script>
 		<script type="text/javascript" src="libraries/chart-js/chart-style.css"></script>
 
@@ -51,7 +53,7 @@
 			
 			<!-- 0. Debugging Box -->
 				<!-- 0.1. chart output -->
-					<canvas id="SPRchart" width='600' height='400'></canvas>
+					<canvas id="line" class="chart chart-line" chart-data="this.chart.data" chart-labels="this.chart.labels" chart-legend="true" chart-series="this.chart.series" chart-click="this.chart.onClick()" width="600" height="400"></canvas>
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">
 						<div class="system">
