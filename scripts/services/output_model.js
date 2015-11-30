@@ -48,4 +48,8 @@ function outputMethod(systemModel, experimentStatus) {
 		this.RU_OffAdjusted = this.RU_Off+out_RU0-out_RU0_set;
 	};
 
+/* h) converting leftover resonance from incomplete timeOff run to carry on to new timeOn run */
+	this.calc_carryOverTimeOn = function(out_RU_Off, sys_Kd, sys_fLC, out_RU_MaxLR, sys_kOn, sys_kOff) {
+		this.carryOverTimeOn = -(Math.log((out_RU_Off-sys_Kd+out_RU_Off*sys_fLC)/(out_RU_MaxLR*sys_fLC)))*(1/(sys_kOn*sys_fLC+sys_kOff));
+	};
 }
