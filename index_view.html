@@ -119,19 +119,21 @@
 								<!-- c) RPUM -->
 							<div>response per unit mass (g<sup>-1</sup>) = {{view.RPUM}}</div><br/>	
 								<!-- d) RU Max R -->
-							<div>RU Max R = {{view.output.RU0}}</div><br/>
+							<div>RU max R = {{view.output.RU0}}</div><br/>
 								<!-- e) RU Max L -->
-							<div>RU Max L = {{view.output.RU_MaxL}}</div><br/>
+							<div>RU max L = {{view.output.RU_MaxL}}</div><br/>
 								<!-- f) RU Max LR -->
-							<div>RU Max LR = {{view.output.RU_MaxLR}}</div><br/>						
+							<div>RU max LR = {{view.output.RU_MaxLR}}</div><br/>					
 								<!-- g) RU0 (set) -->
 							<div>RU0 set = {{view.RU0_set}}</div><br/>	
 								<!-- h) RU_On -->
-							<div>RU On Adjusted = {{view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1]}}</div><br/>
+							<div>RU on adjusted = {{view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1]}}</div><br/>
 								<!-- i) RU_Off -->
-							<div>RU Off Adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
-								<!-- i) carryTimeOn -->
-							<div>Carry Time On = {{view.output.carryOverTimeOn}}</div><br/>
+							<div>RU off adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
+								<!-- j) intermediate time on >
+							<div ng-repeat="I_TimeOn in view.output.intermediateTimeOn track by $index">intermediate time on = {{I_TimeOn}}</div><br/>
+								< k) carryTimeOn >
+							<div>carry time on = {{view.output.carryOverTimeOn}}</div><br/-->
 						</div>
 						
 					<!-- 0.4. experiment_model -->

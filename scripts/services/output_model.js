@@ -13,6 +13,7 @@ function outputMethod(systemModel, experimentStatus) {
 	this.timeOn = []; // timeOn must be < 0
 	this.timeOff = []; // timeOff must be < 0
 	this.RU_OnAdjusted = [];
+	this.intermediateTimeOn = [];
 
 /* b) set fLC: user input via form; variable */
 	this.add_fLC = function(new_fLC) {
@@ -48,9 +49,30 @@ function outputMethod(systemModel, experimentStatus) {
 		this.RU_OffAdjusted = this.RU_Off+out_RU0-out_RU0_set;
 	};
 
-/* h) converting leftover resonance from incomplete timeOff run to carry on to new timeOn run */
+/* h) converting leftover resonance from incomplete timeOff run to carry on to new timeOn run 
 	this.calc_carryOverTimeOn = function(out_RU_Off, sys_Kd, sys_fLC, out_RU_MaxLR, sys_kOn, sys_kOff) {
 		this.carryOverTimeOn = -(Math.log((out_RU_Off-sys_Kd+out_RU_Off*sys_fLC)/(out_RU_MaxLR*sys_fLC)))*(1/(sys_kOn*sys_fLC+sys_kOff));
 	};
 	// once finished, add carryOverTimeOn to timeOn input as new base for calc_RU_On
+*/
+
+/* i) generate intermeidate outputs for SPR graph of association and disassocation to plot
+	this.plotCoordinates = function(out_timeOn) {
+		// intermediate points for time on (x-axis coordinate 1)
+		this.intermediateTimeOn.length = 0; // clear previous graph
+		function generateTimeOn() {
+			var i;
+			for (i = 0; i <= out_timeOn; i+(out_timeOn/4)) { // create 4 points
+				this.intermediateTimeOn.push(i);
+			}
+		}
+		setInterval(generateTimeOn, 1000); // 1000 msec = 1 sec interval
+
+		// intermediate points for RU On (y-axis coordinate 1)
+
+		// intermediate points for time off (x-axis coordinate 2)
+
+		// intemediate points for RU Off (y-axis coordinate 2)
+	};
+*/
 }
