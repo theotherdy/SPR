@@ -1,7 +1,7 @@
 	/* Output Mathematical Model: contain functions to input user-generated parameters and ouput values for graphical display */
 
 /* 1. registering modules, services and constants */
-var app = angular.module('output_model', ['system_model', 'experiment_status', 'cookies'])
+angular.module('output_model', ['system_model', 'experiment_status', 'cookies'])
 	.service('outputModel', ['systemModel', 'experimentStatus', '$cookies', outputMethod]);
 
 function outputMethod(systemModel, experimentStatus, $cookies) { 

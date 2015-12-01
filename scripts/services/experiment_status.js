@@ -1,7 +1,7 @@
 	/* Experimental Status: contain functions to ouput values for state of experiment */
 
 /* 1. registering modules, services and constants */
-var app = angular.module('experiment_status', [])
+angular.module('experiment_status', [])
 	.service('experimentStatus', [experimentTrack]);
 
 function experimentTrack() { 

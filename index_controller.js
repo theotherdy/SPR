@@ -1,7 +1,7 @@
 	/* Main Controller: executes all Services onto the View */
 
 /* 1. master module to compile in all sub-modules for embedding ng-app in HTML */
-var app = angular.module('SPR', ['model', 'chart-js', 'cookies', 'filters'])
+angular.module('SPR', ['model', 'chart-js', 'cookies', 'filters'])
 	.constant('vol', 0.000001) // volume inside chip
 	.constant('RPUM', 100000000); // response per unit mass (RU/g)
 
@@ -46,7 +46,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chart
 		this.output.add_timeOff(new_timeOff);
 		this.output.calc_RU_On(this.output.RU_MaxL, this.output.fLC[this.experiment.steps], this.system.Kd, this.system.kOn, this.system.kOff, this.output.timeOn[this.experiment.steps], this.output.RU0, this.RU0_set); // convert into function which injects output to graph
 		this.output.calc_RU_Off(this.output.RU_On, this.system.kOff, this.output.timeOff[this.experiment.steps], this.output.RU0, this.RU0_set);
-		this.output.plotCoordinates(new_timeOn);
+		/* this.output.plotCoordinates(new_timeOn); */
 		this.experiment.stepsCounter();
 		this.experiment.timeOfDayCounter();
 	};
@@ -66,6 +66,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chart
 /* h) creating function for "home" button */
 	this.goHome = function () {
 		this.experiment.timeOfDay = this.experiment.startOfDay;
+		/* this.experiment.intermediateTimeOn.length = 0; */
 	};
 
 /* i) creating a function for "restart" button */
@@ -76,5 +77,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chart
 		this.output.fLC.length = 0;
 		this.output.timeOn.length = 0;
 		this.output.timeOff.length = 0;
+		this.output.RU_OnAdjusted.length = 0;
+		/* this.experiment.intermediateTimeOn.length = 0; */
 	};
 }

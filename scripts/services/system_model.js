@@ -1,7 +1,7 @@
 	/* System Mathematical Model: contain functions to ouput values of ligand-receptor system */
 
 /* 1. registering modules, services and constants */
-var app = angular.module('system_model', [])
+angular.module('system_model', [])
 	.service('systemModel', [systemMethod]);
 
 function systemMethod() { // creating master function object that encapsulate all methods to inject into service

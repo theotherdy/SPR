@@ -1,7 +1,7 @@
 	/* Creating chart using Chart.js */
 
 /* 1. registering modules, services and constants */
-var app = angular.module('chart_config', ['chart.js'])
+angular.module('chart_config', ['chart.js'])
 	.service('chartConfig', [chartCreate]);
 
 /* 2. creating sub-methods as part of the function object that can be called */
