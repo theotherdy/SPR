@@ -59,16 +59,18 @@ function outputMethod(systemModel, experimentStatus, $cookies) {
 			// intermediate points for time on (x-axis coordinate 1)
 		var valTimeOn; // define variable to push
 		call.intermediateTimeOn.length = 0; // clear previous graph points
-		var createCoordinates = function() {
-			for (i = 0; i <= steps; i++) {
+		/* call.intermediateTimeOn.push(1); */ // test to check if push is working, which works
+		var createTimeOnIntermediate = function(i) {
+			setTimeout(function(){
 				valTimeOn = i*(out_timeOn/steps);
-				call.intermediateTimeOn.push(valTimeOn);
-				}
-			};
-		createCoordinates();
+				call.intermediateTimeOn.push(valTimeOn); // value is correct and function is working but its not pushing into array
+				/* alert(valTimeOn); */ // test to see if setTimeout is working, which does
+			}, 1500);
+		};
+		for (i = 0; i <= steps; i++) {
+			createTimeOnIntermediate(i);
+		}
 
-/*setTimeout(function(i){*/
-/*, 2000)*/
 		// intermediate points for RU On (y-axis coordinate 1)
 
 		// intermediate points for time off (x-axis coordinate 2)
