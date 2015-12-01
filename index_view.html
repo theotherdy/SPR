@@ -29,7 +29,7 @@
 		<script type="text/javascript" src="libraries/chart-js/angular-chart.min.js"></script>
 		<link rel="stylesheet" href="libraries/chart-js/angular-chart.min.css">
 		<script type="text/javascript" src="libraries/chart-js/chart-config.js"></script>
-		<script type="text/javascript" src="libraries/chart-js/chart-style.css"></script>
+		<link rel="stylesheet" href="libraries/chart-js/chart-style.css">
 
 	    	<!-- ng-grid Libraries -->
 
@@ -56,7 +56,7 @@
 			
 			<!-- 0. Debugging Box -->
 				<!-- 0.1. chart output -->
-					<canvas id="line" class="chart chart-line" chart-data="this.chart.data" chart-labels="this.chart.labels" chart-legend="true" chart-series="this.chart.series" chart-click="this.chart.onClick()" width="600" height="400"></canvas>
+					<!--canvas id="line" class="chart chart-line" chart-data="view.chart.data" chart-labels="view.chart.labels" chart-legend="true" chart-series="view.chart.series" chart-click="view.chart.onClick()" width="600" height="400"></canvas-- >
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">
 						<div class="system">
@@ -80,7 +80,6 @@
 					<!-- 0.3. ouput_model -->
 						<div class="output">
 							<h1>Output Model</h1>
-
 								<!-- a) combined form for input: fLC, timeOn, timeOff -->
 							<div class="form">
 									<!-- i) fLC -->
@@ -93,11 +92,11 @@
 									association experiment time (s) <br/><input name="timeOn" type="number" min="0.5" max="900" ng-model="input_timeOn" required>
 								</form><br/>
 								<div ng-show="timeOn_Form.timeOn.$dirty && timeOn_Form.timeOn.$invalid">Must be a number between 0.5 and 900</div><br/>
-									<!-- iii) timeOff -->
+									<!-- iii) timeOff >
 								<form novalidate name="timeOff_Form">
 									disassociation experiment time (s) <br/><input name="timeOff" type="number" min="0.5" max="900" ng-model="input_timeOff" required>
 								</form> <br/>
-								<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number between 0.5 and 900</div><br/>
+								<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number between 0.5 and 900</div><br/-->
 									<!-- iv) "setup experiment" button-->
 								<button ng-click="view.setup()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button>
 									<!-- v) "run experiment" button -->
@@ -110,12 +109,12 @@
 								<button ng-click="view.goHome()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">Go Home</button>
 									<!-- viii) "restart" button -->
 								<button ng-click="view.restart()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay && view.experiment.daysLeft == view.experiment.daysAllowed">Restart</button>
-									<!-- viii) Experiment finishes -->
+									<!-- viii) experiment finishes reminder -->
 								<div ng-show="view.experiment.daysLeft == 0 && view.experiment.timeOfDay == view.experiment.endOfDay">No more trials left! Restart!</div><br/>
 									<!-- viii) results display (test) -->
 								<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC = {{fLC_input}}</div>
 								<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn = {{timeOn_input}}</div>
-								<div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div>
+								<!--div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div-->
 							</div><br/>
 								<!-- b) vol -->
 							<div>volume in SPR chip (dm<sup>3</sup>) = {{view.vol}}</div><br/>
@@ -131,12 +130,10 @@
 							<div>RU0 set = {{view.RU0_set}}</div><br/>	
 								<!-- h) RU_On -->
 							<div>RU on adjusted = {{view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1]}}</div><br/>
-								<!-- i) RU_Off -->
-							<div>RU off adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
-								<!-- j) intermediate time on >
+								<!-- i) RU_Off >
+							<div>RU off adjusted = {{view.output.RU_OffAdjusted}}</div><br/-->
+								<!-- j) intermediate time on -->
 							<div ng-repeat="I_TimeOn in view.output.intermediateTimeOn track by $index">intermediate time on = {{I_TimeOn}}</div><br/>
-								< k) carryTimeOn >
-							<div>carry time on = {{view.output.carryOverTimeOn}}</div><br/-->
 						</div>
 						
 					<!-- 0.4. experiment_model -->
@@ -154,7 +151,7 @@
 								<!-- iii. Days Left -->
 							<div>Days Left (days) = {{view.experiment.daysLeft}}</div><br/>
 								<!-- iv. Time of Day -->
-							<div>Time of Day (time) = {{view.experiment.timeOfDay}}</div><br/>
+							<div>Time of Day (time) = {{view.experiment.timeOfDay | timeFilter}}</div><br/>
 						</div>
 					</div>
 
