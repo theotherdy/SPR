@@ -1,15 +1,15 @@
 	/* Main Controller: executes all Services onto the View */
 
 /* 1. master module to compile in all sub-modules for embedding ng-app in HTML */
-var app = angular.module('SPR', ['model', 'chart-js'])
+var app = angular.module('SPR', ['model', 'chart-js', 'cookies'])
 	.constant('vol', 0.000001) // volume inside chip
 	.constant('RPUM', 100000000); // response per unit mass (RU/g)
 
 /* 2. setting up controller */
 app.controller('viewCtrl', viewMethod);
-viewMethod.$inject = ['systemModel', 'vol', 'RPUM', 'outputModel', 'experimentStatus', 'chartConfig']; // injecting systemModel of viewMethod into viewCrtl
+viewMethod.$inject = ['systemModel', 'vol', 'RPUM', 'outputModel', 'experimentStatus', 'chartConfig', '$cookies']; // injecting services and constant into viewMethod function
 
-function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chartConfig) {	// declaring systemModel relationship to viewMethod
+function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chartConfig, $cookies) {	// declaring services and constant relationship to viewMethod
 /* a) define how different dependencies are called it out onto the view */
 	this.system = systemModel;
 	this.vol = vol;
@@ -20,7 +20,10 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chart
 	this.RU0_set = 0;
 	this.isDisabled = false;
 
-/* b) initialise application to generate unique values for the new system */
+/* b) check if there is stored data in cookies */
+	
+
+/* c) initialise application to generate unique values for the new system */
 	this.system.set_tRC();
 	this.system.set_Kd();
 	this.system.set_kOff();
@@ -36,7 +39,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chart
 		this.experiment.dayOfExperimentCounter();
 	};
 
-/* c) creating function for "run experiment" button  */
+/* e) creating function for "run experiment" button  */
 	this.runExperiment = function (new_fLC, new_timeOn, new_timeOff) {
 		this.output.add_fLC(new_fLC);
 		this.output.add_timeOn(new_timeOn);
@@ -49,24 +52,24 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chart
 		this.experiment.timeOfDayCounter();
 	};
 
-/* d) creating function for set "zero" button */
+/* f) creating function for set "zero" button */
 	this.set_RU0 = function() {
 		this.RU0_set = this.output.RU_OnAdjusted[this.output.RU_OnAdjusted.length-1];
 		this.isDisabled = true;
 		this.output.carryOverTimeOn = 0;
 	};
 
-/* e) creating function for "eat" button */
+/* g) creating function for "eat" button */
 	this.eat = function () {
 		this.experiment.timeOfDayCounter();
 	};
 
-/* f) creating function for "home" button */
+/* h) creating function for "home" button */
 	this.goHome = function () {
 		this.experiment.timeOfDay = this.experiment.startOfDay;
 	};
 
-/* g) creating a function for "restart" button */
+/* i) creating a function for "restart" button */
 	this.restart = function () {
 		this.experiment.daysLeft = this.experiment.daysAllowed;
 		this.experiment.timeOfDay = this.experiment.startOfDay;
