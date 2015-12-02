@@ -8,7 +8,7 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 
 /* 2. creating sub-methods as part of the function object that can be outputed */
 
-/* a) defining arrays to store data looutputy */
+/* a) all the data to be stored */
 	var output = this; // create a specific selector for outputMethod specific module required in plotCoordinates but used with 'all or nothing' principle
 	output.fLC = []; // fLC  must be <= 0, to obtain background value
 	output.timeOn = []; // timeOn must be < 0
