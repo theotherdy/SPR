@@ -12,9 +12,7 @@ angular.module('filters', ['time_filter', 'mw_filter']);
 /* mw_filter = remove a 1000 from molecular weight and put a k in display */
 
 	/* 3. creating module for Chart.js */
-angular.module('chart-js', ['chart_config']);
-
-/* chart_config = creating chart */
+/* chart-config module existed in chart.js libraries folder
 
 	/* 4. creating module for cookies */
 angular.module('cookies', ['ngCookies']);

@@ -39,7 +39,7 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 
 /* f) find the RU increase when R is totally saturated by L; constant */
 	output.find_RU_Max = function(sys_tRC, sys_mwR, con_vol, con_RPUM, sys_mwL, sys_mwLR) {
-		output.RU0 = (Math.round(sys_tRC*sys_mwR*con_vol*con_RPUM*2))/2; // round the answer to the nearest 0.5; since it suppose to give a result without recurring decimels
+		output.RU0 = (Math.round(sys_tRC*sys_mwR*con_vol*con_RPUM*2))/2; // round the answer to the nearest 0.5; since it suppose to give a result without recurring decimals
 		output.RU_MaxL = (Math.round(sys_tRC*sys_mwL*con_vol*con_RPUM*2))/2;
 		output.RU_MaxLR = (Math.round(sys_tRC*sys_mwLR*con_vol*con_RPUM*2))/2;
 	};
@@ -60,7 +60,7 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 	output.plotCoordinates = function(out_timeOn, out_RU_On, out_timeOff, out_RU_Off) {
 		output.intermediateTimeOn.length = 0; // clear previous graph points
 			// pre-defined variables
-		var totalSteps = 4;
+		var totalSteps = 20;
 		var currentStep = 0;
 		
 			// creating all plot
@@ -76,7 +76,7 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 
 		if(currentStep < totalSteps) {
 			currentStep++;
-			$timeout(function() {output.plotIntermediateTimeOn(out_timeOn, currentStep, totalSteps);}, 500);
+			$timeout(function() {output.plotIntermediateTimeOn(out_timeOn, currentStep, totalSteps);}, 0.001); // 1 miliseconds increment
 		}
 	};
 
@@ -86,7 +86,7 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 
 		if(currentStep < totalSteps) {
 			currentStep++;
-			$timeout(function() {output.plotIntermediateRU_on(out_RU_On, currentStep, totalSteps);}, 500);
+			$timeout(function() {output.plotIntermediateRU_on(out_RU_On, currentStep, totalSteps);}, 0.001);
 		}
 	};
 		// intermediate points for time off (x-axis coordinate 2)
@@ -95,7 +95,7 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 
 		if(currentStep < totalSteps) {
 			currentStep++;
-			$timeout(function() {output.plotIntermediateTimeOff(out_timeOff, currentStep, totalSteps);}, 500);
+			$timeout(function() {output.plotIntermediateTimeOff(out_timeOff, currentStep, totalSteps);}, 0.001);
 		}
 	};
 
@@ -105,7 +105,7 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 
 		if(currentStep < totalSteps) {
 			currentStep++;
-			$timeout(function() {output.plotIntermediateRU_off(out_RU_Off, currentStep, totalSteps);}, 500);
+			$timeout(function() {output.plotIntermediateRU_off(out_RU_Off, currentStep, totalSteps);}, 1);
 		}
 	};
 }

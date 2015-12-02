@@ -55,7 +55,8 @@
 			
 			<!-- 0. Debugging Box -->
 				<!-- 0.1. chart output -->
-					<!--canvas id="line" class="chart chart-line" chart-data="view.chart.data" chart-labels="view.chart.labels" chart-legend="true" chart-series="view.chart.series" chart-click="view.chart.onClick()" width="600" height="400"></canvas-->
+					<h1 id="graph-label">SPR graph of resonance(RU) against time(s)</h1>
+					<canvas id="line" class="chart chart-line" chart-data="view.chart.data" chart-labels="view.chart.labels" chart-legend="false" chart-options="view.chart.options" chart-series="view.chart.series" chart-click="view.chart.onClick()" chart-hover="view.chart.hover()"></canvas>
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">
 						<div class="system">
@@ -131,14 +132,11 @@
 							<div>RU on adjusted = {{view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1]}}</div><br/>
 								<!-- i) RU_Off -->
 							<div>RU off adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
-								<!-- j) intermediate time on -->
+								<!-- j) intermediate coordinates>
 							<div ng-repeat="intTimeOn in view.output.intermediateTimeOn track by $index">intermediate time on = {{intTimeOn}}</div><br/>
-								<!-- k) intermediate RU on -->
 							<div ng-repeat="intRU_on in view.output.intermediateRU_on track by $index">intermediate RU on = {{intRU_on}}</div><br/>
-								<!-- l) intermediate time off -->
 							<div ng-repeat="intTimeOff in view.output.intermediateTimeOff track by $index">intermediate time off = {{intTimeOff}}</div><br/>
-								<!-- m) intermediate RU off -->
-							<div ng-repeat="intRU_off in view.output.intermediateRU_off track by $index">intermediate RU off = {{intRU_off}}</div><br/>
+							<div ng-repeat="intRU_off in view.output.intermediateRU_off track by $index">intermediate RU off = {{intRU_off}}</div><br/-->
 						</div>
 						
 					<!-- 0.4. experiment_model -->

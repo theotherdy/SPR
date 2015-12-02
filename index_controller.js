@@ -1,7 +1,7 @@
 	/* Main Controller: executes all Services onto the View */
 
 /* 1. master module to compile in all sub-modules for embedding ng-app in HTML */
-var app = angular.module('SPR', ['model', 'chart-js', 'cookies', 'filters'])
+var app = angular.module('SPR', ['model', 'cookies', 'filters', 'chart_config'])
 	.constant('vol', 0.000001) // volume inside chip
 	.constant('RPUM', 100000000) // response per unit mass (RU/g)
 	.constant('defaultTimeOff', 900) // 900 seconds; if want to include option of altering time off, just remove the constant from the controller
