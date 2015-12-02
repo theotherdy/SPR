@@ -99,10 +99,12 @@
 								<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number between 0.5 and 900</div><br/-->
 									<!-- iv) "setup experiment" button-->
 								<button ng-click="view.setup()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button>
+									<!-- v) "setting background value" button -->
+								<button ng-click="view.set_background()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled || view.output.RU_OnAdjusted.length == 0">background</button>
 									<!-- v) "run experiment" button -->
 								<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button>
-									<!-- v) "setting zero value" button -->
-								<button ng-click="view.set_RU0()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled || view.output.RU_OnAdjusted.length == 0">zero</button>
+									<!-- v) "washing up" button >
+								<button ng-click="view.washUp()" ng-disabled="">wash-up</button-->
 									<!-- vi) "eat" button -->
 								<button ng-click="view.eat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button>
 									<!-- vii) "go home" button -->
@@ -126,11 +128,11 @@
 							<div>RU max L = {{view.output.RU_MaxL}}</div><br/>
 								<!-- f) RU Max LR -->
 							<div>RU max LR = {{view.output.RU_MaxLR}}</div><br/>					
-								<!-- g) RU0 (set) -->
-							<div>RU0 set = {{view.RU0_set}}</div><br/>	
-								<!-- h) RU_On >
+								<!-- g) set background -->
+							<div>Set Background = {{view.backgroundSet}}</div><br/>	
+								<!-- h) RU_On -->
 							<div>RU on adjusted = {{view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1]}}</div><br/>
-								< i) RU_Off>
+								<!-- i) RU_Off>
 							<div>RU off adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
 								< j) intermediate coordinates>
 							<div ng-repeat="intTimeOn in view.output.intermediateTimeOn track by $index">intermediate time on = {{intTimeOn}}</div><br/>

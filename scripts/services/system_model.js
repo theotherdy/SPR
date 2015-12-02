@@ -24,7 +24,7 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* b) set Kd: random assignment out of possibility in array; constant */
 	system.set_Kd = function() {
-		system.Kd_possible = [1, 1, 1, 1, 1, 1];
+		system.Kd_possible = [0.00000001, 0.00000002, 0.00000004, 0.00000006, 0.00000008, 0.0000001];
 // Kd value range for strong binding = 0.00000001, 0.00000002, 0.00000004, 0.00000006, 0.00000008, 0.0000001
 		system.flip_Kd = function() {
 			system.Kd_chance = Math.floor(6*Math.random());
@@ -40,7 +40,7 @@ function systemMethod() { // creating master function object that encapsulate al
 
 /* c) set kOff: random assignment out of possibility in array; constant */
 	system.set_kOff = function() {
-		system.kOff_possible = [1, 1, 1, 1, 1, 1];
+		system.kOff_possible = [0.01, 0.1, 0.5, 1, 5, 10];
 // kOff value range for strong binding = 0.00005, 0.00010, 0.00015, 0.00020, 0.00025, 0.00030
 		system.flip_kOff = function() {
 			system.kOff_chance = Math.floor(6*Math.random());

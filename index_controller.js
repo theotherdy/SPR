@@ -20,7 +20,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, defaultTimeOff, experim
 	view.dTimeOff = defaultTimeOff;
 	view.experiment = experimentStatus;
 	view.chart = chartConfig;
-	view.RU0_set = 0;
+	view.backgroundSet = 0;
 	view.isDisabled = false;
 
 /* b) check if there is stored data in cookies */
@@ -36,41 +36,47 @@ function viewMethod(systemModel, vol, RPUM, outputModel, defaultTimeOff, experim
 	view.system.find_mwLR(view.system.mwL, view.system.mwR);
 	view.output.find_RU_Max(view.system.tRC, view.system.mwR, view.vol, view.RPUM, view.system.mwL, view.system.mwLR);
 
-/* d) creating function for "setup" and "eat" button */
+/* d) creating function for "setup" button */
 	view.setup = function () {
 		view.experiment.timeOfDayCounter();
 		view.experiment.dayOfExperimentCounter();
 	};
 
-/* e) creating function for "run experiment" button  */
-	view.runExperiment = function (new_fLC, new_timeOn) {
-		view.output.add_fLC(new_fLC);
-		view.output.add_timeOn(new_timeOn);
-		view.output.add_timeOff(view.dTimeOff);
-		view.output.plotCoordinates(new_timeOn, view.output.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.output.RU0, view.RU0_set);
-		/*view.output.calc_RU_Off(view.output.RU_On, view.system.kOff, view.output.timeOff[view.experiment.steps], view.output.RU0, view.RU0_set);*/
-		view.experiment.stepsCounter();
-		view.experiment.timeOfDayCounter();
-	};
-
-/* f) creating function for set "zero" button */
-	view.set_RU0 = function() {
-		view.RU0_set = view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1];
+/* e) creating function for set "zero" button */
+	view.set_background = function() {
+		view.backgroundSet = view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1];
 		view.isDisabled = true;
 		view.output.carryOverTimeOn = 0;
 	};
 
-/* g) creating function for "eat" button */
+/* f) creating function for "run experiment" button  */
+	view.runExperiment = function (new_fLC, new_timeOn) {
+		view.output.add_fLC(new_fLC);
+		view.output.add_timeOn(new_timeOn);
+		view.output.add_timeOff(view.dTimeOff);
+		view.output.plotCoordinates(new_timeOn, view.output.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.output.RU0, view.backgroundSet);
+		/*view.output.calc_RU_Off(view.output.RU_On, view.system.kOff, view.output.timeOff[view.experiment.steps], view.output.RU0, view.backgroundSet);*/
+		view.experiment.stepsCounter();
+		view.experiment.timeOfDayCounter();
+	};
+
+/* g) creating function for "wash-up" button */
+/*	view.washUp = function() {
+		// restore graph to baseline level
+		// resolve issue of clearing data in RU on adjusted; move RU on adjusted data into intermediate instead
+	}; */
+
+/* h) creating function for "eat" button */
 	view.eat = function () {
 		view.experiment.timeOfDayCounter();
 	};
 
-/* h) creating function for "home" button */
+/* i) creating function for "home" button */
 	view.goHome = function () {
 		view.experiment.timeOfDay = view.experiment.startOfDay;
 	};
 
-/* i) creating a function for "restart" button */
+/* j) creating a function for "restart" button */
 	view.restart = function () {
 		view.experiment.daysLeft = view.experiment.daysAllowed;
 		view.experiment.timeOfDay = view.experiment.startOfDay;
@@ -80,10 +86,9 @@ function viewMethod(systemModel, vol, RPUM, outputModel, defaultTimeOff, experim
 		view.output.timeOn.length = 0;
 		view.output.timeOff.length = 0;
 		view.output.RU_OnAdjusted.length = 0;
-		view.output.RU_OffAdjusted = null;
+		view.output.RU_OffAdjusted.length = 0;
 		view.output.intermediateTimeOn.length = 0;
-		view.output.intermediateRU_on.length = 0;
-		view.output.intermediateTimeOff.length = 0;
-		view.output.intermediateRU_off.length = 0;
+/*		view.output.intermediateTimeOff.length = 0;
+		view.output.intermediateRU_off.length = 0; */
 	};
 }

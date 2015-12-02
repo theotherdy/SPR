@@ -15,8 +15,8 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 	output.timeOff = []; // timeOff must be < 0
 	output.RU_OnAdjusted = [];
 	output.intermediateTimeOn = [];
-	output.intermediateTimeOff = [];
-	output.intermediateRU_off = [];
+/*	output.intermediateTimeOff = [];
+	output.intermediateRU_off = []; */
 
 /* b) check for cookies and restore or create new */
 
@@ -44,19 +44,19 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 	};
 
 /* g) find RU_On: derived from 2nd order association formula; variable */
-	output.calc_RU_On = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn, out_RU0, RU0_set) {
+	output.calc_RU_On = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn, out_RU0, backgroundSet) {
 		output.RU_On = ((out_RU_MaxL*out_fLC)/(sys_Kd+out_fLC))*(1-Math.pow(Math.E,-(sys_kOn*out_fLC+sys_kOff)*out_timeOn));
-		output.RU_OnAdjusted.push(output.RU_On+out_RU0-RU0_set);
+		output.RU_OnAdjusted.push(output.RU_On+out_RU0-backgroundSet);
 	};
 
 /* h) find RU_Off: derived from 1st order disassociation formula; variable */
-	output.calc_RU_Off = function(out_RU_On, sys_kOff, out_timeOff, out_RU0, out_RU0_set) {
+	output.calc_RU_Off = function(out_RU_On, sys_kOff, out_timeOff, out_RU0, backgroundSet) {
 		output.RU_Off = out_RU_On*(Math.pow(Math.E, -sys_kOff*out_timeOff));
-		output.RU_OffAdjusted = output.RU_Off+out_RU0-out_RU0_set;
+		output.RU_OffAdjusted = output.RU_Off+out_RU0-backgroundSet;
 	};
 
 /* j) generate intermediate outputs for SPR graph of association and disassocation to plot */
-	output.plotCoordinates = function(out_timeOn, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, RU0_set) {
+	output.plotCoordinates = function(out_timeOn, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
 		output.intermediateTimeOn.length = 0; // clear previous graph points
 			// pre-defined variables
 		var totalSteps = 5;
@@ -64,7 +64,7 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 		
 			// creating all plot
 		output.plotIntermediateTimeOn(out_timeOn, currentStep, totalSteps);
-		output.plotIntermediateRU_on(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, RU0_set, currentStep, totalSteps); 
+		output.plotIntermediateRU_on(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet, currentStep, totalSteps); 
 		/*output.plotIntermediateTimeOff(out_timeOff, currentStep, totalSteps); 
 		output.plotIntermediateRU_off(out_RU_OffAdjusted, currentStep, totalSteps);*/
 	};
@@ -80,12 +80,12 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 	};
 
 		// intermediate points for RU On (y-axis coordinate 1)
-	output.plotIntermediateRU_on = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, RU0_set, currentStep, totalSteps) {
-		output.calc_RU_On(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, output.intermediateTimeOn[currentStep], out_RU0, RU0_set);
+	output.plotIntermediateRU_on = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet, currentStep, totalSteps) {
+		output.calc_RU_On(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, output.intermediateTimeOn[currentStep], out_RU0, backgroundSet);
 
 		if(currentStep < totalSteps) {
 			currentStep++;
-			$timeout(function() {output.plotIntermediateRU_on(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, RU0_set, currentStep, totalSteps);}, 500); // 10 miliseconds increment
+			/*$timeout(function() {*/output.plotIntermediateRU_on(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet, currentStep, totalSteps);/*}, 500);*/ // 10 miliseconds increment
 		}
 	};
 		// intermediate points for time off (x-axis coordinate 2)
