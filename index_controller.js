@@ -3,10 +3,10 @@
 /* 1. master module to compile in all sub-modules for embedding ng-app in HTML */
 angular.module('SPR', ['model', 'chart-js', 'cookies', 'filters'])
 	.constant('vol', 0.000001) // volume inside chip
-	.constant('RPUM', 100000000); // response per unit mass (RU/g)
+	.constant('RPUM', 100000000) // response per unit mass (RU/g)
+	.controller('viewCtrl', viewMethod);
 
 /* 2. setting up controller */
-app.controller('viewCtrl', viewMethod);
 viewMethod.$inject = ['systemModel', 'vol', 'RPUM', 'outputModel', 'experimentStatus', 'chartConfig', '$cookies']; // injecting services and constant into viewMethod function
 
 function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chartConfig, $cookies) {	// declaring services and constant relationship to viewMethod
