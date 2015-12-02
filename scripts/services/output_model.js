@@ -15,7 +15,6 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 	output.timeOff = []; // timeOff must be < 0
 	output.RU_OnAdjusted = [];
 	output.intermediateTimeOn = [];
-	output.intermediateRU_on = [];
 	output.intermediateTimeOff = [];
 	output.intermediateRU_off = [];
 
@@ -57,17 +56,17 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 	};
 
 /* j) generate intermediate outputs for SPR graph of association and disassocation to plot */
-	output.plotCoordinates = function(out_timeOn, out_RU_On, out_timeOff, out_RU_Off) {
+	output.plotCoordinates = function(out_timeOn, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, RU0_set) {
 		output.intermediateTimeOn.length = 0; // clear previous graph points
 			// pre-defined variables
-		var totalSteps = 20;
+		var totalSteps = 5;
 		var currentStep = 0;
 		
 			// creating all plot
 		output.plotIntermediateTimeOn(out_timeOn, currentStep, totalSteps);
-		output.plotIntermediateRU_on(out_RU_On, currentStep, totalSteps); 
-		output.plotIntermediateTimeOff(out_timeOff, currentStep, totalSteps); 
-		output.plotIntermediateRU_off(out_RU_Off, currentStep, totalSteps); 
+		output.plotIntermediateRU_on(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, RU0_set, currentStep, totalSteps); 
+		/*output.plotIntermediateTimeOff(out_timeOff, currentStep, totalSteps); 
+		output.plotIntermediateRU_off(out_RU_OffAdjusted, currentStep, totalSteps);*/
 	};
 
 		// intermediate points for time on (x-axis coordinate 1)
@@ -76,36 +75,36 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 
 		if(currentStep < totalSteps) {
 			currentStep++;
-			$timeout(function() {output.plotIntermediateTimeOn(out_timeOn, currentStep, totalSteps);}, 0.001); // 1 miliseconds increment
+			output.plotIntermediateTimeOn(out_timeOn, currentStep, totalSteps);
 		}
 	};
 
 		// intermediate points for RU On (y-axis coordinate 1)
-	output.plotIntermediateRU_on = function(out_RU_On, currentStep, totalSteps) {
-		output.intermediateRU_on.push(currentStep*(out_RU_On/totalSteps));
+	output.plotIntermediateRU_on = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, RU0_set, currentStep, totalSteps) {
+		output.calc_RU_On(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, output.intermediateTimeOn[currentStep], out_RU0, RU0_set);
 
 		if(currentStep < totalSteps) {
 			currentStep++;
-			$timeout(function() {output.plotIntermediateRU_on(out_RU_On, currentStep, totalSteps);}, 0.001);
+			$timeout(function() {output.plotIntermediateRU_on(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, RU0_set, currentStep, totalSteps);}, 500); // 10 miliseconds increment
 		}
 	};
 		// intermediate points for time off (x-axis coordinate 2)
-	output.plotIntermediateTimeOff = function(out_timeOff, currentStep, totalSteps) {
+/*	output.plotIntermediateTimeOff = function(out_timeOff, currentStep, totalSteps) {
 		output.intermediateTimeOff.push(currentStep*(out_timeOff/totalSteps));
 
 		if(currentStep < totalSteps) {
 			currentStep++;
-			$timeout(function() {output.plotIntermediateTimeOff(out_timeOff, currentStep, totalSteps);}, 0.001);
+			output.plotIntermediateTimeOff(out_timeOff, currentStep, totalSteps);
 		}
 	};
 
 		// intemediate points for RU Off (y-axis coordinate 2)
-	output.plotIntermediateRU_off = function(out_RU_Off, currentStep, totalSteps) {
-		output.intermediateRU_off.push(currentStep*(out_RU_Off/totalSteps));
+	output.plotIntermediateRU_off = function(out_RU_OffAdjusted, currentStep, totalSteps) {
+		output.intermediateRU_off.push(currentStep*(out_RU_OffAdjusted/totalSteps));
 
 		if(currentStep < totalSteps) {
 			currentStep++;
-			$timeout(function() {output.plotIntermediateRU_off(out_RU_Off, currentStep, totalSteps);}, 1);
+			$timeout(function() {output.plotIntermediateRU_off(out_RU_OffAdjusted, currentStep, totalSteps);}, 0.01);
 		}
-	};
+	}; */
 }

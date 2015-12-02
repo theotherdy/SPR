@@ -13,8 +13,8 @@ function chartCreate(outputModel) {
 		// chart aesthetic
 	chart.options = {
 		animation: false,
-		animationSteps: 60,
-		animationEasing: "easeOutQuart",
+		animationSteps: 75,
+		animationEasing: "easeOutQuint",
 		responsive: false,
 		scaleIntegersOnly: true,
 		scaleBeginAtZero: true,
@@ -25,7 +25,7 @@ function chartCreate(outputModel) {
 
 		// chart data display
 	chart.labels = output.intermediateTimeOn; // x-axis coordinates
-	chart.data = [output.intermediateRU_on]; // y-axix coordinates
+	chart.data = [output.RU_OnAdjusted]; // y-axix coordinates
 	/* chart.series = ['Series A']; */
 
   		// chart functionality
