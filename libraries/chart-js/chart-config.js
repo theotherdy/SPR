@@ -7,13 +7,14 @@ angular.module('chart_config', ['chart.js'])
 /* 2. creating sub-methods as part of the function object that can be called */
 
 function chartCreate() {
-	this.labels = ["January", "February", "March", "April", "May", "June", "July"];
-	this.series = ['Series A', 'Series B'];
-	this.data = [
+	var chart = this;
+	chart.labels = ["January", "February", "March", "April", "May", "June", "July"];
+	chart.series = ['Series A', 'Series B'];
+	chart.data = [
 	    [65, 59, 80, 81, 56, 55, 40],
 	    [28, 48, 40, 19, 86, 27, 90]
   	];
-	this.onClick = function (points, evt) {
+	chart.onClick = function (points, evt) {
     	console.log(points, evt);
   	};
 }

@@ -5,96 +5,96 @@ angular.module('system_model', [])
 	.service('systemModel', [systemMethod]);
 
 function systemMethod() { // creating master function object that encapsulate all methods to inject into service
-
+	var system = this;
 /* 2. creating sub-methods as part of the function object that can be called */
 
 /* a) set tRC: random assignment out of 3 possibilities from model; constant */
-	this.set_tRC = function() {
+	system.set_tRC = function() {
 
 		flip_tRC = 3*Math.random();
 
 		if (flip_tRC <= 1) {
-			this.tRC = 0.000001;
+			system.tRC = 0.000001;
 		} else if (flip_tRC > 2) {
-			this.tRC = 0.0000015;
+			system.tRC = 0.0000015;
 		} else {
-			this.tRC = 0.000002;
+			system.tRC = 0.000002;
 		}
 	};
 
 /* b) set Kd: random assignment out of possibility in array; constant */
-	this.set_Kd = function() {
-		this.Kd_possible = [1, 1, 1, 1, 1, 1];
+	system.set_Kd = function() {
+		system.Kd_possible = [1, 1, 1, 1, 1, 1];
 // Kd value range for strong binding = 0.00000001, 0.00000002, 0.00000004, 0.00000006, 0.00000008, 0.0000001
-		this.flip_Kd = function() {
-			this.Kd_chance = Math.floor(6*Math.random());
+		system.flip_Kd = function() {
+			system.Kd_chance = Math.floor(6*Math.random());
 		};
-		this.flip_Kd();
+		system.flip_Kd();
 
-		if (this.Kd_chance == 6) {
-			this.flip_Kd();
+		if (system.Kd_chance == 6) {
+			system.flip_Kd();
 		} else {
-			this.Kd = this.Kd_possible[this.Kd_chance];
+			system.Kd = system.Kd_possible[system.Kd_chance];
 		}
 	};
 
 /* c) set kOff: random assignment out of possibility in array; constant */
-	this.set_kOff = function() {
-		this.kOff_possible = [1, 1, 1, 1, 1, 1];
+	system.set_kOff = function() {
+		system.kOff_possible = [1, 1, 1, 1, 1, 1];
 // kOff value range for strong binding = 0.00005, 0.00010, 0.00015, 0.00020, 0.00025, 0.00030
-		this.flip_kOff = function() {
-			this.kOff_chance = Math.floor(6*Math.random());
+		system.flip_kOff = function() {
+			system.kOff_chance = Math.floor(6*Math.random());
 		};
-		this.flip_kOff();
+		system.flip_kOff();
 
-		if (this.flip_kOff == 6) {
-			this.flip_kOff();
+		if (system.flip_kOff == 6) {
+			system.flip_kOff();
 		} else {
-			this.kOff = this.kOff_possible[this.kOff_chance];
+			system.kOff = system.kOff_possible[system.kOff_chance];
 		}
 	};
 
 /* d) find kOn: derived from kOff/Kd; constant */
-	this.find_kOn = function(Kd, kOff) {
-		this.kOn = kOff/Kd;
+	system.find_kOn = function(Kd, kOff) {
+		system.kOn = kOff/Kd;
 	};
 
 /* e) set mwL: random assignment out of possibility in array; constant */
-	this.set_mwL = function() {
-		this.mwL_possible = [20000, 30000, 40000, 50000, 60000];
+	system.set_mwL = function() {
+		system.mwL_possible = [20000, 30000, 40000, 50000, 60000];
 
-		this.flip_mwL = function() {
-			this.mwL_chance = Math.floor(5*Math.random());
+		system.flip_mwL = function() {
+			system.mwL_chance = Math.floor(5*Math.random());
 		};
-		this.flip_mwL();
+		system.flip_mwL();
 
 
-		if (this.flip_mwL == 5) {
-			this.flip_mwL();
+		if (system.flip_mwL == 5) {
+			system.flip_mwL();
 		} else {
-			this.mwL = this.mwL_possible[this.mwL_chance];
+			system.mwL = system.mwL_possible[system.mwL_chance];
 		}
 	};
 
 /* f) set mwR: random assignment out of possibility in array; constant */
-	this.set_mwR = function() {
-		this.mwR_possible = [40000, 60000, 80000, 100000, 120000];
+	system.set_mwR = function() {
+		system.mwR_possible = [40000, 60000, 80000, 100000, 120000];
 
-		this.flip_mwR = function() {
-			this.mwR_chance = Math.floor(5*Math.random());
+		system.flip_mwR = function() {
+			system.mwR_chance = Math.floor(5*Math.random());
 		};
-		this.flip_mwR();
+		system.flip_mwR();
 
-		if (this.flip_mwR == 5) {
-			this.flip_mwR();
+		if (system.flip_mwR == 5) {
+			system.flip_mwR();
 		} else {
-			this.mwR = this.mwR_possible[this.mwR_chance];
+			system.mwR = system.mwR_possible[system.mwR_chance];
 		}
 	};
 
 /* g) find mwP: derived from mwR + mwL; constant */
-	this.find_mwLR = function(mwL, mwR) {
-		this.mwLR = this.mwL + this.mwR;
+	system.find_mwLR = function(mwL, mwR) {
+		system.mwLR = system.mwL + system.mwR;
 	};
 
 }
