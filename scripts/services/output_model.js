@@ -39,9 +39,9 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 
 /* f) find the RU increase when R is totally saturated by L; constant */
 	output.find_RU_Max = function(sys_tRC, sys_mwR, con_vol, con_RPUM, sys_mwL, sys_mwLR) {
-		output.RU0 = sys_tRC*sys_mwR*con_vol*con_RPUM;
-		output.RU_MaxL = sys_tRC*sys_mwL*con_vol*con_RPUM;
-		output.RU_MaxLR = sys_tRC*sys_mwLR*con_vol*con_RPUM;
+		output.RU0 = (Math.round(sys_tRC*sys_mwR*con_vol*con_RPUM*2))/2; // round the answer to the nearest 0.5; since it suppose to give a result without recurring decimels
+		output.RU_MaxL = (Math.round(sys_tRC*sys_mwL*con_vol*con_RPUM*2))/2;
+		output.RU_MaxLR = (Math.round(sys_tRC*sys_mwLR*con_vol*con_RPUM*2))/2;
 	};
 
 /* g) find RU_On: derived from 2nd order association formula; variable */

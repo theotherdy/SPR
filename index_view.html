@@ -44,7 +44,6 @@
 		<!-- credit: http://simplestatistics.org/ -->
 		<script type="text/javascript" src="scripts/filters/time_filter.js"></script>
 		<script type="text/javascript" src="scripts/filters/mw_filter.js"></script>
-		<script type="text/javascript" src="scripts/filters/uM_filter.js"></script>
 		<script type="text/javascript" src="index_controller.js"></script>
 
 	</head>
@@ -70,11 +69,11 @@
 								<!-- d) kOn -->
 							<div>kOn (M<sup>-1</sup> s<sup>-1</sup>) = {{view.system.kOn}}</div><br/>
 								<!-- e) mwL -->
-							<div>mol weight ligand (g/mol) = {{view.system.mwL}}</div><br/>
+							<div>mol weight ligand (g/mol) = {{view.system.mwL | mwFilter}}</div><br/>
 								<!-- f) mwR -->
-							<div>mol weight receptor (g/mol) = {{view.system.mwR}}</div><br/>
+							<div>mol weight receptor (g/mol) = {{view.system.mwR | mwFilter}}</div><br/>
 								<!-- g) mwP -->
-							<div>mol weight complex (g/mol) = {{view.system.mwLR}}</div><br/>
+							<div>mol weight complex (g/mol) = {{view.system.mwLR | mwFilter}}</div><br/>
 						</div>
 
 					<!-- 0.3. ouput_model -->
