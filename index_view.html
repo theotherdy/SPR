@@ -92,11 +92,11 @@
 									association experiment time (s) <br/><input name="timeOn" type="number" min="0.5" max="900" ng-model="input_timeOn" required>
 								</form><br/>
 								<div ng-show="timeOn_Form.timeOn.$dirty && timeOn_Form.timeOn.$invalid">Must be a number between 0.5 and 900</div><br/>
-									<!-- iii) timeOff -->
+									<!-- iii) timeOff >
 								<form novalidate name="timeOff_Form">
 									disassociation experiment time (s) <br/><input name="timeOff" type="number" min="0.5" max="900" ng-model="input_timeOff" required>
 								</form> <br/>
-								<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number between 0.5 and 900</div><br/>
+								<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number between 0.5 and 900</div><br/-->
 									<!-- iv) "setup experiment" button-->
 								<button ng-click="view.setup()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button>
 									<!-- v) "run experiment" button -->
@@ -114,7 +114,7 @@
 									<!-- viii) results display (test) -->
 								<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC = {{fLC_input}}</div>
 								<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn = {{timeOn_input}}</div>
-								<div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div>
+								<!--div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div-->
 							</div><br/>
 								<!-- b) vol -->
 							<div>volume in SPR chip (dm<sup>3</sup>) = {{view.vol}}</div><br/>
