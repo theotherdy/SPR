@@ -46,7 +46,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, experimentStatus, chart
 		this.output.add_timeOff(new_timeOff);
 		this.output.calc_RU_On(this.output.RU_MaxL, this.output.fLC[this.experiment.steps], this.system.Kd, this.system.kOn, this.system.kOff, this.output.timeOn[this.experiment.steps], this.output.RU0, this.RU0_set); // convert into function which injects output to graph
 		this.output.calc_RU_Off(this.output.RU_On, this.system.kOff, this.output.timeOff[this.experiment.steps], this.output.RU0, this.RU0_set);
-		this.output.plotCoordinates(new_timeOn); 
+		this.output.plotCoordinates(new_timeOn, this.output.RU_OnAdjusted[this.output.RU_OnAdjusted.length-1], new_timeOff, this.output.RU_OffAdjusted);
 		this.experiment.stepsCounter();
 		this.experiment.timeOfDayCounter();
 	};

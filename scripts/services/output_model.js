@@ -9,12 +9,15 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 /* 2. creating sub-methods as part of the function object that can be called */
 
 /* a) defining arrays to store data locally */
-	var call = this; // create a specific selector for intermediate points function
+	var call = this; // create a specific selector for outputMethod specific module required in plotCoordinates but used with 'all or nothing' principle
 	call.fLC = []; // fLC  must be <= 0, to obtain background value
 	call.timeOn = []; // timeOn must be < 0
 	call.timeOff = []; // timeOff must be < 0
 	call.RU_OnAdjusted = [];
 	call.intermediateTimeOn = [];
+	call.intermediateRU_on = [];
+	call.intermediateTimeOff = [];
+	call.intermediateRU_off = [];
 
 /* b) check for cookies and restore or create new */
 
@@ -54,42 +57,55 @@ function outputMethod(systemModel, experimentStatus, $cookies, $timeout) {
 	};
 
 /* j) generate intermediate outputs for SPR graph of association and disassocation to plot */
-	call.plotCoordinates = function(out_timeOn) {
+	call.plotCoordinates = function(out_timeOn, out_RU_On, out_timeOff, out_RU_Off) {
 		call.intermediateTimeOn.length = 0; // clear previous graph points
-		var steps = 4;
-		var step = 0;
+			// pre-defined variables
+		var totalSteps = 4;
+		var currentStep = 0;
 		
-		// intermediate points for time on (x-axis coordinate 1)
-		call.plotSingleCoordinate(out_timeOn, step, steps); 
+			// creating all plot
+		call.plotIntermediateTimeOn(out_timeOn, currentStep, totalSteps);
+		call.plotIntermediateRU_on(out_RU_On, currentStep, totalSteps); 
+		call.plotIntermediateTimeOff(out_timeOff, currentStep, totalSteps); 
+		call.plotIntermediateRU_off(out_RU_Off, currentStep, totalSteps); 
+	};
 
-		//var steps = 4;
-		//var valTimeOn; // define variable to push
-		//call.intermediateTimeOn.length = 0;
-		/* call.intermediateTimeOn.push(1); */ // test to check if push is working, which works
-		//var createTimeOnIntermediate = function(i) {
-		//	setTimeout(function(){
-		//		valTimeOn = i*(out_timeOn/steps);
-		//		call.intermediateTimeOn.push(valTimeOn); // value is correct and function is working but its not pushing into array
-				/* alert(valTimeOn); */ // test to see if setTimeout is working, which does
-		//	}, 1500);
-		//};
-		///for (i = 0; i <= steps; i++) {
-		//	createTimeOnIntermediate(i);
-		//}
+		// intermediate points for time on (x-axis coordinate 1)
+	call.plotIntermediateTimeOn = function(out_timeOn, currentStep, totalSteps) {
+		call.intermediateTimeOn.push(currentStep*(out_timeOn/totalSteps));
+
+		if(currentStep < totalSteps) {
+			currentStep++;
+			$timeout(function() {call.plotIntermediateTimeOn(out_timeOn, currentStep, totalSteps);}, 500);
+		}
+	};
 
 		// intermediate points for RU On (y-axis coordinate 1)
+	call.plotIntermediateRU_on = function(out_RU_On, currentStep, totalSteps) {
+		call.intermediateRU_on.push(currentStep*(out_RU_On/totalSteps));
 
+		if(currentStep < totalSteps) {
+			currentStep++;
+			$timeout(function() {call.plotIntermediateRU_on(out_RU_On, currentStep, totalSteps);}, 500);
+		}
+	};
 		// intermediate points for time off (x-axis coordinate 2)
+	call.plotIntermediateTimeOff = function(out_timeOff, currentStep, totalSteps) {
+		call.intermediateTimeOff.push(currentStep*(out_timeOff/totalSteps));
+
+		if(currentStep < totalSteps) {
+			currentStep++;
+			$timeout(function() {call.plotIntermediateTimeOff(out_timeOff, currentStep, totalSteps);}, 500);
+		}
+	};
 
 		// intemediate points for RU Off (y-axis coordinate 2)
-	};
-	
-	call.plotSingleCoordinate = function(out_timeOn, step, steps) {
-		call.intermediateTimeOn.push(step*(out_timeOn/steps))
+	call.plotIntermediateRU_off = function(out_RU_Off, currentStep, totalSteps) {
+		call.intermediateRU_off.push(currentStep*(out_RU_Off/totalSteps));
 
-		if(step < steps) {
-			step++;
-			$timeout(function() {call.plotSingleCoordinate(out_timeOn, step, steps)}, 1500);
+		if(currentStep < totalSteps) {
+			currentStep++;
+			$timeout(function() {call.plotIntermediateRU_off(out_RU_Off, currentStep, totalSteps);}, 500);
 		}
-	}
+	};
 }
