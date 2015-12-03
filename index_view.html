@@ -28,15 +28,15 @@
 		<script type="text/javascript" src="libraries/chart-js/Chart.min.js"></script>
 		<script type="text/javascript" src="libraries/chart-js/angular-chart.min.js"></script>
 		<link rel="stylesheet" href="libraries/chart-js/angular-chart.min.css">
-		<script type="text/javascript" src="libraries/chart-js/chart-config.js"></script>
-		<link rel="stylesheet" href="libraries/chart-js/chart-style.css">
+		<script type="text/javascript" src="scripts/services/chart-config.js"></script>
+		<link rel="stylesheet" href="styles/chart-style.css">
 
 	    	<!-- ng-grid Libraries -->
 
 
 	    	<!-- Personal libraries, load last since these files will be referencing to those previous libraries too -->
 		<link rel="stylesheet" href="styles/main.css">
-		<script type="text/javascript" src="index_model.js"></script>
+		<script type="text/javascript" src="scripts/index_model.js"></script>
 		<script type="text/javascript" src="scripts/services/system_model.js"></script>
 		<script type="text/javascript" src="scripts/services/experiment_status.js"></script>
 		<script type="text/javascript" src="scripts/services/output_model.js"></script>
@@ -44,7 +44,7 @@
 		<!-- credit: http://simplestatistics.org/ -->
 		<script type="text/javascript" src="scripts/filters/time_filter.js"></script>
 		<script type="text/javascript" src="scripts/filters/mw_filter.js"></script>
-		<script type="text/javascript" src="index_controller.js"></script>
+		<script type="text/javascript" src="scripts/index_controller.js"></script>
 
 	</head>
 
@@ -75,6 +75,16 @@
 							<div>mol weight receptor (g/mol) = {{view.system.mwR | mwFilter}}</div><br/>
 								<!-- g) mwP -->
 							<div>mol weight complex (g/mol) = {{view.system.mwLR | mwFilter}}</div><br/>
+								<!-- h) vol -->
+							<div>volume in SPR chip (dm<sup>3</sup>) = {{view.vol}}</div><br/>
+								<!-- i) RPUM -->
+							<div>response per unit mass (g<sup>-1</sup>) = {{view.RPUM}}</div><br/>	
+								<!-- j) RU Max R -->
+							<div>RU max R = {{view.system.RU0}}</div><br/>
+								<!-- k) RU Max L -->
+							<div>RU max L = {{view.system.RU_MaxL}}</div><br/>
+								<!-- l) RU Max LR -->
+							<div>RU max LR = {{view.system.RU_MaxLR}}</div><br/>
 						</div>
 
 					<!-- 0.3. ouput_model -->
@@ -92,46 +102,31 @@
 									association experiment time (s) <br/><input name="timeOn" type="number" ng-model="input_timeOn" required>
 								</form><br/>
 								<div ng-show="timeOn_Form.timeOn.$dirty && timeOn_Form.timeOn.$invalid">Must be a number between 0.5 and 900</div><br/>
-									<!-- iii) timeOff >
-								<form novalidate name="timeOff_Form">
-									disassociation experiment time (s) <br/><input name="timeOff" type="number" min="0.5" max="900" ng-model="input_timeOff" required>
-								</form> <br/>
-								<div ng-show="timeOff_Form.timeOff.$dirty && timeOff_Form.timeOff.$invalid">Must be a number between 0.5 and 900</div><br/-->
-									<!-- iv) "setup experiment" button-->
+									<!-- iii) "setup experiment" button-->
 								<button ng-click="view.setup()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button>
-									<!-- v) "setting background value" button -->
+									<!-- iv) "setting background value" button -->
 								<button ng-click="view.set_background()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled || view.output.RU_OnAdjusted.length == 0">background</button>
 									<!-- v) "run experiment" button -->
 								<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button>
-									<!-- v) "washing up" button >
+									<!-- vi) "washing up" button >
 								<button ng-click="view.washUp()" ng-disabled="">wash-up</button-->
-									<!-- vi) "eat" button -->
+									<!-- vii) "eat" button -->
 								<button ng-click="view.eat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button>
-									<!-- vii) "go home" button -->
+									<!-- viii) "go home" button -->
 								<button ng-click="view.goHome()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">Go Home</button>
-									<!-- viii) "restart" button -->
+									<!-- ix) "restart" button -->
 								<button ng-click="view.restart()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay && view.experiment.daysLeft == view.experiment.daysAllowed">Restart</button>
-									<!-- viii) experiment finishes reminder -->
+									<!-- x) experiment finishes reminder -->
 								<div ng-show="view.experiment.daysLeft == 0 && view.experiment.timeOfDay == view.experiment.endOfDay">No more trials left! Restart!</div><br/>
-									<!-- viii) results display (test) -->
-								<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC = {{fLC_input}}</div>
-								<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn = {{timeOn_input}}</div>
-								<!--div ng-repeat="timeOff_input in view.output.timeOff track by $index">timeOff = {{timeOff_input}}</div-->
-							</div><br/>
-								<!-- b) vol -->
-							<div>volume in SPR chip (dm<sup>3</sup>) = {{view.vol}}</div><br/>
-								<!-- c) RPUM -->
-							<div>response per unit mass (g<sup>-1</sup>) = {{view.RPUM}}</div><br/>	
-								<!-- d) RU Max R -->
-							<div>RU max R = {{view.output.RU0}}</div><br/>
-								<!-- e) RU Max L -->
-							<div>RU max L = {{view.output.RU_MaxL}}</div><br/>
-								<!-- f) RU Max LR -->
-							<div>RU max LR = {{view.output.RU_MaxLR}}</div><br/>					
-								<!-- g) set background -->
+							</div><br/>					
+								<!-- b) set background -->
 							<div>Set Background = {{view.backgroundSet}}</div><br/>	
-								<!-- h) RU_On -->
-							<div ng-repeat="RU_on_Output in view.output.RU_On_Output track by $index">fLC = {{RU_on_Output}}</div>
+								<!-- c) fLC input -->
+							<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC input = {{fLC_input}}</div>
+								<!-- d) time on input -->
+							<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn output = {{timeOn_input}}</div>
+								<!-- e) RU_On output -->
+							<div ng-repeat="RU_on_Output in view.output.RU_On_Output track by $index">RU on output = {{RU_on_Output}}</div>
 								<!-- i) RU_Off>
 							<div>RU off adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
 								< j) intermediate coordinates>

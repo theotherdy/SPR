@@ -1,32 +1,26 @@
 	/* Output Mathematical Model: contain functions to input user-generated parameters and ouput values for graphical display */
 
 /* 1. registering modules, services and constants */
-angular.module('output_model', ['system_model', 'experiment_status', 'cookies'])
-	.service('outputModel', ['systemModel', 'experimentStatus', '$cookies', '$timeout', outputMethod]);
+angular.module('output_model', ['cookies'])
+	.service('outputModel', ['$cookies', '$timeout', outputMethod]);
 
-function outputMethod(systemModel, experimentStatus, $cookies, $timeout) { 
+function outputMethod($cookies, $timeout) { 
 
 /* 2. creating sub-methods as part of the function object that can be outputed */
 
 /* a) all the data to be stored */
 	var output = this; // create a specific selector for outputMethod specific module required in plotCoordinates but used with 'all or nothing' principle
-	output.fLC = []; // fLC  must be <= 0, to obtain background value
-	output.timeOn = []; // timeOn must be < 0
+	output.fLC = []; // fLC  must be >= 0, to obtain background value
+	output.timeOn = []; // timeOn must be > 0
 	output.intermediateTimeOn = [];
 	output.RU_On_Output = [];
 	output.intermediateRU_onAdjusted = [];
-	output.timeOff = []; // timeOff must be < 0
+	output.timeOff = []; // timeOff must be > 0
 /*	output.intermediateTimeOff = [];
 	output.intermediateRU_off = []; */
 
 /* b) check for cookies and restore or create new */
 
-/* h) find the RU increase when R is totally saturated by L; constant */
-	output.find_RU_Max = function(sys_tRC, sys_mwR, con_vol, con_RPUM, sys_mwL, sys_mwLR) {
-		output.RU0 = sys_tRC*sys_mwR*con_vol*con_RPUM;
-		output.RU_MaxL = sys_tRC*sys_mwL*con_vol*con_RPUM;
-		output.RU_MaxLR = sys_tRC*sys_mwLR*con_vol*con_RPUM;
-	}; // refactor to system
 
 /* c) set fLC: user input via form; variable */
 	output.add_fLC = function(new_fLC) {

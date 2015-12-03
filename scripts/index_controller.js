@@ -1,25 +1,25 @@
 	/* Main Controller: executes all Services onto the View */
 
 /* 1. master module to compile in all sub-modules for embedding ng-app in HTML */
-var app = angular.module('SPR', ['model', 'cookies', 'filters', 'chart_config'])
+var app = angular.module('SPR', ['model', 'cookies', 'filters'])
 	.constant('vol', 0.000001) // volume inside chip
 	.constant('RPUM', 100000000) // response per unit mass (RU/g)
 	.constant('defaultTimeOff', 900) // 900 seconds; if want to include option of altering time off, just remove the constant from the controller
 	.controller('viewCtrl', viewMethod);
 
 /* 2. setting up controller */
-viewMethod.$inject = ['systemModel', 'vol', 'RPUM', 'outputModel', 'defaultTimeOff', 'experimentStatus', 'chartConfig', '$cookies']; // injecting services and constant into viewMethod function
+viewMethod.$inject = ['systemModel', 'outputModel', 'experimentStatus', 'chartConfig', 'vol', 'RPUM', 'defaultTimeOff', '$cookies']; // injecting services and constant into viewMethod function
 
-function viewMethod(systemModel, vol, RPUM, outputModel, defaultTimeOff, experimentStatus, chartConfig, $cookies) {	// declaring services and constant relationship to viewMethod
+function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol, RPUM, defaultTimeOff, $cookies) {	// declaring services and constant relationship to viewMethod
 /* a) define how different dependencies are called it out onto the view */
 	var view = this;
 	view.system = systemModel;
-	view.vol = vol;
-	view.RPUM = RPUM;
 	view.output = outputModel;
-	view.dTimeOff = defaultTimeOff;
 	view.experiment = experimentStatus;
 	view.chart = chartConfig;
+	view.vol = vol;
+	view.RPUM = RPUM;
+	view.dTimeOff = defaultTimeOff;
 	view.backgroundSet = 0;
 	view.isDisabled = false;
 
@@ -34,7 +34,7 @@ function viewMethod(systemModel, vol, RPUM, outputModel, defaultTimeOff, experim
 	view.system.set_mwL();
 	view.system.set_mwR();
 	view.system.find_mwLR(view.system.mwL, view.system.mwR);
-	view.output.find_RU_Max(view.system.tRC, view.system.mwR, view.vol, view.RPUM, view.system.mwL, view.system.mwLR);
+	view.system.find_RU_Max(view.system.tRC, view.system.mwR, view.vol, view.RPUM, view.system.mwL, view.system.mwLR);
 
 /* d) creating function for "setup" button */
 	view.setup = function () {
@@ -54,9 +54,9 @@ function viewMethod(systemModel, vol, RPUM, outputModel, defaultTimeOff, experim
 		view.output.add_fLC(new_fLC);
 		view.output.add_timeOn(new_timeOn);
 		view.output.add_timeOff(view.dTimeOff);
-		view.output.calc_RU_OnMax(view.output.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.dTimeOff, view.output.RU0, view.backgroundSet);
-		view.output.plotCoordinates(new_timeOn, view.output.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.output.RU0, view.backgroundSet);
-		/* view.output.calc_RU_Off(view.output.RU_On, view.system.kOff, view.output.timeOff[view.experiment.steps], view.output.RU0, view.backgroundSet);*/
+		view.output.calc_RU_OnMax(view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.dTimeOff, view.system.RU0, view.backgroundSet);
+		view.output.plotCoordinates(new_timeOn, view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.system.RU0, view.backgroundSet);
+		/* view.output.calc_RU_Off(view.output.RU_On, view.system.kOff, view.output.timeOff[view.experiment.steps], view.system.RU0, view.backgroundSet);*/
 		view.experiment.stepsCounter();
 		view.experiment.timeOfDayCounter();
 	};

@@ -95,4 +95,11 @@ function systemMethod() { // creating master function object that encapsulate al
 		system.mwLR = system.mwL + system.mwR;
 	};
 
+/* h) find the RU increase when R is totally saturated by L; constant */
+	system.find_RU_Max = function(sys_tRC, sys_mwR, con_vol, con_RPUM, sys_mwL, sys_mwLR) {
+		system.RU0 = sys_tRC*sys_mwR*con_vol*con_RPUM;
+		system.RU_MaxL = sys_tRC*sys_mwL*con_vol*con_RPUM;
+		system.RU_MaxLR = sys_tRC*sys_mwLR*con_vol*con_RPUM;
+	};
+
 }

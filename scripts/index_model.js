@@ -1,5 +1,5 @@
 	/* 1. compilation of module for mathematical model */
-angular.module('model', ['system_model', 'output_model', 'experiment_status']);
+angular.module('model', ['system_model', 'output_model', 'experiment_status', 'chart_config']);
 
 /* pair_model = mathematical model of ligand and receptor pair parameters */
 /* experiment_model = mathematical model of time spent on experiment */
