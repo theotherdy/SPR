@@ -44,7 +44,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 
 /* e) creating function for set "zero" button */
 	view.set_background = function() {
-		view.backgroundSet = view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1];
+		view.backgroundSet = view.output.RU_On_Output[view.output.RU_On_Output.length-1];
 		view.isDisabled = true;
 		view.output.carryOverTimeOn = 0;
 	};
@@ -86,7 +86,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 		view.output.fLC.length = 0;
 		view.output.timeOn.length = 0;
 		view.output.timeOff.length = 0;
-		view.output.RU_OnAdjusted.length = 0;
+		view.output.RU_On_Output.length = 0;
 		view.output.RU_OffAdjusted.length = 0;
 		view.output.intermediateTimeOn.length = 0;
 /*		view.output.intermediateTimeOff.length = 0;

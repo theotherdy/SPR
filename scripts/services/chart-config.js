@@ -25,14 +25,16 @@ function chartCreate(outputModel) {
 
 		// chart data display
 	chart.labels = output.intermediateTimeOn; // x-axis coordinates
-	chart.data = [output.intermediateRU_onAdjusted]; // y-axix coordinates
-	chart.series = ['Series A'];
+	chart.series = [output.fLC];
+	chart.dataset = [output.intermediateRU_onAdjusted]; // y-axix coordinates
 
   		// chart functionality
+	/* 
 	chart.onClick = function(points, evt) {
-    	console.log(points, evt);
+    	
   	};
   	chart.hover = function() {
 
-  	};
+  	}; 
+  	*/
 }

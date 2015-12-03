@@ -24,7 +24,7 @@ function outputMethod($cookies, $timeout) {
 
 /* c) set fLC: user input via form; variable */
 	output.add_fLC = function(new_fLC) {
-		output.fLC.push(new_fLC);
+		output.fLC.push(new_fLC/1000000);
 	};
 
 /* d) set timeOn: user input via form; variable */
@@ -102,7 +102,7 @@ function outputMethod($cookies, $timeout) {
 
 /* m) master method to call to generate intermediate coordinates for SPR graph of association and disassocation to plot */
 	output.plotCoordinates = function(out_timeOn, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
-		output.intermediateTimeOn.length = 0; // clear previous graph points
+		/* output.intermediateTimeOn.length = 0; // clear previous graph points */
 			// set number of intermediates to produce
 		var totalSteps = 5;
 		var currentStep = 0;
