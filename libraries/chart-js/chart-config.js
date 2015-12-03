@@ -16,8 +16,8 @@ function chartCreate(outputModel) {
 		animationSteps: 75,
 		animationEasing: "easeOutQuint",
 		responsive: false,
-		scaleIntegersOnly: true,
-		scaleBeginAtZero: true,
+		scaleIntegersOnly: false,
+		scaleBeginAtZero: false,
 	};
 	chart.colours = {
 
