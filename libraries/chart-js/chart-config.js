@@ -25,8 +25,8 @@ function chartCreate(outputModel) {
 
 		// chart data display
 	chart.labels = output.intermediateTimeOn; // x-axis coordinates
-	chart.data = [output.RU_OnAdjusted]; // y-axix coordinates
-	/* chart.series = ['Series A']; */
+	chart.data = [output.intermediateRU_onAdjusted]; // y-axix coordinates
+	chart.series = ['Series A'];
 
   		// chart functionality
 	chart.onClick = function(points, evt) {

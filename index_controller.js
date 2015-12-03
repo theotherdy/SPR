@@ -54,8 +54,9 @@ function viewMethod(systemModel, vol, RPUM, outputModel, defaultTimeOff, experim
 		view.output.add_fLC(new_fLC);
 		view.output.add_timeOn(new_timeOn);
 		view.output.add_timeOff(view.dTimeOff);
+		view.output.calc_RU_OnMax(view.output.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.dTimeOff, view.output.RU0, view.backgroundSet);
 		view.output.plotCoordinates(new_timeOn, view.output.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.output.RU0, view.backgroundSet);
-		/*view.output.calc_RU_Off(view.output.RU_On, view.system.kOff, view.output.timeOff[view.experiment.steps], view.output.RU0, view.backgroundSet);*/
+		/* view.output.calc_RU_Off(view.output.RU_On, view.system.kOff, view.output.timeOff[view.experiment.steps], view.output.RU0, view.backgroundSet);*/
 		view.experiment.stepsCounter();
 		view.experiment.timeOfDayCounter();
 	};

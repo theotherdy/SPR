@@ -131,7 +131,7 @@
 								<!-- g) set background -->
 							<div>Set Background = {{view.backgroundSet}}</div><br/>	
 								<!-- h) RU_On -->
-							<div>RU on adjusted = {{view.output.RU_OnAdjusted[view.output.RU_OnAdjusted.length-1]}}</div><br/>
+							<div ng-repeat="RU_on_Output in view.output.RU_On_Output track by $index">fLC = {{RU_on_Output}}</div>
 								<!-- i) RU_Off>
 							<div>RU off adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
 								< j) intermediate coordinates>
