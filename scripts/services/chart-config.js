@@ -10,7 +10,7 @@ function chartCreate(outputModel) {
 	var chart = this;
 	var output = outputModel;
 
-	chart.dataset = output.RU_On_PlotAll;
+	chart.dataset = output.RU_PlotAll;
 	
 	chart.option = {
 

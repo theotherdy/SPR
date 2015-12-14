@@ -4,13 +4,12 @@
 var app = angular.module('SPR', ['model', 'cookies', 'filters'])
 	.constant('vol', 0.000001) // volume inside chip
 	.constant('RPUM', 100000000) // response per unit mass (RU/g)
-	.constant('defaultTimeOff', 900) // 900 seconds; if want to include option of altering time off, just remove the constant from the controller
 	.controller('viewCtrl', viewMethod);
 
 /* 2. setting up controller */
-viewMethod.$inject = ['systemModel', 'outputModel', 'experimentStatus', 'chartConfig', 'vol', 'RPUM', 'defaultTimeOff', '$cookies']; // injecting services and constant into viewMethod function
+viewMethod.$inject = ['systemModel', 'outputModel', 'experimentStatus', 'chartConfig', 'vol', 'RPUM', '$cookies']; // injecting services and constant into viewMethod function
 
-function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol, RPUM, defaultTimeOff, $cookies) {	// declaring services and constant relationship to viewMethod
+function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol, RPUM, $cookies) {	// declaring services and constant relationship to viewMethod
 /* a) define how different dependencies are called it out onto the view */
 	var view = this;
 	view.system = systemModel;
@@ -19,7 +18,6 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 	view.chart = chartConfig;
 	view.vol = vol;
 	view.RPUM = RPUM;
-	view.dTimeOff = defaultTimeOff;
 	view.backgroundSet = 0;
 	view.isDisabled = false;
 
@@ -55,17 +53,15 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 	view.runExperiment = function (new_fLC, new_timeOn) {
 		view.output.add_fLC(new_fLC);
 		view.output.add_timeOn(new_timeOn);
-		view.output.add_timeOff(view.dTimeOff);
-		view.output.calc_RU_OnMax(view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.dTimeOff, view.system.RU0, view.backgroundSet);
+		view.output.calc_RU_OnMax(view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.system.RU0, view.backgroundSet);
 		view.output.plotCoordinates(new_timeOn, view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.system.RU0, view.backgroundSet);
-		/* view.output.calc_RU_Off(view.output.RU_On, view.system.kOff, view.output.timeOff[view.experiment.steps], view.system.RU0, view.backgroundSet);*/
 		view.experiment.stepsCounter();
 		view.experiment.timeOfDayCounter();
 	};
 
 /* creating function for "clear graph" button */
-	view.clearPlotGraph = function() {
-		view.output.RU_On_PlotAll.length = 0;
+	view.clearChart = function() {
+		view.output.RU_PlotAll.length = 0;
 	};
 
 
@@ -93,10 +89,11 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 			// remove all data in existing arrays
 		view.output.fLC.length = 0;
 		view.output.timeOn.length = 0;
-		view.output.timeOff.length = 0;
 		view.output.RU_On_Output.length = 0;
 		view.output.RU_On_Coordinate.length = 0;
+		view.output.RU_Off_Coordinate.length = 0;
+		view.output.RU_Off_Line.length = 0;
 		view.output.RU_On_Line.length = 0;
-		view.output.RU_On_PlotAll.length = 0;
+		view.output.RU_PlotAll.length = 0;
 	};
 }
