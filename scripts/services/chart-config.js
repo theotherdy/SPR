@@ -10,10 +10,8 @@ function chartCreate(outputModel) {
 	var chart = this;
 	var output = outputModel;
 
-	chart.dataSet = [[[0,1], [1,2]]];
+	chart.dataSet = [output.RU_On_Line];
 	chart.option = {
 
 	};
-
-
 }
