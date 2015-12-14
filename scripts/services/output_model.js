@@ -19,8 +19,6 @@ function outputMethod($cookies, $timeout) {
 	output.RU_Off_Coordinate = [];
 	output.RU_Off_Line = [];
 	output.RU_PlotAll = []; // store all line product for overlapping display [[line1], [line2], [line3]]
-/*	output.intermediateTimeOff = [];
-	output.intermediateRU_off = []; */
 
 /* b) check for cookies and restore or create new */
 
@@ -43,7 +41,7 @@ function outputMethod($cookies, $timeout) {
 
 /* g) find and store the maximum RU for a given input fLC and time on */
 	output.calc_RU_OnMax = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
-		output.calc_RU_On(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, Infinity, out_RU0, backgroundSet); // Infinity placed for out_timeOn so it reaches max
+		output.calc_RU_On(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, output.timeOn[output.timeOn.length-1], out_RU0, backgroundSet);
 		output.RU_On_Output.push(output.RU_OnAdjusted);
 	};
 
@@ -55,11 +53,12 @@ function outputMethod($cookies, $timeout) {
 
 /* i) generating coordinates for RU on line */
 	output.plotCoordinatesOn = function(out_timeOn, currentStep, totalSteps, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
+			// generate RU On part of curve
 		output.RU_On_Coordinate.push(currentStep*(out_timeOn/totalSteps)); // upload x coordinate
 		output.calc_RU_On(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, output.RU_On_Coordinate[0], out_RU0, backgroundSet);
 		output.RU_On_Coordinate.push(output.RU_OnAdjusted); // upload y coordinate
 		output.RU_On_Line.push(angular.copy(output.RU_On_Coordinate)); // upload [x,y] coordinate in this form
-		output.RU_On_Coordinate.length = 0; // clear temporary coordinate generator for new sets of coordinates in [x,y] format
+		output.RU_On_Coordinate.length = 0; // clear temporary coordinate generator for new sets of coordinates in [x,y] format		
 		if(currentStep < totalSteps) { // increment step
 			currentStep++;
 			/*$timeout(function() {*/output.plotCoordinatesOn(out_timeOn, currentStep, totalSteps, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet);/*}, 500);*/
@@ -69,15 +68,17 @@ function outputMethod($cookies, $timeout) {
 	};
 
 /* j) generating coordinates for RU off line */
-	output.plotCoordinatesOff = function(currentStep, totalSteps, sys_kOff, out_RU0, backgroundSet) {
-		output.RU_Off_Coordinate.push(currentStep*(output.timeOffDefault/totalSteps));
-		output.calc_RU_Off(output.RU_On_Output[output.RU_On_Output.length-1]-out_RU0+backgroundSet, sys_kOff, output.RU_Off_Coordinate[0], out_RU0, backgroundSet); // output.RU_On_Output[output.RU_On_Output.length-1] is subjected to intrinsic +out_RU0-backgroundSet, so need to remove it
+	output.plotCoordinatesOff = function(currentStep, totalSteps, out_timeOn, sys_kOff, out_RU0, backgroundSet) {
+			// generate RU Off part of curve
+		output.RU_Off_Coordinate.push(currentStep*(output.timeOffDefault/totalSteps)+out_timeOn); // shift time by out_timeOn to start after RU On curve finish
+		output.intermediateTimeOff = currentStep*(output.timeOffDefault/totalSteps);
+		output.calc_RU_Off(output.RU_On_Output[output.RU_On_Output.length-1]-out_RU0+backgroundSet, sys_kOff, output.intermediateTimeOff, out_RU0, backgroundSet); // output.RU_On_Output[output.RU_On_Output.length-1] is subjected to intrinsic +out_RU0-backgroundSet, so need to remove it
 		output.RU_Off_Coordinate.push(output.RU_OffAdjusted);
 		output.RU_Off_Line.push(angular.copy(output.RU_Off_Coordinate));
 		output.RU_Off_Coordinate.length = 0;
 		if(currentStep < totalSteps) { // increment step
 			currentStep++;
-			/*$timeout(function() {*/output.plotCoordinatesOff(currentStep, totalSteps, sys_kOff, out_RU0, backgroundSet);/*}, 500);*/
+			/*$timeout(function() {*/output.plotCoordinatesOff(currentStep, totalSteps, out_timeOn, sys_kOff, out_RU0, backgroundSet);/*}, 500);*/
 		}
 		output.RU_PlotAll.push(angular.copy(output.RU_Off_Line));
 		output.RU_Off_Line.length = 0;
@@ -85,14 +86,12 @@ function outputMethod($cookies, $timeout) {
 
 /* k) master method to call to generate intermediate coordinates for SPR graph of association and disassocation to plot */
 	output.plotCoordinates = function(out_timeOn, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
-		output.RU_On_Line.length = 0;
-		output.RU_Off_Line.length = 0;
 			// set number of intermediates to produce
 		var totalSteps = 100;
 		var currentStep = 0;
 		
 			// creating all plot
 		output.plotCoordinatesOn(out_timeOn, currentStep, totalSteps, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet);
-		output.plotCoordinatesOff(currentStep, totalSteps, sys_kOff, out_RU0, backgroundSet);
+		output.plotCoordinatesOff(currentStep, totalSteps, out_timeOn, sys_kOff, out_RU0, backgroundSet);
 	};
 }
