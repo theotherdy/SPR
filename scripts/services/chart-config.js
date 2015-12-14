@@ -1,7 +1,7 @@
-	/* Creating chart using Chart.js */
+	/* Creating chart using API */
 
 /* 1. registering modules, services and constants */
-angular.module('chart_config', ['chart.js', 'output_model'])
+angular.module('chart_config', ['output_model', 'angular-flot'])
 	.service('chartConfig', ['outputModel', chartCreate]);
 
 /* 2. creating sub-methods as part of the function object that can be called */
@@ -10,31 +10,10 @@ function chartCreate(outputModel) {
 	var chart = this;
 	var output = outputModel;
 
-		// chart aesthetic
-	chart.options = {
-		animation: false,
-		animationSteps: 75,
-		animationEasing: "easeOutQuint",
-		responsive: false,
-		scaleIntegersOnly: false,
-		scaleBeginAtZero: false,
-	};
-	chart.colours = {
+	chart.dataSet = [[[0,1], [1,2]]];
+	chart.option = {
 
 	};
 
-		// chart data display
-	chart.labels = output.intermediateTimeOn; // x-axis coordinates
-	chart.series = [output.fLC];
-	chart.dataset = [output.intermediateRU_onAdjusted]; // y-axix coordinates
 
-  		// chart functionality
-	/* 
-	chart.onClick = function(points, evt) {
-    	
-  	};
-  	chart.hover = function() {
-
-  	}; 
-  	*/
 }

@@ -16,18 +16,16 @@
 		<script type="text/javascript" src="libraries/angular/angular.min.js"></script>
 		<script type="text/javascript" src="libraries/angular/angular-cookies.min.js"></script>
 
-			<!-- jQuery Libraries, load before Bootstrap since bootstrap.js requires it -->
+			<!-- jQuery Libraries, load before Bootstrap & Flot since they requires it -->
 		<script type="text/javascript" src="libraries/jquery/jquery-1.11.3.min.js"></script>
 
 			<!-- Bootstrap Libraries -->
 		<link rel="stylesheet" href="libraries/bootstrap/bootstrap.min.css">
 		<link rel="stylesheet" href="libraries/bootstrap/bootstrap-theme.min.css">
-		<script type="text/javascript" src="libraries/bootstrap/bootstrap.min.js"></script>
 
-			<!-- Chart.js Libraries -->
-		<script type="text/javascript" src="libraries/chart-js/Chart.min.js"></script>
-		<script type="text/javascript" src="libraries/chart-js/angular-chart.min.js"></script>
-		<link rel="stylesheet" href="libraries/chart-js/angular-chart.min.css">
+			<!-- Angular Flot Chart Libraries -->
+		<script type="text/javascript" src="libraries/flot/jquery.flot.js"></script>			
+		<script type="text/javascript" src="libraries/flot/angular-flot.js"></script>
 		<script type="text/javascript" src="scripts/services/chart-config.js"></script>
 		<link rel="stylesheet" href="styles/chart-style.css">
 
@@ -57,7 +55,8 @@
 			<!-- 0. Debugging Box -->
 				<!-- 0.1. chart output -->
 					<h1 id="graph-label">SPR graph of resonance(RU) against time(s)</h1>
-					<canvas id="line" class="chart chart-line" chart-data="view.chart.dataset" chart-labels="view.chart.labels" chart-legend="true" chart-options="view.chart.options" chart-series="view.chart.series" chart-click="view.chart.onClick()" chart-hover="view.chart.hover()"></canvas>
+					<!-- Chart -->
+					<flot id="flot" dataset="view.chart.dataSet" option="view.chart.option"></flot>
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">
 						<div class="system">
@@ -95,7 +94,7 @@
 							<div class="form">
 									<!-- i) fLC -->
 								<form novalidate name="fLC_Form">
-									free ligand concentration (uM) <br/><input name="fLC" type="number" min="0" ng-model="input_fLC" required>
+									free ligand concentration (nM) <br/><input name="fLC" type="number" min="0" ng-model="input_fLC" required>
 								</form><br/>
 								<div ng-show="fLC_Form.fLC.$dirty && fLC_Form.fLC.$invalid">Must be a number equal or more than 0</div><br/>
 									<!-- ii) timeOn -->
@@ -123,11 +122,11 @@
 								<!-- b) set background -->
 							<div>Set Background = {{view.backgroundSet}}</div><br/>	
 								<!-- c) fLC input -->
-							<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC input = {{fLC_input}</div>
+							<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC input (M) = {{fLC_input}}</div>
 								<!-- d) time on input -->
-							<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn output = {{timeOn_input}}</div>
+							<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn output (s) = {{timeOn_input}}</div>
 								<!-- e) RU_On output -->
-							<div ng-repeat="RU_on_Output in view.output.RU_On_Output track by $index">RU on output = {{RU_on_Output}}</div>
+							<div ng-repeat="RU_on_Output in view.output.RU_On_Output track by $index">RU on output (s) = {{RU_on_Output}}</div>
 								<!-- i) RU_Off>
 							<div>RU off adjusted = {{view.output.RU_OffAdjusted}}</div><br/>
 								< j) intermediate coordinates>
