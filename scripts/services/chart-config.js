@@ -10,8 +10,12 @@ function chartCreate(outputModel) {
 	var chart = this;
 	var output = outputModel;
 
-	chart.dataSet = [output.RU_On_Line];
+	chart.dataset = output.RU_On_PlotAll;
+	
 	chart.option = {
 
 	};
+	chart.hover = function() {
+     
+  	};
 }

@@ -14,7 +14,8 @@ function outputMethod($cookies, $timeout) {
 	output.timeOn = []; // timeOn must be > 0
 	output.RU_On_Output = []; // store max value of RU On
 	output.RU_On_Coordinate = []; // store RU vs timeOn data into [x,y] coordinates before pushing into Line
-	output.RU_On_Line = []; // store all coordinates in [[x1,y1],[x2,y2],[x3,y3]] format for plotting
+	output.RU_On_Line = []; // store all coordinates to plot line in [[x1,y1],[x2,y2],[x3,y3]] format for plotting
+	output.RU_On_PlotAll = []; // store all line product for overlapping display [[line1], [line2], [line3]]
 	output.timeOff = []; // timeOff must be > 0
 /*	output.intermediateTimeOff = [];
 	output.intermediateRU_off = []; */
@@ -60,20 +61,22 @@ function outputMethod($cookies, $timeout) {
 		output.RU_On_Coordinate.push(currentStep*(out_timeOn/totalSteps)); // upload x coordinate
 		output.calc_RU_On(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, output.RU_On_Coordinate[0], out_RU0, backgroundSet);
 		output.RU_On_Coordinate.push(output.RU_OnAdjusted); // upload y coordinate
-		output.RU_On_Line.push(angular.copy(output.RU_On_Coordinate)); // [x,y] push into line; line is what chart.data will take to plot
+		output.RU_On_Line.push(angular.copy(output.RU_On_Coordinate)); // upload [x,y] coordinate in this form
 		output.RU_On_Coordinate.length = 0; // clear temporary coordinate generator for new sets of coordinates in [x,y] format
 
 		if(currentStep < totalSteps) { // increment step
 			currentStep++;
 			/*$timeout(function() {*/output.plotCoordinatesOn(out_timeOn, currentStep, totalSteps, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet);/*}, 500);*/
-		}
+		} // now we have a line with data in format of [[x1,y1],[x2,y2]...]
+		output.RU_On_PlotAll.push(angular.copy(output.RU_On_Line)); // compile all line into one array to the format [[line1],[line2]]
+		output.RU_On_Line.length = 0; // clear temporary line generator to generate new sets of line in [[x1,y1],[x2,y2]...] format
 	};
 
 /* j) master method to call to generate intermediate coordinates for SPR graph of association and disassocation to plot */
 	output.plotCoordinates = function(out_timeOn, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
-		/* output.intermediateTimeOn.length = 0; // clear previous graph points */
+		output.RU_On_Line.length = 0;
 			// set number of intermediates to produce
-		var totalSteps = 5;
+		var totalSteps = 100;
 		var currentStep = 0;
 		
 			// creating all plot

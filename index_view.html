@@ -56,7 +56,8 @@
 				<!-- 0.1. chart output -->
 					<h1 id="graph-label">SPR graph of resonance(RU) against time(s)</h1>
 					<!-- Chart -->
-					<flot id="flot" dataset="view.chart.dataSet" option="view.chart.option"></flot>
+					<flot id="flot" dataset="view.chart.dataset" option="view.chart.option" on-plot-hover="view.chart.hover()"></flot>
+					<div id="legend"></div>
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">
 						<div class="system">
