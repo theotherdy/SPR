@@ -60,10 +60,8 @@ function outputMethod($cookies, $timeout) {
 		output.RU_On_Coordinate.push(currentStep*(out_timeOn/totalSteps)); // upload x coordinate
 		output.calc_RU_On(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, output.RU_On_Coordinate[0], out_RU0, backgroundSet);
 		output.RU_On_Coordinate.push(output.RU_OnAdjusted); // upload y coordinate
-		output.RU_On_Line.push(output.RU_On_Coordinate); // [x,y] push into line; line is what chart.data will take to plot
+		output.RU_On_Line.push(angular.copy(output.RU_On_Coordinate)); // [x,y] push into line; line is what chart.data will take to plot
 		output.RU_On_Coordinate.length = 0; // clear temporary coordinate generator for new sets of coordinates in [x,y] format
-
-// multiple points are created but since whatever pushed is an equation, the timeOn will change as increment happen
 
 		if(currentStep < totalSteps) { // increment step
 			currentStep++;
