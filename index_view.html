@@ -106,22 +106,27 @@
 									<!-- iii) "setup experiment" button-->
 								<button ng-click="view.setup()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button>
 									<!-- iv) "setting background value" button -->
-								<button ng-click="view.set_background()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled || view.output.RU_On_Output.length == 0">background</button>
+								<button ng-click="view.set_background()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled || view.output.RU_On_Output.length == 0 || view.output.fLC[view.output.fLC.length-1] !== 0">background</button>
 									<!-- v) "run experiment" button -->
-								<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button>
+								<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run</button>
+									<!-- "clear graph" button -->
+								<button ng-click="view.clearPlotGraph()" ng-disabled="view.output.RU_On_PlotAll.length == 0">clear</button-->
 									<!-- vi) "washing up" button >
 								<button ng-click="view.washUp()" ng-disabled="">wash-up</button-->
 									<!-- vii) "eat" button -->
 								<button ng-click="view.eat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button>
 									<!-- viii) "go home" button -->
-								<button ng-click="view.goHome()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">Go Home</button>
+								<button ng-click="view.goHome()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">home</button>
 									<!-- ix) "restart" button -->
-								<button ng-click="view.restart()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay && view.experiment.daysLeft == view.experiment.daysAllowed">Restart</button>
+								<button ng-click="view.restart()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay && view.experiment.daysLeft == view.experiment.daysAllowed">restart</button>
 									<!-- x) experiment finishes reminder -->
 								<div ng-show="view.experiment.daysLeft == 0 && view.experiment.timeOfDay == view.experiment.endOfDay">No more trials left! Restart!</div><br/>
+									<!-- xi) background invalid reminder -->
 							</div><br/>					
 								<!-- b) set background -->
-							<div>Set Background = {{view.backgroundSet}}</div><br/>	
+							<div>Set Background = {{view.backgroundSet}}</div><br/>
+							<div ng-show="view.isDisabled == false && view.experiment.timeOfDay !== 9.0">Please set background before continue; <br/>
+							Please run fLC = 0 nM to set background</div><br/>
 								<!-- c) fLC input -->
 							<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC input (M) = {{fLC_input}}</div>
 								<!-- d) time on input -->

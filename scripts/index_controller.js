@@ -46,7 +46,9 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 	view.set_background = function() {
 		view.backgroundSet = view.output.RU_On_Output[view.output.RU_On_Output.length-1];
 		view.isDisabled = true;
-		view.output.carryOverTimeOn = 0;
+		for (var i = 0; i < view.output.RU_On_Output.length; i++) {
+			view.output.RU_On_Output[i] -= view.backgroundSet;
+		}
 	};
 
 /* f) creating function for "run experiment" button  */
@@ -60,6 +62,12 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 		view.experiment.stepsCounter();
 		view.experiment.timeOfDayCounter();
 	};
+
+/* creating function for "clear graph" button */
+	view.clearPlotGraph = function() {
+		view.output.RU_On_PlotAll.length = 0;
+	};
+
 
 /* g) creating function for "wash-up" button */
 /*	view.washUp = function() {
@@ -87,9 +95,8 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 		view.output.timeOn.length = 0;
 		view.output.timeOff.length = 0;
 		view.output.RU_On_Output.length = 0;
-		view.output.RU_OffAdjusted.length = 0;
-		view.output.intermediateTimeOn.length = 0;
-/*		view.output.intermediateTimeOff.length = 0;
-		view.output.intermediateRU_off.length = 0; */
+		view.output.RU_On_Coordinate.length = 0;
+		view.output.RU_On_Line.length = 0;
+		view.output.RU_On_PlotAll.length = 0;
 	};
 }
