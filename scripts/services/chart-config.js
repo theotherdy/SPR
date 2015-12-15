@@ -10,12 +10,12 @@ function chartCreate(outputModel) {
 	var chart = this;
 	var output = outputModel;
 
-	chart.dataset = output.RU_PlotAll;
+	chart.dataset = output.RU_CompiledLabelAll;
 	
 	chart.option = {
-
+		legend: {
+			container: '#legend',
+			show: true
+		}
 	};
-	chart.hover = function() {
-     
-  	};
 }
