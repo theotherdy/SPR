@@ -95,5 +95,6 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 		view.output.RU_Off_Line.length = 0;
 		view.output.RU_On_Line.length = 0;
 		view.output.RU_PlotAll.length = 0;
+		view.output.RU_CompiledLabelAll.length = 0;
 	};
 }

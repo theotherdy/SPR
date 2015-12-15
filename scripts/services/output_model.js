@@ -87,8 +87,9 @@ function outputMethod($cookies, $timeout) {
 
 /* k) compiling the plot together as a single line and add label */
 	output.plotCompileLabel = function() {
-		output.compileLabel = "{label: \'"+angular.copy(output.fLC[output.fLC.length-1])+"\', data: "+output.RU_PlotAll+"}";
+		output.compileLabel = "{label: \'"+angular.copy(output.fLC[output.fLC.length-1])+"\', data: "+angular.copy(output.RU_PlotAll)+"}";
 		output.RU_CompiledLabelAll.push(output.compileLabel);
+		output.RU_PlotAll.length = 0;
 	};
 
 /* l) master method to call to generate intermediate coordinates for SPR graph of association and disassocation to plot */
