@@ -88,7 +88,7 @@ function outputMethod($cookies, $timeout) {
 /* k) compiling the plot together as a single line and add label */
 	output.plotCompileLabel = function() {
 		output.compileLabel = "{label: \'"+angular.copy(output.fLC[output.fLC.length-1])+"\', data: "+angular.copy(output.RU_PlotAll)+"}";
-		output.RU_CompiledLabelAll.push(output.compileLabel);
+		output.RU_CompiledLabelAll.push(angular.copy(output.compileLabel));
 		output.RU_PlotAll.length = 0;
 	};
 
