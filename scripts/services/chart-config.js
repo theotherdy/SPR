@@ -10,12 +10,40 @@ function chartCreate(outputModel) {
 	var chart = this;
 	var output = outputModel;
 
-	chart.dataset = output.RU_CompiledLabelAll;
+	chart.dataset = output.RU_PlotAll;
 	
-	chart.option = {
+	chart.options = {
+		grid: {
+		    backgroundColor: { colors: [ "#fff", "#eee" ] }
+		},
 		legend: {
-			container: '#legend',
+			show: true,
+			container: null, // '#legend'
+			labelBoxBorderColor: "black",
+			backgroundOpacity: 0.2,
+			backgroundColor: "blue",
+			position: 'ne'
+		},
+		axisLabels: {
 			show: true
+		},
+		xaxis: {
+			axisLabelUseCanvas: true,
+			axisLabel: "time/s",
+			position: "bottom",
+			axisLabelcolor: "red",
+			axisLabelFontFamily: "Verdana",
+			axisLabelFontSizePixels: 12,
+			axisLabelPadding: 5
+		},
+		yaxis: {
+			axisLabelUseCanvas: true,
+			axisLabel: "resonance/RU",
+			position: "left",
+			axisLabelcolor: "red",
+			axisLabelFontFamily: "Verdana",
+			axisLabelFontSizePixels: 12,
+			axisLabelPadding: 5
 		}
 	};
 }

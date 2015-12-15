@@ -25,7 +25,8 @@
 
 			<!-- Angular Flot Chart Libraries -->
 		<script type="text/javascript" src="libraries/flot/jquery.flot.js"></script>			
-		<script type="text/javascript" src="libraries/flot/angular-flot.js"></script>
+		<script type="text/javascript" src="libraries/flot/angular-flot.js"></script>			
+		<script type="text/javascript" src="libraries/flot/jquery.flot.axislabels.js"></script>
 		<script type="text/javascript" src="scripts/services/chart-config.js"></script>
 		<link rel="stylesheet" href="styles/chart-style.css">
 
@@ -57,9 +58,9 @@
 					<div id="chart">
 						<h1 id="graph-label">SPR graph of resonance(RU) against time(s)</h1>
 						<!-- Chart -->
-						<flot id="flot" dataset="view.chart.dataset" option="view.chart.option"></flot>
+						<flot id="flot" dataset="view.chart.dataset" options="view.chart.options"></flot>
 						<!-- Legend -->
-						<div id="legend"></div>
+						<!--div id="legend"></div-->
 					</div>
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">
