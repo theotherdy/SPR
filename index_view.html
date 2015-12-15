@@ -31,7 +31,9 @@
 		<link rel="stylesheet" href="styles/chart-style.css">
 
 	    	<!-- ng-grid Libraries -->
-
+	    <link rel="stylesheet" href="libraries/ui-grid/ui-grid.min.css">
+	    <script type="text/javascript" src="libraries/ui-grid/ui-grid.min.js"></script>
+		<script type="text/javascript" src="scripts/services/table-config.js"></script>
 
 	    	<!-- Personal libraries, load last since these files will be referencing to those previous libraries too -->
 		<link rel="stylesheet" href="styles/main.css">
@@ -59,8 +61,6 @@
 						<h1 id="graph-label">SPR graph of resonance(RU) against time(s)</h1>
 						<!-- Chart -->
 						<flot id="flot" dataset="view.chart.dataset" options="view.chart.options"></flot>
-						<!-- Legend -->
-						<!--div id="legend"></div-->
 					</div>
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">

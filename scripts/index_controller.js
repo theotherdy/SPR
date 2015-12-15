@@ -1,21 +1,22 @@
 	/* Main Controller: executes all Services onto the View */
 
 /* 1. master module to compile in all sub-modules for embedding ng-app in HTML */
-var app = angular.module('SPR', ['model', 'cookies', 'filters'])
+var app = angular.module('SPR', ['model', 'display', 'cookies'])
 	.constant('vol', 0.000001) // volume inside chip
 	.constant('RPUM', 100000000) // response per unit mass (RU/g)
 	.controller('viewCtrl', viewMethod);
 
 /* 2. setting up controller */
-viewMethod.$inject = ['systemModel', 'outputModel', 'experimentStatus', 'chartConfig', 'vol', 'RPUM', '$cookies']; // injecting services and constant into viewMethod function
+viewMethod.$inject = ['systemModel', 'outputModel', 'experimentStatus', 'chartConfig', 'tableConfig', '$cookies', 'vol', 'RPUM']; // injecting services and constant into viewMethod function
 
-function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol, RPUM, $cookies) {	// declaring services and constant relationship to viewMethod
+function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tableConfig, $cookies, vol, RPUM) {	// declaring services and constant relationship to viewMethod
 /* a) define how different dependencies are called it out onto the view */
 	var view = this;
 	view.system = systemModel;
 	view.output = outputModel;
 	view.experiment = experimentStatus;
 	view.chart = chartConfig;
+	view.table = tableConfig;
 	view.vol = vol;
 	view.RPUM = RPUM;
 	view.backgroundSet = 0;
@@ -61,7 +62,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 
 /* creating function for "clear graph" button */
 	view.clearChart = function() {
-		view.output.RU_PlotAll.length = 0;
+		view.output.RU_CompiledLabelPlotAll.length = 0;
 	};
 
 
@@ -92,9 +93,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, vol
 		view.output.RU_On_Output.length = 0;
 		view.output.RU_On_Coordinate.length = 0;
 		view.output.RU_Off_Coordinate.length = 0;
-		view.output.RU_Off_Line.length = 0;
-		view.output.RU_On_Line.length = 0;
-		view.output.RU_PlotAll.length = 0;
-		view.output.RU_CompiledLabelAll.length = 0;
+		view.output.RU_Line.length = 0;
+		view.output.RU_CompiledLabelPlotAll.length = 0;
 	};
 }

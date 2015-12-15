@@ -1,4 +1,4 @@
-	/* Creating chart using API */
+	/* Creating chart using flot API */
 
 /* 1. registering modules, services and constants */
 angular.module('chart_config', ['output_model', 'angular-flot'])
@@ -10,22 +10,11 @@ function chartCreate(outputModel) {
 	var chart = this;
 	var output = outputModel;
 
-	chart.dataset = output.RU_PlotAll;
+	chart.dataset = output.RU_CompiledLabelPlotAll;
 	
 	chart.options = {
 		grid: {
 		    backgroundColor: { colors: [ "#fff", "#eee" ] }
-		},
-		legend: {
-			show: true,
-			container: null, // '#legend'
-			labelBoxBorderColor: "black",
-			backgroundOpacity: 0.2,
-			backgroundColor: "blue",
-			position: 'ne'
-		},
-		axisLabels: {
-			show: true
 		},
 		xaxis: {
 			axisLabelUseCanvas: true,
