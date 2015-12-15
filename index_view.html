@@ -34,6 +34,7 @@
 	    <link rel="stylesheet" href="libraries/ui-grid/ui-grid.min.css">
 	    <script type="text/javascript" src="libraries/ui-grid/ui-grid.min.js"></script>
 		<script type="text/javascript" src="scripts/services/table-config.js"></script>
+		<link rel="stylesheet" href="styles/table-style.css">
 
 	    	<!-- Personal libraries, load last since these files will be referencing to those previous libraries too -->
 		<link rel="stylesheet" href="styles/main.css">
@@ -56,11 +57,12 @@
 <!-- Bootstrap column position: far left / far right -->
 			
 			<!-- 0. Debugging Box -->
-				<!-- 0.1. chart output -->
+				<!-- 0.1. data output -->
 					<div id="chart">
 						<h1 id="graph-label">SPR graph of resonance(RU) against time(s)</h1>
-						<!-- Chart -->
+							<!-- Chart -->
 						<flot id="flot" dataset="view.chart.dataset" options="view.chart.options"></flot>
+						<div id="grid-table" ui-grid="{ data: view.table.data }"></div>
 					</div>
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">
@@ -104,7 +106,7 @@
 								<div ng-show="fLC_Form.fLC.$dirty && fLC_Form.fLC.$invalid">Must be a number equal or more than 0</div><br/>
 									<!-- ii) timeOn -->
 								<form novalidate name="timeOn_Form">
-									association experiment time (s) <br/><input name="timeOn" type="number" ng-model="input_timeOn" required>
+									association experiment time (s) <br/><input name="timeOn" type="number" min="0" ng-model="input_timeOn" required>
 								</form><br/>
 								<div ng-show="timeOn_Form.timeOn.$dirty && timeOn_Form.timeOn.$invalid">Must be a number between 0.5 and 900</div><br/>
 									<!-- iii) "setup experiment" button-->
@@ -113,14 +115,14 @@
 								<button ng-click="view.set_background()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled || view.output.RU_On_Output.length == 0 || view.output.fLC[view.output.fLC.length-1] !== 0">set background</button>
 									<!-- v) "run experiment" button -->
 								<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button>
-									<!-- "clear graph" button -->
-								<button ng-click="view.clearChart()" ng-disabled="view.output.RU_On_PlotAll.length == 0">clear chart</button-->
 									<!-- vi) "washing up" button >
 								<button ng-click="view.washUp()" ng-disabled="">wash-up</button-->
 									<!-- vii) "eat" button -->
 								<button ng-click="view.eat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button>
 									<!-- viii) "go home" button -->
 								<button ng-click="view.goHome()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">home</button>
+									<!-- "clear graph" button -->
+								<button ng-click="view.clearChart()" ng-disabled="view.output.RU_On_PlotAll.length == 0">clear chart</button>
 									<!-- ix) "restart" button -->
 								<button ng-click="view.restart()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay && view.experiment.daysLeft == view.experiment.daysAllowed">restart</button>
 									<!-- x) experiment finishes reminder -->
