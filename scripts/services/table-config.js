@@ -1,11 +1,10 @@
 	/* Creating table using ui-grid API */
 
 /* 1. registering modules, services and constants */
-angular.module('table_config', ['output_model', 'experiment_status', 'ui.grid'])
+angular.module('table_config', ['output_model', 'experiment_status', 'ui.grid', 'ui.grid.selection', 'ui.grid.exporter'])
 	.service('tableConfig', ['outputModel', 'experimentStatus', tableCreate]);
 
 /* 2. creating sub-methods as part of the function object that can be called */
-
 function tableCreate(outputModel, experimentStatus) {
 	var table = this;
 	var output = outputModel;
@@ -14,6 +13,7 @@ function tableCreate(outputModel, experimentStatus) {
 
 	table.options = {
 			data: table.data,
+				// defining header name
 			columnDefs: [
 					{
 						field: "trial",
@@ -31,8 +31,13 @@ function tableCreate(outputModel, experimentStatus) {
 						field: "maxRU_reached",
 						displayName: "max resonance reached/RU"
 					}
-				]
-			};
+				],
+				// data selection
+
+				// exporting
+			enableGridMenu: true,
+			exporterMenuCsv: true
+		};
 
 	table.compileData = function(experiment_steps, out_fLC, out_timeOn, out_RU_On_Output) {
 		table.compiledSet = {
