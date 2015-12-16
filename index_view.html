@@ -62,7 +62,7 @@
 						<h1 id="graph-label">SPR graph of resonance(RU) against time(s)</h1>
 							<!-- Chart -->
 						<flot id="flot" dataset="view.chart.dataset" options="view.chart.options"></flot>
-						<div id="grid-table" ui-grid="{ data: view.table.data }"></div>
+						<div id="grid-table" ui-grid="view.table.options"></div>
 					</div>
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">
@@ -106,7 +106,7 @@
 								<div ng-show="fLC_Form.fLC.$dirty && fLC_Form.fLC.$invalid">Must be a number equal or more than 0</div><br/>
 									<!-- ii) timeOn -->
 								<form novalidate name="timeOn_Form">
-									association experiment time (s) <br/><input name="timeOn" type="number" min="0" ng-model="input_timeOn" required>
+									association experiment time (s) <br/><input name="timeOn" type="number" min="0.5" ng-model="input_timeOn" required>
 								</form><br/>
 								<div ng-show="timeOn_Form.timeOn.$dirty && timeOn_Form.timeOn.$invalid">Must be a number between 0.5 and 900</div><br/>
 									<!-- iii) "setup experiment" button-->

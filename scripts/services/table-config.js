@@ -12,14 +12,35 @@ function tableCreate(outputModel, experimentStatus) {
 	var experiment = experimentStatus;
 	table.data = [];
 
+	table.options = {
+			data: table.data,
+			columnDefs: [
+					{
+						field: "trial",
+						displayName: "trial no."
+					},
+					{
+						field: "fLC",
+						displayName: "free ligand conc/uM"
+					},
+					{
+						field: "timeOn",
+						displayName: "association time/s"
+					},
+					{
+						field: "maxRU_reached",
+						displayName: "max resonance reached/RU"
+					}
+				]
+			};
+
 	table.compileData = function(experiment_steps, out_fLC, out_timeOn, out_RU_On_Output) {
 		table.compiledSet = {
-			"trial number": experiment_steps,
-			"free ligand conc./microM": out_fLC,
-			"association experiment time/s": out_timeOn,
-			"max resonance reached": out_RU_On_Output
+			"trial": experiment_steps,
+			"fLC": out_fLC,
+			"timeOn": out_timeOn,
+			"maxRU_reached": out_RU_On_Output
 		};
 		table.data.push(angular.copy(table.compiledSet));
 	};
-	
 }
