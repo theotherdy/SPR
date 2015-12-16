@@ -103,9 +103,13 @@
 							<div class="form">
 									<!-- i) fLC -->
 								<form novalidate name="fLC_Form">
-									free ligand concentration (uM) <br/><input name="fLC" type="number" min="1" ng-model="input_fLC" required>
-								</form><br/>
-								<div ng-show="fLC_Form.fLC.$dirty && fLC_Form.fLC.$invalid">Must be a number equal or more than 0</div><br/>
+									free ligand concentration<br/><input name="fLC" type="number" min="1" ng-model="input_fLC" required>
+								</form>
+									<!-- changing input units -->
+								<button ng-click="view.magnitude_mM()" ng-disabled="view.output.magnitudeAdjust == 1000">mM</button>
+								<button ng-click="view.magnitude_uM()" ng-disabled="view.output.magnitudeAdjust == 1000000">uM</button>
+								<button ng-click="view.magnitude_nM()" ng-disabled="view.output.magnitudeAdjust == 1000000000">nM</button><br/>
+								<div ng-show="fLC_Form.fLC.$dirty && fLC_Form.fLC.$invalid">Must be a number equal or more than 1</div><br/>
 									<!-- ii) timeOn -->
 								<form novalidate name="timeOn_Form">
 									association experiment time (s) <br/><input name="timeOn" type="number" min="0.5" ng-model="input_timeOn" required>
@@ -136,7 +140,7 @@
 							<div ng-show="view.isDisabled_background == false && view.experiment.timeOfDay !== 9.0">Please set background before continue; <br/>
 							Please run fLC = 0 nM to set background</div><br/>
 								<!-- c) fLC input -->
-							<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC input (M) = {{fLC_input}}</div>
+							<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC input (uM) = {{fLC_input}}</div>
 								<!-- d) time on input -->
 							<div ng-repeat="timeOn_input in view.output.timeOn track by $index">timeOn output (s) = {{timeOn_input}}</div>
 								<!-- e) RU_On output -->

@@ -37,6 +37,24 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 	view.system.find_mwLR(view.system.mwL, view.system.mwR);
 	view.system.find_RU_Max(view.system.tRC, view.system.mwR, view.vol, view.RPUM, view.system.mwL, view.system.mwLR);
 
+/* creating function for switching fLC input to mM magnitude */
+	view.magnitude_mM = function() {
+		view.output.magnitudeAdjust = 1000;
+		view.output.unitAdjust = "mM";
+	};
+
+/* creating function for switching fLC input to uM magnitude */
+	view.magnitude_uM = function() {
+		view.output.magnitudeAdjust = 1000000;
+		view.output.unitAdjust = "uM";
+	};
+
+/* creating function for switching fLC input to nM magnitude */
+	view.magnitude_nM = function() {
+		view.output.magnitudeAdjust = 1000000000;
+		view.output.unitAdjust = "nM";
+	};
+
 /* d) creating function for "setup" button */
 	view.setup = function () {
 		view.experiment.timeOfDayCounter();

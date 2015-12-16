@@ -18,13 +18,15 @@ function outputMethod($cookies, $timeout) {
 	output.RU_Line = []; // store all coordinates to plot line in [[x1,y1],[x2,y2],[x3,y3]] format for plotting
 	output.RU_Off_Coordinate = [];
 	output.RU_CompiledLabelPlotAll = []; // store all plot into format that adds label of [{label: "abc1", data: [line1]}, {label: "abc2", data: [line2]}...] for overlapping display
+	output.magnitudeAdjust = 1000000;
+	output.unitAdjust = "uM";
 
 /* b) check for cookies and restore or create new */
 
 
 /* c) set fLC: user input via form; variable */
 	output.add_fLC = function(new_fLC) {
-		output.fLC.push(new_fLC/1000000); // divide by 1000000 to convert input into uM
+		output.fLC.push(new_fLC/output.magnitudeAdjust); // divide by 1000000 to convert input into uM
 	};
 
 /* d) set timeOn: user input via form; variable */
@@ -82,7 +84,7 @@ function outputMethod($cookies, $timeout) {
 /* k) compiling the plot together as a single line and add label */
 	output.plotCompileLabel = function() {
 		output.compileLabel = {
-			label: angular.copy(output.fLC[output.fLC.length-1])+" uM",
+			label: angular.copy(output.fLC[output.fLC.length-1]*output.magnitudeAdjust)+" "+output.unitAdjust,
 			data: angular.copy(output.RU_Line)
 		};
 		output.RU_CompiledLabelPlotAll.push(angular.copy(output.compileLabel));
