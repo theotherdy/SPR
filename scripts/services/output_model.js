@@ -18,8 +18,8 @@ function outputMethod($cookies, $timeout) {
 	output.RU_Line = []; // store all coordinates to plot line in [[x1,y1],[x2,y2],[x3,y3]] format for plotting
 	output.RU_Off_Coordinate = [];
 	output.RU_CompiledLabelPlotAll = []; // store all plot into format that adds label of [{label: "abc1", data: [line1]}, {label: "abc2", data: [line2]}...] for overlapping display
-	output.magnitudeAdjust = 1000000;
-	output.unitAdjust = "uM";
+	output.magnitudeAdjust = 1000;
+	output.unitAdjust = "mM";
 
 /* b) check for cookies and restore or create new */
 

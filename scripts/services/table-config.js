@@ -17,23 +17,28 @@ function tableCreate(outputModel, experimentStatus) {
 			columnDefs: [
 					{
 						field: "trial",
-						displayName: "trial no."
+						displayName: "trial no.",
+						width: '105'
 					},
 					{
 						field: "fLC",
-						displayName: "free ligand conc"
+						displayName: "free ligand conc",
+						width: '160'
 					},
 					{
 						field: "units",
-						displayName: "units"
+						displayName: "units",
+						width: '85'
 					},
 					{
 						field: "timeOn",
-						displayName: "association time/s"
+						displayName: "association time/s",
+						width: '175'
 					},
 					{
 						field: "maxRU_reached",
-						displayName: "max resonance reached/RU"
+						displayName: "max RU reached",
+						width: '185'
 					}
 				],
 				// exporting
