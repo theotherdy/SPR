@@ -32,11 +32,12 @@ function tableCreate(outputModel, experimentStatus) {
 						displayName: "max resonance reached/RU"
 					}
 				],
-				// data selection
-
 				// exporting
 			enableGridMenu: true,
-			exporterMenuCsv: true
+			exporterMenuCsv: true,
+			exporterMenuPdf: false,
+			exporterEnableExporting: true,
+    		exporterCsvFilename: 'SPR_Data.csv'
 		};
 
 	table.compileData = function(experiment_steps, out_fLC, out_timeOn, out_RU_On_Output) {
