@@ -103,7 +103,7 @@
 							<div class="form">
 									<!-- i) fLC -->
 								<form novalidate name="fLC_Form">
-									free ligand concentration (uM) <br/><input name="fLC" type="number" min="0" ng-model="input_fLC" required>
+									free ligand concentration (uM) <br/><input name="fLC" type="number" min="1" ng-model="input_fLC" required>
 								</form><br/>
 								<div ng-show="fLC_Form.fLC.$dirty && fLC_Form.fLC.$invalid">Must be a number equal or more than 0</div><br/>
 									<!-- ii) timeOn -->
@@ -114,11 +114,11 @@
 									<!-- iii) "setup experiment" button-->
 								<button ng-click="view.setup()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfDay || (view.experiment.daysLeft == 0 && view.experiment.timeOfDay !== 9)">setup</button>
 									<!-- iv) "setting background value" button -->
-								<button ng-click="view.set_background()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled || view.output.RU_On_Output.length == 0 || view.output.fLC[view.output.fLC.length-1] !== 0">set background</button>
+								<button ng-click="view.set_background()" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.isDisabled_background == true || view.output.RU_On_Output.length == 0 || view.output.fLC[view.output.fLC.length-1] !== 0">set background</button>
 									<!-- v) "run experiment" button -->
-								<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay">run experiment</button>
-									<!-- vi) "washing up" button >
-								<button ng-click="view.washUp()" ng-disabled="">wash-up</button-->
+								<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay || view.isDisabled_run == true">run experiment</button>
+									<!-- vi) "washing up" button -->
+								<button ng-click="view.washUp()" ng-disabled="view.isDisabled_wash == true">wash-up</button>
 									<!-- vii) "eat" button -->
 								<button ng-click="view.eat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button>
 									<!-- viii) "go home" button -->
@@ -133,7 +133,7 @@
 							</div><br/>					
 								<!-- b) set background -->
 							<div>Set Background = {{view.backgroundSet}}</div><br/>
-							<div ng-show="view.isDisabled == false && view.experiment.timeOfDay !== 9.0">Please set background before continue; <br/>
+							<div ng-show="view.isDisabled_background == false && view.experiment.timeOfDay !== 9.0">Please set background before continue; <br/>
 							Please run fLC = 0 nM to set background</div><br/>
 								<!-- c) fLC input -->
 							<div ng-repeat="fLC_input in view.output.fLC track by $index">fLC input (M) = {{fLC_input}}</div>

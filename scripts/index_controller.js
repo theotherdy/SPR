@@ -20,7 +20,9 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 	view.vol = vol;
 	view.RPUM = RPUM;
 	view.backgroundSet = 0;
-	view.isDisabled = false;
+	view.isDisabled_background = false;
+	view.isDisabled_run = false;
+	view.isDisabled_wash = true;
 
 /* b) check if there is stored data in cookies */
 
@@ -44,7 +46,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 /* e) creating function for set "zero" button */
 	view.set_background = function() {
 		view.backgroundSet = view.output.RU_On_Output[view.output.RU_On_Output.length-1];
-		view.isDisabled = true;
+		view.isDisabled_background = true;
 		for (var i = 0; i < view.output.RU_On_Output.length; i++) {
 			view.output.RU_On_Output[i] -= view.backgroundSet;
 		}
@@ -59,6 +61,8 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 		view.table.compileData(angular.copy(view.experiment.steps)+1, view.output.fLC[view.output.fLC.length-1]*1000000, view.output.timeOn[view.output.timeOn.length-1], view.output.RU_On_Output[view.output.RU_On_Output.length-1]);
 		view.experiment.stepsCounter();
 		view.experiment.timeOfDayCounter();
+		view.isDisabled_run = true;
+		view.isDisabled_wash = false;
 	};
 
 /* creating function for "clear graph" button */
@@ -68,10 +72,12 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 
 
 /* g) creating function for "wash-up" button */
-/*	view.washUp = function() {
-		// restore graph to baseline level
-		// resolve issue of clearing data in RU on adjusted; move RU on adjusted data into intermediate instead
-	}; */
+	view.washUp = function() {
+		view.isDisabled_run = false;
+		view.isDisabled_wash = true;
+
+		// show koff value
+	}; 
 
 /* h) creating function for "eat" button */
 	view.eat = function () {
