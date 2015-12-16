@@ -76,7 +76,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 		view.output.add_timeOn(new_timeOn);
 		view.output.calc_RU_OnMax(view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.system.RU0, view.backgroundSet);
 		view.output.plotCoordinates(new_timeOn, view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.system.RU0, view.backgroundSet);
-		view.table.compileData(angular.copy(view.experiment.steps)+1, view.output.fLC[view.output.fLC.length-1]*1000000, view.output.timeOn[view.output.timeOn.length-1], view.output.RU_On_Output[view.output.RU_On_Output.length-1]);
+		view.table.compileData(angular.copy(view.experiment.steps)+1, view.output.fLC[view.output.fLC.length-1]*view.output.magnitudeAdjust, view.output.timeOn[view.output.timeOn.length-1], view.output.RU_On_Output[view.output.RU_On_Output.length-1]);
 		view.experiment.stepsCounter();
 		view.experiment.timeOfDayCounter();
 		view.isDisabled_run = true;

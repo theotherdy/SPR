@@ -21,7 +21,11 @@ function tableCreate(outputModel, experimentStatus) {
 					},
 					{
 						field: "fLC",
-						displayName: "free ligand conc/uM"
+						displayName: "free ligand conc"
+					},
+					{
+						field: "units",
+						displayName: "units"
 					},
 					{
 						field: "timeOn",
@@ -44,6 +48,7 @@ function tableCreate(outputModel, experimentStatus) {
 		table.compiledSet = {
 			"trial": experiment_steps,
 			"fLC": out_fLC,
+			"units": output.unitAdjust,
 			"timeOn": out_timeOn,
 			"maxRU_reached": out_RU_On_Output
 		};
