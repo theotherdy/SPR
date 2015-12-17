@@ -18,32 +18,27 @@ function tableCreate(outputModel, experimentStatus) {
 					{
 						field: "trial",
 						displayName: "trial no.",
-						width: '90'
+						width: '105'
 					},
 					{
 						field: "fLC",
 						displayName: "free ligand conc.",
-						width: '145'
+						width: '160'
 					},
 					{
 						field: "units",
 						displayName: "units",
-						width: '70'
+						width: '85'
 					},
 					{
 						field: "timeOn",
 						displayName: "association time/s",
-						width: '160'
+						width: '175'
 					},
 					{
 						field: "maxRU_reached",
 						displayName: "max RU reached",
-						width: '170'
-					},
-					{
-						field: "kOff",
-						displayName: "kOff",
-						width: '85'
+						width: '185'
 					}
 				],
 				// exporting
@@ -55,14 +50,13 @@ function tableCreate(outputModel, experimentStatus) {
 		};
 
 	table.compileData = function(experiment_steps, out_fLC, out_timeOn, out_RU_On_Output) {
-		table.compiledSetOn = {
+		table.compiledSet = {
 			"trial": experiment_steps,
 			"fLC": out_fLC,
 			"units": output.unitAdjust,
 			"timeOn": out_timeOn,
-			"maxRU_reached": out_RU_On_Output,
-			"kOff": "hello"
+			"maxRU_reached": out_RU_On_Output
 		};
-		table.data.push(angular.copy(table.compiledSetOn));
+		table.data.push(angular.copy(table.compiledSet));
 	};
 }
