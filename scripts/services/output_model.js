@@ -11,24 +11,28 @@ function outputMethod(experimentStatus, $cookies, $timeout) {
 /* a) all the data to be stored */
 	var output = this; // create a specific selector for outputMethod specific module required in plotCoordinates but used with 'all or nothing' principle
 	var experiment = experimentStatus;
+		// data input value
 	output.fLC_tableDisplay = []; // input fLC value specify by the user, display on table and charts so user can track progress
 	output.fLC = []; // actual fLC value use in plotting as adjusted by standard error
 	output.timeOn = []; // timeOn must be > 0
-	output.timeOffDefault = 10; // set timeOff to 10 seconds for default
+	output.timeOffDefault = 20; // set timeOff to 20 seconds for default
+		// chart coordinates calculation
 	output.RU_On_Output = []; // store max value of RU On
 	output.RU_On_Coordinate = []; // store RU vs timeOn data into [x,y] coordinates before pushing into Line
 	output.RU_Line = []; // store all coordinates to plot line in [[x1,y1],[x2,y2],[x3,y3]] format for plotting
 	output.RU_Off_Coordinate = [];
 	output.RU_CompiledLabelPlotAll = []; // store all plot into format that adds label of [{label: "abc1", data: [line1]}, {label: "abc2", data: [line2]}...] for overlapping display
+	output.currentStep = 0;
+	output.totalSteps = 100; // set number of intermediates coordinates to produce
+		// custom chart color
+	output.colorPool = ["rgb(255, 100, 123)", "rgb(25, 121, 255)", "rgb(247, 255, 25)", "rgb(255, 100, 123)", "rgb(255, 100, 123)", "rgb(255, 100, 123)", "rgb(255, 100, 123)", "rgb(255, 100, 123)", "rgb(255, 100, 123)"];
+	output.colorCounter = 0; // to customise color and also make on and off line having the same color
+		// units conversion
 	output.magnitudeAdjust = 1000; // default input unit at mM magnitude, adjustable by clicking
 	output.unitAdjust = "mM";
 
 /* b) check for cookies and restore or create new */
 
-
-
-/* function to generate standard deviation
-	
 
 
 /* c) set fLC: user input via form; variable */
@@ -60,7 +64,33 @@ function outputMethod(experimentStatus, $cookies, $timeout) {
 		output.RU_OffAdjusted = output.RU_Off+out_RU0-backgroundSet;
 	};
 
-/* i) generating coordinates for RU on line */
+/* i) compiling the plot together as a single line and add label */
+	output.plotCompileLabelOn = function() {
+		output.compileLabel = {
+			label: angular.copy(output.fLC_tableDisplay[output.fLC_tableDisplay.length-1]*output.magnitudeAdjust)+" "+output.unitAdjust,
+			data: angular.copy(output.RU_Line),
+			color: output.colorPool[output.colorCounter]
+		};
+		output.RU_CompiledLabelPlotAll.push(angular.copy(output.compileLabel));
+		output.RU_Line.length = 0; // clear temporary line generator to generate new sets of line in [[x1,y1],[x2,y2]...] format
+	};
+
+/* j) compiling the plot together as a single line and add label */
+	output.plotCompileLabelOff = function() {
+		output.compileLabel = {
+			data: angular.copy(output.RU_Line),
+			color: output.colorPool[output.colorCounter]
+		};
+		if (output.colorCounter < 9) {
+			output.colorCounter++;
+		} else {
+			output.colorCounter = 0;
+		}
+		output.RU_CompiledLabelPlotAll.push(angular.copy(output.compileLabel));
+		output.RU_Line.length = 0; // clear temporary line generator to generate new sets of line in [[x1,y1],[x2,y2]...] format
+	};
+
+/* k) generating coordinates for RU on line and plot */
 	output.plotCoordinatesOn = function(out_timeOn, currentStep, totalSteps, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
 			// generate RU On part of curve
 		output.RU_On_Coordinate.push(currentStep*(out_timeOn/totalSteps)); // upload x coordinate
@@ -74,7 +104,7 @@ function outputMethod(experimentStatus, $cookies, $timeout) {
 		} // now we have a line with data in format of [[x1,y1],[x2,y2]...]
 	};
 
-/* j) generating coordinates for RU off line */
+/* l) generating coordinates for RU off line and plot */
 	output.plotCoordinatesOff = function(currentStep, totalSteps, out_timeOn, sys_kOff, out_RU0, backgroundSet) {
 			// generate RU Off part of curve
 		output.RU_Off_Coordinate.push(currentStep*(output.timeOffDefault/totalSteps)+out_timeOn); // shift time by out_timeOn to start after RU On curve finish
@@ -87,27 +117,5 @@ function outputMethod(experimentStatus, $cookies, $timeout) {
 			currentStep++;
 			output.plotCoordinatesOff(currentStep, totalSteps, out_timeOn, sys_kOff, out_RU0, backgroundSet);
 		}
-	};
-
-/* k) compiling the plot together as a single line and add label */
-	output.plotCompileLabel = function() {
-		output.compileLabel = {
-			label: angular.copy(output.fLC_tableDisplay[output.fLC_tableDisplay.length-1]*output.magnitudeAdjust)+" "+output.unitAdjust,
-			data: angular.copy(output.RU_Line)
-		};
-		output.RU_CompiledLabelPlotAll.push(angular.copy(output.compileLabel));
-		output.RU_Line.length = 0; // clear temporary line generator to generate new sets of line in [[x1,y1],[x2,y2]...] format
-	};
-
-/* l) master method to call to generate intermediate coordinates for SPR graph of association and disassocation to plot */
-	output.plotCoordinates = function(out_timeOn, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
-			// set number of intermediates to produce
-		var totalSteps = 100;
-		var currentStep = 0;
-		
-			// creating all plot
-		output.plotCoordinatesOn(out_timeOn, currentStep, totalSteps, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet);
-		output.plotCoordinatesOff(currentStep, totalSteps, out_timeOn, sys_kOff, out_RU0, backgroundSet);
-		output.plotCompileLabel();
 	};
 }

@@ -75,25 +75,21 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 		view.output.add_fLC(new_fLC);
 		view.output.add_timeOn(new_timeOn);
 		view.output.calc_RU_OnMax(view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.system.RU0, view.backgroundSet);
-		view.output.plotCoordinates(new_timeOn, view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.system.RU0, view.backgroundSet);
-		view.table.compileData(angular.copy(view.experiment.steps)+1, view.output.fLC_tableDisplay[view.output.fLC_tableDisplay.length-1]*view.output.magnitudeAdjust, view.output.timeOn[view.output.timeOn.length-1], view.output.RU_On_Output[view.output.RU_On_Output.length-1]);
+		view.output.plotCoordinatesOn(new_timeOn, view.output.currentStep, view.output.totalSteps, view.system.RU_MaxL, view.output.fLC[view.experiment.steps], view.system.Kd, view.system.kOn, view.system.kOff, view.system.RU0, view.backgroundSet);
+		view.output.plotCompileLabelOn();;
 		view.experiment.stepsCounter();
 		view.experiment.timeOfDayCounter();
 		view.isDisabled_run = true;
 		view.isDisabled_wash = false;
 	};
 
-/* creating function for "clear graph" button */
-	view.clearChart = function() {
-		view.output.RU_CompiledLabelPlotAll.length = 0;
-	};
-
-
 /* g) creating function for "wash-up" button */
-	view.washUp = function() {
+	view.washUp = function(new_timeOn) {
+		view.output.plotCoordinatesOff(view.output.currentStep, view.output.totalSteps, new_timeOn, view.system.kOff, view.system.RU0, view.backgroundSet);
+		view.output.plotCompileLabelOff();
+		view.table.compileData(angular.copy(view.experiment.steps), view.output.fLC_tableDisplay[view.output.fLC_tableDisplay.length-1]*view.output.magnitudeAdjust, view.output.timeOn[view.output.timeOn.length-1], view.output.RU_On_Output[view.output.RU_On_Output.length-1])
 		view.isDisabled_run = false;
 		view.isDisabled_wash = true;
-
 		// show koff value
 	}; 
 
@@ -105,6 +101,11 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 /* i) creating function for "home" button */
 	view.goHome = function () {
 		view.experiment.timeOfDay = view.experiment.startOfDay;
+	};
+
+/* creating function for "clear graph" button */
+	view.clearChart = function() {
+		view.output.RU_CompiledLabelPlotAll.length = 0;
 	};
 
 /* j) creating a function for "restart" button */

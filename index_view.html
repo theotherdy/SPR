@@ -122,13 +122,13 @@
 									<!-- v) "run experiment" button -->
 								<button ng-click="view.runExperiment(input_fLC, input_timeOn, input_timeOff)" ng-disabled="fLC_Form.fLC.$invalid || timeOn_Form.timeOn.$invalid || timeOff_Form.timeOff.$invalid || view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.timeOfDay == view.experiment.startOfLunch || view.experiment.timeOfDay == view.experiment.startOfDinner || view.experiment.timeOfDay == view.experiment.startOfNight || view.experiment.timeOfDay == view.experiment.endOfDay || view.isDisabled_run == true">run experiment</button>
 									<!-- vi) "washing up" button -->
-								<button ng-click="view.washUp()" ng-disabled="view.isDisabled_wash == true">wash-up</button>
+								<button ng-click="view.washUp(input_timeOn)" ng-disabled="view.isDisabled_wash == true">wash-up</button>
 									<!-- vii) "eat" button -->
 								<button ng-click="view.eat()" ng-disabled="view.experiment.timeOfDay !== view.experiment.startOfLunch && view.experiment.timeOfDay !== view.experiment.startOfDinner && view.experiment.timeOfDay !== view.experiment.startOfNight">eat</button>
 									<!-- viii) "go home" button -->
 								<button ng-click="view.goHome()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay || view.experiment.daysLeft == 0">home</button>
 									<!-- "clear graph" button -->
-								<button ng-click="view.clearChart()" ng-disabled="view.output.RU_On_PlotAll.length == 0">clear chart</button>
+								<button ng-click="view.clearChart()" ng-disabled="view.output.RU_CompiledLabelPlotAll.length == 0">clear chart</button>
 									<!-- ix) "restart" button -->
 								<button ng-click="view.restart()" ng-disabled="view.experiment.timeOfDay == view.experiment.startOfDay && view.experiment.daysLeft == view.experiment.daysAllowed">restart</button>
 									<!-- x) experiment finishes reminder -->

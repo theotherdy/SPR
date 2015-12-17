@@ -23,7 +23,7 @@ function experimentTrack() {
 	experiment.daysLeft = 2;
 		// total runs with good SD per simulation = 28
 		// total runs per simulation = 52
-	experiment.stdErr_Default = 0.000001; // Need to figure out the right level of variation for concentration; currently default at uM level (otherwise result could become negative)
+	experiment.stdErr_Default = 0.000000001; // Need to figure out the right level of variation for concentration; currently default at nM level (otherwise result could become negative)
 	experiment.stdErr_Now = experiment.stdErr_Default; // starting with default level and increase as it passes different time point
 	experiment.stdErr_Gaussian = 0; // Normal distribution is generated around input standard error and randomly picked as the final standard error to use
 
