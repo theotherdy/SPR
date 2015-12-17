@@ -22,7 +22,7 @@ function tableCreate(outputModel, experimentStatus) {
 					},
 					{
 						field: "fLC",
-						displayName: "free ligand conc",
+						displayName: "free ligand conc.",
 						width: '160'
 					},
 					{

@@ -1,16 +1,18 @@
 	/* Output Mathematical Model: contain functions to input user-generated parameters and ouput values for graphical display */
 
 /* 1. registering modules, services and constants */
-angular.module('output_model', ['cookies'])
-	.service('outputModel', ['$cookies', '$timeout', outputMethod]);
+angular.module('output_model', ['cookies', 'experiment_status'])
+	.service('outputModel', ['experimentStatus', '$cookies', '$timeout', outputMethod]);
 
-function outputMethod($cookies, $timeout) { 
+function outputMethod(experimentStatus, $cookies, $timeout) { 
 
 /* 2. creating sub-methods as part of the function object that can be outputed */
 
 /* a) all the data to be stored */
 	var output = this; // create a specific selector for outputMethod specific module required in plotCoordinates but used with 'all or nothing' principle
-	output.fLC = []; // fLC  must be >= 0, to obtain background value
+	var experiment = experimentStatus;
+	output.fLC_tableDisplay = []; // input fLC value specify by the user, display on table and charts so user can track progress
+	output.fLC = []; // actual fLC value use in plotting as adjusted by standard error
 	output.timeOn = []; // timeOn must be > 0
 	output.timeOffDefault = 10; // set timeOff to 10 seconds for default
 	output.RU_On_Output = []; // store max value of RU On
@@ -18,15 +20,21 @@ function outputMethod($cookies, $timeout) {
 	output.RU_Line = []; // store all coordinates to plot line in [[x1,y1],[x2,y2],[x3,y3]] format for plotting
 	output.RU_Off_Coordinate = [];
 	output.RU_CompiledLabelPlotAll = []; // store all plot into format that adds label of [{label: "abc1", data: [line1]}, {label: "abc2", data: [line2]}...] for overlapping display
-	output.magnitudeAdjust = 1000;
+	output.magnitudeAdjust = 1000; // default input unit at mM magnitude, adjustable by clicking
 	output.unitAdjust = "mM";
 
 /* b) check for cookies and restore or create new */
 
 
+
+/* function to generate standard deviation
+	
+
+
 /* c) set fLC: user input via form; variable */
 	output.add_fLC = function(new_fLC) {
-		output.fLC.push(new_fLC/output.magnitudeAdjust); // divide by 1000000 to convert input into uM
+		output.fLC_tableDisplay.push(new_fLC/output.magnitudeAdjust);
+		output.fLC.push(experiment.measurementError(new_fLC/output.magnitudeAdjust)); // divided by magnitudeAdjust to convert input of various units (mM, uM, nM) into the uniform units of M for later processing
 	};
 
 /* d) set timeOn: user input via form; variable */
@@ -84,7 +92,7 @@ function outputMethod($cookies, $timeout) {
 /* k) compiling the plot together as a single line and add label */
 	output.plotCompileLabel = function() {
 		output.compileLabel = {
-			label: angular.copy(output.fLC[output.fLC.length-1]*output.magnitudeAdjust)+" "+output.unitAdjust,
+			label: angular.copy(output.fLC_tableDisplay[output.fLC_tableDisplay.length-1]*output.magnitudeAdjust)+" "+output.unitAdjust,
 			data: angular.copy(output.RU_Line)
 		};
 		output.RU_CompiledLabelPlotAll.push(angular.copy(output.compileLabel));
