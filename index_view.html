@@ -65,8 +65,10 @@
 					</div>
 				<!-- warning for using previous data from stored cookies -->
 					<div id="restartPrompt" class="alert alert-waning fade in" ng-show="view.storedDataPrompt == true">
-						<p><strong>Hi!</strong> You are working with an auto-saved experiment. To begin a new experiment with a different receptor-ligand pair, click 'Restart'. Note that if you dismiss this window you will not be able to return to this enzyme/experiment and results relating to this experiment will be deleted.<p>
-						<div class="text-right">
+						<p><strong>Hi Win!</strong> You are working with the previous experiment that was auto-saved before you closed the window. <br/><br/> 
+						To begin a new experiment with a different receptor-ligand pair, click <strong>'Restart'</strong>, otherwise, click <strong>'Continue'</strong>. <br/><br/> 
+						Note that if you dismiss this window you will not be able to return to this enzyme/experiment and results relating to this experiment will be deleted. So think carefully...<p><br/>
+						<div class="text-center">
 			        		<button ng-click="view.continueSaved()">Continue</button>
 			        		<button ng-click="view.restartExperiment()">Restart</button>
 			        	</div>
