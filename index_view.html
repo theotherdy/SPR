@@ -30,7 +30,7 @@
 		<script type="text/javascript" src="scripts/services/chart-config.js"></script>
 		<link rel="stylesheet" href="styles/chart-style.css">
 
-	    	<!-- ng-grid Libraries -->
+	    	<!-- Ui-grid Libraries -->
 	    <link rel="stylesheet" href="libraries/ui-grid/ui-grid.min.css">
 	    <script type="text/javascript" src="libraries/ui-grid/ui-grid.min.js"></script>
 	    <script type="text/javascript" src="libraries/ui-grid/exporter.js"></script>
@@ -52,7 +52,6 @@
 	</head>
 
 	<body ng-controller="viewCtrl as view">
-		<!-- ng-init=setUpNewExperiment; ng-controller -->
 
 <!-- Bootstrap column position: far left / far right -->
 			
@@ -63,6 +62,14 @@
 							<!-- Chart -->
 						<flot id="flot" dataset="view.chart.dataset" options="view.chart.options"></flot>
 						<div id="grid-table" ui-grid="view.table.options" ui-grid-selection ui-grid-exporter></div><br/>
+					</div>
+				<!-- warning for using previous data from stored cookies -->
+					<div id="restartPrompt" class="alert alert-waning fade in" ng-show="view.storedDataPrompt == true">
+						<p><strong>Hi!</strong> You are working with an auto-saved experiment. To begin a new experiment with a different receptor-ligand pair, click 'Restart'. Note that if you dismiss this window you will not be able to return to this enzyme/experiment and results relating to this experiment will be deleted.<p>
+						<div class="text-right">
+			        		<button ng-click="view.continueSaved()">Continue</button>
+			        		<button ng-click="view.restartExperiment()">Restart</button>
+			        	</div>
 					</div>
 				<!-- 0.2. system_model -->
 					<div class = "control-interface">

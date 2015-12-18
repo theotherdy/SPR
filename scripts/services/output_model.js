@@ -31,40 +31,36 @@ function outputMethod(experimentStatus, $cookies, $timeout) {
 	output.magnitudeAdjust = 1000; // default input unit at mM magnitude, adjustable by clicking
 	output.unitAdjust = "mM";
 
-/* b) check for cookies and restore or create new */
-
-
-
-/* c) set fLC: user input via form; variable */
+/* b) set fLC: user input via form; variable */
 	output.add_fLC = function(new_fLC) {
 		output.fLC_tableDisplay.push(new_fLC/output.magnitudeAdjust);
 		output.fLC.push(experiment.measurementError(new_fLC/output.magnitudeAdjust)); // divided by magnitudeAdjust to convert input of various units (mM, uM, nM) into the uniform units of M for later processing
 	};
 
-/* d) set timeOn: user input via form; variable */
+/* c) set timeOn: user input via form; variable */
 	output.add_timeOn = function(new_timeOn) {
 		output.timeOn.push(new_timeOn);
 	};
 
-/* f) find RU_On: derived from 2nd order association formula; variable */
+/* d) find RU_On: derived from 2nd order association formula; variable */
 	output.calc_RU_On = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_timeOn, out_RU0, backgroundSet) {
 		output.RU_On = ((out_RU_MaxL*out_fLC)/(sys_Kd+out_fLC))*(1-Math.pow(Math.E,-(sys_kOn*out_fLC+sys_kOff)*out_timeOn));
 		output.RU_OnAdjusted = output.RU_On+out_RU0-backgroundSet;
 	};
 
-/* g) find and store the maximum RU for a given input fLC and time on */
+/* e) find and store the maximum RU for a given input fLC and time on */
 	output.calc_RU_OnMax = function(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
 		output.calc_RU_On(out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, output.timeOn[output.timeOn.length-1], out_RU0, backgroundSet);
 		output.RU_On_Output.push(output.RU_OnAdjusted);
 	};
 
-/* h) find RU_Off: derived from 1st order disassociation formula; variable */
+/* f) find RU_Off: derived from 1st order disassociation formula; variable */
 	output.calc_RU_Off = function(out_RU_On, sys_kOff, out_timeOff, out_RU0, backgroundSet) {
 		output.RU_Off = out_RU_On*(Math.pow(Math.E, -sys_kOff*out_timeOff));
 		output.RU_OffAdjusted = output.RU_Off+out_RU0-backgroundSet;
 	};
 
-/* i) compiling the plot together as a single line and add label */
+/* g) compiling the plot together as a single line and add label */
 	output.plotCompileLabelOn = function() {
 		output.compileLabel = {
 			label: angular.copy(output.fLC_tableDisplay[output.fLC_tableDisplay.length-1]*output.magnitudeAdjust)+" "+output.unitAdjust,
@@ -75,7 +71,7 @@ function outputMethod(experimentStatus, $cookies, $timeout) {
 		output.RU_Line.length = 0; // clear temporary line generator to generate new sets of line in [[x1,y1],[x2,y2]...] format
 	};
 
-/* j) compiling the plot together as a single line and add label */
+/* h) compiling the plot together as a single line and add label */
 	output.plotCompileLabelOff = function() {
 		output.compileLabel = {
 			data: angular.copy(output.RU_Line),
@@ -90,7 +86,7 @@ function outputMethod(experimentStatus, $cookies, $timeout) {
 		output.RU_Line.length = 0; // clear temporary line generator to generate new sets of line in [[x1,y1],[x2,y2]...] format
 	};
 
-/* k) generating coordinates for RU on line and plot */
+/* i) generating coordinates for RU on line and plot */
 	output.plotCoordinatesOn = function(out_timeOn, currentStep, totalSteps, out_RU_MaxL, out_fLC, sys_Kd, sys_kOn, sys_kOff, out_RU0, backgroundSet) {
 			// generate RU On part of curve
 		output.RU_On_Coordinate.push(currentStep*(out_timeOn/totalSteps)); // upload x coordinate
@@ -104,7 +100,7 @@ function outputMethod(experimentStatus, $cookies, $timeout) {
 		} // now we have a line with data in format of [[x1,y1],[x2,y2]...]
 	};
 
-/* l) generating coordinates for RU off line and plot */
+/* j) generating coordinates for RU off line and plot */
 	output.plotCoordinatesOff = function(currentStep, totalSteps, out_timeOn, sys_kOff, out_RU0, backgroundSet) {
 			// generate RU Off part of curve
 		output.RU_Off_Coordinate.push(currentStep*(output.timeOffDefault/totalSteps)+out_timeOn); // shift time by out_timeOn to start after RU On curve finish

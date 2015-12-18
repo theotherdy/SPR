@@ -17,6 +17,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 	view.experiment = experimentStatus;
 	view.chart = chartConfig;
 	view.table = tableConfig;
+	view.cookies = $cookies;
 	view.vol = vol;
 	view.RPUM = RPUM;
 	view.backgroundSet = 0;
@@ -24,44 +25,31 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 	view.isDisabled_run = false;
 	view.isDisabled_wash = true;
 
-/* b) check if there is stored data in cookies */
-
-
-/* c) initialise application to generate unique values for the new system */
-	view.system.set_tRC();
-	view.system.set_Kd();
-	view.system.set_kOff();
-	view.system.find_kOn(view.system.Kd, view.system.kOff);
-	view.system.set_mwL();
-	view.system.set_mwR();
-	view.system.find_mwLR(view.system.mwL, view.system.mwR);
-	view.system.find_RU_Max(view.system.tRC, view.system.mwR, view.vol, view.RPUM, view.system.mwL, view.system.mwLR);
-
-/* creating function for switching fLC input to mM magnitude */
+/* b) creating function for switching fLC input to mM magnitude */
 	view.magnitude_mM = function() {
 		view.output.magnitudeAdjust = 1000;
 		view.output.unitAdjust = "mM";
 	};
 
-/* creating function for switching fLC input to uM magnitude */
+/* c) creating function for switching fLC input to uM magnitude */
 	view.magnitude_uM = function() {
 		view.output.magnitudeAdjust = 1000000;
 		view.output.unitAdjust = "uM";
 	};
 
-/* creating function for switching fLC input to nM magnitude */
+/* d) creating function for switching fLC input to nM magnitude */
 	view.magnitude_nM = function() {
 		view.output.magnitudeAdjust = 1000000000;
 		view.output.unitAdjust = "nM";
 	};
 
-/* d) creating function for "setup" button */
+/* e) creating function for "setup" button */
 	view.setup = function () {
 		view.experiment.timeOfDayCounter();
 		view.experiment.dayOfExperimentCounter();
 	};
 
-/* e) creating function for set "zero" button */
+/* f) creating function for set "zero" button */
 	view.set_background = function() {
 		view.backgroundSet = view.output.RU_On_Output[view.output.RU_On_Output.length-1];
 		view.isDisabled_background = true;
@@ -70,7 +58,7 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 		}
 	};
 
-/* f) creating function for "run experiment" button  */
+/* g) creating function for "run experiment" button  */
 	view.runExperiment = function (new_fLC, new_timeOn) {
 		view.output.add_fLC(new_fLC);
 		view.output.add_timeOn(new_timeOn);
@@ -83,32 +71,31 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 		view.isDisabled_wash = false;
 	};
 
-/* g) creating function for "wash-up" button */
+/* h) creating function for "wash-up" button */
 	view.washUp = function(new_timeOn) {
 		view.output.plotCoordinatesOff(view.output.currentStep, view.output.totalSteps, new_timeOn, view.system.kOff, view.system.RU0, view.backgroundSet);
 		view.output.plotCompileLabelOff();
-		view.output.kOffErrorCalc(output.RU_On_Output);
 		view.table.compileData(angular.copy(view.experiment.steps), view.output.fLC_tableDisplay[view.output.fLC_tableDisplay.length-1]*view.output.magnitudeAdjust, view.output.timeOn[view.output.timeOn.length-1], view.output.RU_On_Output[view.output.RU_On_Output.length-1]);
 		view.isDisabled_run = false;
 		view.isDisabled_wash = true;
 	}; 
 
-/* h) creating function for "eat" button */
+/* i) creating function for "eat" button */
 	view.eat = function () {
 		view.experiment.timeOfDayCounter();
 	};
 
-/* i) creating function for "home" button */
+/* j) creating function for "home" button */
 	view.goHome = function () {
 		view.experiment.timeOfDay = view.experiment.startOfDay;
 	};
 
-/* creating function for "clear graph" button */
+/* k) creating function for "clear graph" button */
 	view.clearChart = function() {
 		view.output.RU_CompiledLabelPlotAll.length = 0;
 	};
 
-/* j) creating a function for "restart" button */
+/* l) creating a function for "restart" button */
 	view.restart = function () {
 		view.experiment.daysLeft = view.experiment.daysAllowed;
 		view.experiment.timeOfDay = view.experiment.startOfDay;
@@ -122,5 +109,26 @@ function viewMethod(systemModel, outputModel, experimentStatus, chartConfig, tab
 		view.output.RU_Line.length = 0;
 		view.output.RU_CompiledLabelPlotAll.length = 0;
 		view.table.data.length = 0;
+	};
+
+/* m) initialise application to generate unique values for the new system */
+	if (view.cookies.get("storedData") === null) {
+		view.system.loadNewPair(view.vol, view.RPUM);
+		view.storedDataPrompt = false;
+	} else {
+		view.cookies.getObject("storedData");
+		view.storedDataPrompt = true;
+	}
+
+/* n) creating functions for the prompt */
+	view.continueSaved = function() {
+		view.storedDataPrompt = false; // close the prompt
+	};
+
+	view.restartExperiment = function(){
+		view.cookies.remove("storedData");
+		view.system.loadNewPair(view.vol, view.RPUM);
+		view.restart();
+		view.storedDataPrompt = false;
 	};
 }

@@ -102,4 +102,15 @@ function systemMethod() { // creating master function object that encapsulate al
 		system.RU_MaxLR = sys_tRC*sys_mwLR*con_vol*con_RPUM;
 	};
 
+/* i) load new set of receptor-ligand pair */
+	system.loadNewPair = function(con_vol, con_RPUM) {
+		system.set_tRC();
+		system.set_Kd();
+		system.set_kOff();
+		system.find_kOn(system.Kd, system.kOff);
+		system.set_mwL();
+		system.set_mwR();
+		system.find_mwLR(system.mwL, system.mwR);
+		system.find_RU_Max(system.tRC, system.mwR, con_vol, con_RPUM, system.mwL, system.mwLR);
+	};
 }
